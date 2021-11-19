@@ -1,3 +1,12 @@
 body {
   background: #0b4f6c;
 }
+
+.about-us-home {
+  position: fixed;
+  right: 15%;
+}
+
+.post-column-home {
+  margin-top: 0.25rem;
+}
