@@ -7,6 +7,14 @@ body {
   right: 15%;
 }
 
-.post-column-home {
-  margin-top: 0.25rem;
+@media (max-width: 992px) {
+  .about-us-home {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 1140px !important;
+  }
 }
