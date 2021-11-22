@@ -13,7 +13,7 @@
 
 <body>
   <div class="container post-container">
-    <div class="col-3 about-us-home">
+    <div class="col-3 about-us-home d-none d-lg-block">
       <h2 class="hide">placeholder</h2>
       <div class="card">
         <div class="card-body">
@@ -46,7 +46,7 @@
         </div>
       </div>
     </div>
-    <div class="col-3 create-a-forum">
+    <div class="col-3 create-a-forum d-none d-lg-block">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-center">Create a Forum</h5>

@@ -23,6 +23,7 @@
   <meta name="theme-color" content="#ffffff" />
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/style.css" />
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
@@ -31,9 +32,8 @@
 </head>
 
 <body>
-  <!-- Add your site or application content here -->
   <header class="fixed-top">
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand d-flex" href="home.php">
           <img src="img/crosshair.png" alt="" width="30" height="30" />
@@ -43,12 +43,12 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <ul class="navbar-nav mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
+              <a class="nav-link d-lg-none" href="#">Profile</a>
             </li>
             <hr class="m-0" />
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown d-lg-none">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Dropdown
               </a>
@@ -63,19 +63,24 @@
                 </li>
               </ul>
             </li>
-            <hr class="m-0" />
-            <li class="nav-item">
-              <a class="nav-link" href="#">About Us</a>
-            </li>
           </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button class="btn btn-primary" type="submit">
-              Search
-            </button>
+          <form class="d-flex search-form m-auto">
+            <input class="form-control me-2 search-bar" type="search" placeholder="Search..." aria-label="Search" />
           </form>
+          <a href="#">
+            <img class="d-none d-lg-block rounded-circle border border-3 border-danger" src="img/default_profile_pic.png" width="40" height="40" alt="Profile Picture" />
+          </a>
+          <a href="#" class="d-none d-lg-flex text-decoration-none text-danger me-2">
+            <button class="btn btn-danger">
+              Login
+            </button>
+          </a>
+          <a href="#" class="d-none d-lg-flex text-decoration-none text-primary">
+            <button class="btn btn-primary">
+              Sign Up
+            </button>
+          </a>
         </div>
-      </div>
     </nav>
   </header>
 
@@ -97,14 +102,14 @@
     </script>
     <script src="https://www.google-analytics.com/analytics.js" async></script> -->
 
-  <!-- jQuery -->
+  <!-- jQuery Error Checking -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script>
     window.jQuery ||
       document.write('<script src="/js/jquery-3.6.0.min.js"><\/script>');
   </script>
 
-  <!-- Bootstrap -->
+  <!-- Bootstrap Error Checking -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script>
     window.jQuery.fn.modal ||
