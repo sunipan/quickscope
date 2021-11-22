@@ -3,10 +3,34 @@ body {
 }
 
 .about-us-home {
-  position: fixed;
+  position: absolute;
   right: 15%;
 }
 
+.post-container {
+  margin-top: 100px;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.create-a-forum {
+  position: absolute;
+  right: 15%;
+  margin-top: 250px;
+}
+
+.font-title-12 {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+@media (max-width: 1009px) {
+  .create-a-forum {
+    margin-top: 270px;
+  }
+}
 @media (max-width: 992px) {
   .about-us-home {
     display: none;

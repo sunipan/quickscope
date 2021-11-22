@@ -32,7 +32,7 @@
 
 <body>
   <!-- Add your site or application content here -->
-  <header>
+  <header class="fixed-top">
     <nav class="navbar navbar-expand-md navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand d-flex" href="home.php">
