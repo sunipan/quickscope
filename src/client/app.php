@@ -75,8 +75,8 @@
               Login
             </button>
           </a>
-          <a href="#" class="d-none d-lg-flex text-decoration-none text-primary">
-            <button class="btn btn-primary">
+          <a href="#" class="d-none d-lg-flex text-decoration-none text-white">
+            <button class="btn btn-dark">
               Sign Up
             </button>
           </a>
