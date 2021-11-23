@@ -116,7 +116,6 @@
   <script>
     $(window).scroll(() => {
       var pos = $(window).scrollTop();
-      console.log(pos);
       if (pos > 630) {
         $(".about-us-home").css("margin-top", pos - 615);
       } else {
