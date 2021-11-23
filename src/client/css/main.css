@@ -264,9 +264,3 @@ textarea {
 .search-form {
   width: 50%;
 }
-
-@media (max-width: 992px) {
-  .search-form {
-    width: 100% !important;
-  }
-}

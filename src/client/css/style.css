@@ -9,13 +9,24 @@ body {
 .recent-post:hover {
   text-decoration: underline;
 }
+
 .hide {
   visibility: hidden;
+}
+
+.px-25 {
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
 }
 
 .font-title-12 {
   font-size: 12px;
   font-weight: bold;
+}
+
+.px-25 {
+  padding-right: 0.75rem !important;
+  padding-left: 0.75rem !important;
 }
 
 @media (min-width: 992px) {

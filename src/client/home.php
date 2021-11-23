@@ -9,16 +9,15 @@
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
   <title>Quickscope - Forum For LEETS</title>
 </head>
 
 <body>
   <div class="container-fluid post-container">
     <div class="row">
+      <!-- This column shows most recent post from each forum -->
       <div class="col-lg-7 offset-lg-1">
-        <div class="header text-white">
-          <h2>Popular Posts</h2>
-        </div>
         <!-- Create fake posts by changing $i threshold -->
         <?php
         for ($i = 0; $i < 10; $i++) {
@@ -34,9 +33,9 @@
               <img src="img/kermit.png" class="card-img-bottom" />
             </div>
             <div class="col-1 offset-1 comment-stuff d-flex mt-3">
-              <span style="font-size: 1.25rem;" class="comment-count">
-                <i class="fa fa-comment icon-2x"></i>
-                <span>0</span>
+              <span style="font-size: 1.25rem;" class="comment-count d-flex">
+                <i class="bi bi-chat-left-text-fill"></i>
+                <span>&nbsp;0</span>
               </span>
             </div>
           </div>';
@@ -52,9 +51,9 @@
                 <img src="img/kermit.png" class="card-img-bottom" />
               </div>
               <div class="col-1 offset-1 comment-stuff d-flex mt-3">
-                <span style="font-size: 1.25rem;" class="comment-count">
-                  <i class="fa fa-comment icon-2x"></i>
-                  <span>0</span>
+                <span style="font-size: 1.25rem;" class="comment-count d-flex">
+                  <i class="bi bi-chat-left-text-fill"></i>
+                  <span>&nbsp;0</span>
                 </span>
               </div>
             </div>';
@@ -64,7 +63,6 @@
       </div>
       <!-- Recent posts card -->
       <div class="col-3 d-none d-lg-block">
-        <h2 class="hide">placeholder</h2>
         <div class="card mb-3">
           <div class="card-body">
             <h5 class="card-title">Recent Posts</h5>
@@ -114,13 +112,13 @@
       </div>
     </div>
   </div>
-  <!-- This script contains all custom JS for styling this page -->
+  <!-- This script contains the JS for the moving About Us card -->
   <script>
     $(window).scroll(() => {
       var pos = $(window).scrollTop();
       console.log(pos);
-      if (pos > 680) {
-        $(".about-us-home").css("margin-top", pos - 660);
+      if (pos > 630) {
+        $(".about-us-home").css("margin-top", pos - 615);
       } else {
         if ($(".about-us-home").css("margin-top") != "0px")
           $(".about-us-home").css("margin-top", "0px");
