@@ -14,7 +14,7 @@
 </head>
 
 
-<div class='container mt-5 pt-5 pb-4'>
+<div class='container mt-5 pt-5 pb-4 offset-lg-1'>
     <h1 class='text-white'>Create Post</h1>
 </div>
 
@@ -25,6 +25,15 @@
             <div class="card-body">
                 
                     <form>
+                        <div class="p-1 col-lg-12">
+                            <select name="Forum" id="Forum">
+                                <option value="" disabled selected>Select Forum</option>
+                                <option value="f1">Forum 1</option>
+                                <option value="f2">Forum 2</option>
+                                <option value="f3">Forum 3</option>
+                                <option value="f4">Forum 4</option>
+                            </select>
+                        </div>
                         <div class="p-1 col-lg-12">
                             <input type="text" class="form-control" id="postTitle" placeholder="Title">
                         </div>
