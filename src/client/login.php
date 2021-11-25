@@ -26,7 +26,10 @@
         font-size: large;
     }
 
-    
+    a{
+        color: white;
+        font-size:small;
+    }
 
 
         
@@ -44,6 +47,8 @@
         <input type="text" placeholder="Username"></input>
         <br>
         <input type="text" placeholder="Password"></input>
+        <br>
+        <a href="">Forgot Password?</a>
         <br><br>
         <input type="submit"></input>
     </div>
