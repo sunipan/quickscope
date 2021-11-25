@@ -17,12 +17,13 @@
         form {
     display: inline-block;
     }
-    #logintitle{
+    #createAcc{
             margin-top: 17em;
             color: white;
             padding-bottom:0.5em;
         }
-        h1{
+
+    h1{
         font-size: large;
     }
 
@@ -38,12 +39,14 @@
 
     
 
-    <form name="login" action="loginprocess.php"> 
-        <h1 id="logintitle" for="login">Login</h1>
+    <form name="createAcc" action="createAccprocess.php"> 
+        <h1 id="createAcc" for="createAcc">Create Account</h1>
     <div class="inputs">
-        <input type="text" placeholder="Username"></input>
+        <input type="text" placeholder="email"></input>
         <br>
-        <input type="text" placeholder="Password"></input>
+        <input type="text" placeholder="username"></input>
+        <br>
+        <input type="text" placeholder="password"></input>
         <br><br>
         <input type="submit"></input>
     </div>
