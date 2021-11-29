@@ -29,6 +29,12 @@
                 <h4 class='text-white'>Email: Sample_email@email.com</h4>
             </div>
         </div>
+        <br>
+        <div class="offset-lg-1">
+            <form action='#'>
+                <button type='submit' class="btn btn-dark">Edit Profile</button>
+            </form>
+        </div>
         <br><br>
         <div class="col-lg-10 offset-lg-1">
             <h3 class='text-white'>My Activity</h3>
