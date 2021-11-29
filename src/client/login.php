@@ -1,5 +1,5 @@
 <?php include('app.php'); ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,36 +9,22 @@
 
   <link rel="stylesheet" href="css/style.css" />
   <title>Login</title>
-
-
-  <style>
-    a,
-    h1 {
-      color: white;
-    }
-
-    #login {
-      margin-top: 10em;
-    }
-  </style>
-
 </head>
 
 <body>
   <div class="mt-5">
     <div class="d-flex justify-content-center align-items-center">
-      <form class="col-3" style="max-width: 300px" action="loginprocess.php">
-        <h1 class="h3" id="login">Login</h1>
+      <form class="col-3" style="min-width: 300px" action="loginprocess.php">
+        <h3 class="text-white text-center" id="login">Login</h3>
         <input type="username" id="username" placeholder="Username" class="form-control mb-2">
         <input type="password" id="password" placeholder="Password" class="form-control mb-2">
-        <a href="#">Forgot Password?</a>
+        <a href="#" class="gray_on_hover">Forgot Password?</a>
         <div class="d-flex justify-content-center align-items-center mt-3">
           <input class="btn btn-dark" type="submit"></input>
         </div>
       </form>
     </div>
   </div>
-
 </body>
 
 </html>
