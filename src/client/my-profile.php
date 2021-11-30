@@ -13,43 +13,51 @@
   <title>Quickscope - Forum For LEETS</title>
 </head>
 <body>
-    <div class="container-fluid post-container">
-        <div class="row">
-            <div class="col-lg-3 offset-lg-1">
-                <h1 class='text-white'>My Profile</h1>
+    <div class="container post-container rounded bg-white border border-dark border border-5">
+        <div class="row justify-content-centern offset-lg-2 ml-5">
+            <div class="col-lg-2 offset-lg-1 mt-5">
+                <h1 class='text-black h4'>My Profile</h1>
                 <br>
                 <figure>
-                    <img src='img/default_profile_pic.png' height='200px' width='200px'>
+                    <img src='img/default_profile_pic.png' height='100px' width='100px'>
                 </figure>
             </div>
-            <div class="col-7 d-none d-lg-block">
+            <div class="col-8 d-none d-lg-block">
                 <br><br><br><br><br>
-                <h4 class="text-white">Username: Sample_username</h4>
+                <h4 class="text-black h5">Username: Sample_username <a class="d-flex" href="#">
+          <img src="img/editicon.png" alt="" width="20" height="20" />
+        </a></h4>
                 <br>
-                <h4 class='text-white'>Email: Sample_email@email.com</h4>
+                <h4 class='text-black h5'>Email: Sample_email@email.com<a class="d-flex" href="#">
+          <img src="img/editicon.png" alt="" width="20" height="20" />
+        </a></h4>
             </div>
-        </div>
-        <br>
-        <div class="offset-lg-1">
+            <br>
+            <div class="offset-lg-1">
             <form action='#'>
-                <button type='submit' class="btn btn-dark">Edit Profile</button>
+                <button type='submit' class="btn btn-danger btn-sm">Edit Profile Image</button>
             </form>
-        </div>
-        <br><br>
-        <div class="col-lg-10 offset-lg-1">
+            </div>
+
+            <div class="col-lg-10 offset-lg-1">
             <h3 class='text-white'>My Activity</h3>
             <?php
-            for($i = 0; $i < 5; $i++){
+            for($i = 0; $i < 3; $i++){
             echo '
-            <div class="card col-lg-12 mb-3 bg-white">
+            <div class="card col-lg-12 mb-3 bg-dark" style="max-width: 400px;">
                 <div class="card-body">
-                    <p><b>Forum Name - Posted By Sample_username</b></p>
-                    <p class="card-text">Sample comment/post</p>
+                    <p><b class="text-white">Forum Name - Posted By Sample_username</b></p>
+                    <p class="card-text text-white">Sample comment/post</p>
                 </div>
             </div>';
             }
             ?>
+            <br>
         </div>
+        </div>
+       
+        
+        
     </div>
 </body>
 
