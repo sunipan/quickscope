@@ -24,7 +24,7 @@
             <div class="card-body">
                     <form id="adminSearch" action="admin.php" method="POST">
                         <div class="p-1 col-lg-6 offset-lg-3" align ='center'>
-                            <input type="text" class="form-control" name="input" placeholder="Search for user by name, email, or post">
+                            <input type="text" class="form-control" id="input" name="input" placeholder="Search for user by name, email, or post">
                             <br>
                             <button type="submit" class="btn btn-dark">Search</button>
                         </div>
@@ -82,5 +82,28 @@ if(isset($_POST['input'])){
 
 </body>
 
-
 </html>
+
+<script>
+    
+var mainForm = document.getElementById("adminSearch");
+
+mainForm.onsubmit = function(e){
+    var input = document.getElementById("input");
+    var err = false;
+
+    if(input.value == null || input.value == ""){
+        input.style.borderColor="#AA0000";
+        err = true;
+    }
+    else{
+        title.style.borderColor="revert";
+    }
+
+    if(err == true){
+        e.preventDefault();
+        alert("Search cannot be blank!");
+    }
+}
+
+</script>
