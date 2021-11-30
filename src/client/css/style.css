@@ -29,6 +29,32 @@ body {
   padding-left: 0.75rem !important;
 }
 
+#login {
+  margin-top: 10em;
+}
+
+.gray_on_hover {
+  font-size: 12px;
+  color: white;
+  text-decoration: none;
+}
+
+.gray_on_hover:hover {
+  text-decoration: underline;
+  color: Gray !important;
+}
+
+#pass_validation {
+  display: none;
+}
+
+.text-red {
+  color: #ea0f0b;
+}
+
+.text-green {
+  color: #2ecf0e;
+}
 @media (min-width: 992px) {
   .container {
     max-width: 1140px !important;
