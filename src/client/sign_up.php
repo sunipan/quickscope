@@ -20,7 +20,7 @@
 <body>
   <div class="mt-5">
     <div class="d-flex justify-content-center align-items-center">
-      <form class="col-3" action="create_account.php" style="min-width:300px;">
+      <form id="sign_up_form" class="col-3" action="create_account.php" style="min-width:300px;">
         <h1 class="h3 text-white text-center" id="createAcc">Create Account</h1>
         <input type="email" id="create_email" placeholder="Email" class="form-control mb-2" required>
         <input type="text" id="create_username" placeholder="Username" class="form-control mb-2" required>

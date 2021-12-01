@@ -6,10 +6,9 @@ $(document).ready(function () {
     let valid_username = false;
     let valid_password = false;
     $("#create_email").keyup(function (e) {
-      valid_email =
-        /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
-          $("#create_email").val()
-        ) && $("#create_email").val();
+      valid_email = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
+        $("#create_email").val()
+      );
       if (!valid_email) {
         $("#create_email").css("border", "2px solid red");
         $("#create_email").css("box-shadow", "0 0 5px red");
@@ -17,13 +16,12 @@ $(document).ready(function () {
         $("#create_email").css("border", "2px solid #2ecf0e");
         $("#create_email").css("box-shadow", "0 0 5px #2ecf0e");
       }
+      console.log(!!valid_email);
     });
 
     // Validate username
     $("#create_username").keyup(function (e) {
-      valid_username =
-        /^[a-zA-Z0-9]{3,}$/.test($("#create_username").val()) &&
-        $("#create_username").val();
+      valid_username = /^[a-zA-Z0-9]{3,}$/.test($("#create_username").val());
       if (!valid_username) {
         $("#create_username").css("border", "2px solid red");
         $("#create_username").css("box-shadow", "0 0 5px red");
@@ -31,14 +29,12 @@ $(document).ready(function () {
         $("#create_username").css("border", "2px solid #2ecf0e");
         $("#create_username").css("box-shadow", "0 0 5px #2ecf0e");
       }
+      console.log("valid_username", !!valid_username);
     });
 
     // Validate password
     $("#create_pass").focus(function (e) {
       $("#pass_validation").css("display", "flex");
-    });
-    $("#create_pass").blur(() => {
-      $("#pass_validation").css("display", "none");
     });
 
     $("#create_pass").keyup(function () {
@@ -87,13 +83,16 @@ $(document).ready(function () {
       ) {
         $("#create_pass").css("border", "2px solid #2ecf0e");
         $("#create_pass").css("box-shadow", "0 0 5px #2ecf0e");
+        $("#pass_validation").fadeOut(500);
         valid_password = true;
       } else {
         $("#create_pass").css("border", "2px solid red");
         $("#create_pass").css("box-shadow", "0 0 5px red");
+        $("#pass_validation").fadeIn(500);
         valid_password = false;
       }
     });
+
     $("#sign_up_submit").click(function (e) {
       e.preventDefault();
       if (valid_email && valid_username && valid_password) {
