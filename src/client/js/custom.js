@@ -34,7 +34,7 @@ $(document).ready(function () {
 
     // Validate password
     $("#create_pass").focus(function (e) {
-      $("#pass_validation").css("display", "flex");
+      $("#pass_validation").slideDown();
     });
 
     $("#create_pass").keyup(function () {
@@ -83,12 +83,12 @@ $(document).ready(function () {
       ) {
         $("#create_pass").css("border", "2px solid #2ecf0e");
         $("#create_pass").css("box-shadow", "0 0 5px #2ecf0e");
-        $("#pass_validation").fadeOut(500);
+        $("#pass_validation").slideUp();
         valid_password = true;
       } else {
         $("#create_pass").css("border", "2px solid red");
         $("#create_pass").css("box-shadow", "0 0 5px red");
-        $("#pass_validation").fadeIn(500);
+        $("#pass_validation").slideDown();
         valid_password = false;
       }
     });
