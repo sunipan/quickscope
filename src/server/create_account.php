@@ -9,8 +9,7 @@ if ($type != 'POST') {
 } else {
 
   if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password'])) {
-    // Need this so invalid DB connection doesn't break the feedback to user
-    error_reporting(0);
+
     $email = $_POST['email'];
     $username = $_POST['username'];
     $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -29,8 +28,6 @@ if ($type != 'POST') {
       $sql = "SELECT * FROM users WHERE username LIKE '" . $username . "' OR email LIKE '" . $email . "';";
       $results = mysqli_query($connection, $sql);
       $row = mysqli_fetch_assoc($results);
-      mysqli_free_result($results);
-      mysqli_close($connection);
       if ($row) {
         // Send error message back to AJAX in JSON format
         echo json_encode(array(
@@ -57,5 +54,7 @@ if ($type != 'POST') {
         }
       }
     }
+    mysqli_free_result($results);
+    mysqli_close($connection);
   }
 }

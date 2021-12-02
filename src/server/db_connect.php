@@ -1,4 +1,5 @@
 <?php
+// Need this so invalid DB connection doesn't break the feedback to user
 $host = "localhost";
 $database = "quickscope";
 $user = "root";           //will probably have to change on your machine
