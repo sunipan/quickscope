@@ -95,7 +95,7 @@ $(document).ready(function () {
       if (valid_email && valid_username && valid_password) {
         // Use $.get(...) for a GET request
         $.post(
-          "create_account.php",
+          "../server/create_account.php",
           {
             email: $("#create_email").val(),
             username: $("#create_username").val(),
