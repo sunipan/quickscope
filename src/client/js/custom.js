@@ -150,5 +150,31 @@ $(document).ready(function () {
         }
       );
     });
+    
   }
+
+  if (window.location.href.includes("login.php")) {
+
+    $("#login-button").click(function(e){
+      e.preventDefault();
+      let username= $("#login_username").val();
+      let password= $("#login_password").val();
+      console.log(username,password);
+      
+      if(username && password){
+        $.post("../server/loginprocess.php",
+        {
+          username: username,
+          password: password,
+        },
+        function(data){
+            console.log(data);
+            window.location='home.php';
+        }
+        )
+      }
+    });
+
+  };
+
 });

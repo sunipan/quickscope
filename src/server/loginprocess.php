@@ -1,21 +1,34 @@
 <?php
+//echo $_POST['username'];
+//echo $_POST['password'];
+
+
 include "db_connect.php";
+if($error){
+    exit("failed to connect to db");
+}
+
 
 $username = $_POST['username'];
 
 $password = $_POST['password'];
 
-$passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
 
 if($_SERVER["REQUEST_METHOD"]== "POST"){
     if(isset($_POST['username']) && isset($_POST['password'])){
 
-    $sql = "SELECT * FROM users WHERE (username='$username' AND password=password_verify($password,$passwordHash));";
+    $sql = "SELECT password FROM users WHERE username='$username'"; 
+    
     $results = mysqli_query($connection, $sql);
 
     if($row = mysqli_fetch_assoc($results)){
-        $_SESSION['username'] = $username;
-        header("Location: home.php");
+        
+         if(password_verify($password, $row['password'])){
+            session_start();
+            $_SESSION['user'] = true;
+         }
+
     }else{
         echo "username and/or password are invalid";
     }

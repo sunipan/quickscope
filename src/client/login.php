@@ -23,7 +23,7 @@
           <a href="sign_up.php" class="gray_on_hover">Sign up now!</a>
         </div>
         <div class="d-flex justify-content-center align-items-center mt-3">
-          <input class="btn btn-dark" type="submit"></input>
+          <input id="login-button" class="btn btn-dark" type="submit"></input>
         </div>
       </form>
     </div>
