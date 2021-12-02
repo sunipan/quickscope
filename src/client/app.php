@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html class="no-js" lang="">
 
@@ -27,7 +28,7 @@
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
   <meta name="theme-color" content="#fafafa" />
 </head>
 <!-- Uncomment to test signed in login status -->
@@ -44,15 +45,23 @@
           <img src="img/crosshair.png" alt="" width="30" height="30" />
           <img src="img/font-logo.png" alt="" height="30" />
         </a>
+        <a href="home.php" class="text-dark m-auto d-none d-lg-flex">
+          <h2 class="m-0"><i class="bi bi-house-fill mx-auto"></i></h2>
+        </a>
+
         <form class="d-none d-md-flex search-form m-auto">
           <input class="form-control me-2 search-bar" type="search" placeholder="Search..." aria-label="Search" />
         </form>
-        <a href="login.php" class="d-none d-lg-flex text-decoration-none text-white btn btn-danger me-2">
-          Login
-        </a>
-        <a href="sign_up.php" class="d-none d-lg-flex text-decoration-none text-white btn btn-dark me-2">
-          Sign Up
-        </a>
+        <?php
+        if (!isset($_SESSION['user'])) {
+          echo '<a href="login.php" class="d-none d-lg-flex text-decoration-none text-white btn btn-danger me-2">
+                  Login
+                </a>
+                <a href="sign_up.php" class="d-none d-lg-flex text-decoration-none text-white btn btn-dark me-2">
+                  Sign Up
+                </a>';
+        }
+        ?>
         <?php
         if (isset($_SESSION['user'])) {
           // If user is logged in, display their profile pic as the icon
