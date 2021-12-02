@@ -150,31 +150,40 @@ $(document).ready(function () {
         }
       );
     });
-    
   }
 
   if (window.location.href.includes("login.php")) {
-
-    $("#login-button").click(function(e){
+    $("#login-button").click(function (e) {
       e.preventDefault();
-      let username= $("#login_username").val();
-      let password= $("#login_password").val();
-      console.log(username,password);
-      
-      if(username && password){
-        $.post("../server/loginprocess.php",
-        {
-          username: username,
-          password: password,
-        },
-        function(data){
-            console.log(data);
-            window.location='home.php';
-        }
-        )
+      let username = $("#login_username").val();
+      let password = $("#login_password").val();
+
+      if (username && password) {
+        $.post(
+          "../server/loginprocess.php",
+          {
+            username: username,
+            password: password,
+          },
+          function (data, status) {
+            data = data && JSON.parse(data);
+            if (status === "success") {
+              if (data.status === "success") {
+                // Redirect to home page
+                window.location.replace("home.php");
+              } else {
+                // Show error message
+                $("#login_feedback").html(data.message);
+                $("#login_feedback").slideDown();
+              }
+            } else {
+              // Show error message
+              $("#login_feedback").html(data.message);
+              $("#login_feedback").slideDown();
+            }
+          }
+        );
       }
     });
-
-  };
-
+  }
 });

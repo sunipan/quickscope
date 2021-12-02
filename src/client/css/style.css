@@ -45,7 +45,8 @@ body {
 }
 
 #pass_validation,
-#sign_up_feedback {
+#sign_up_feedback,
+#login_feedback {
   display: none;
 }
 

@@ -1,38 +1,49 @@
 <?php
-//echo $_POST['username'];
-//echo $_POST['password'];
-
-
 include "db_connect.php";
-if($error){
-    exit("failed to connect to db");
+if ($error) {
+  exit(json_encode([
+    'status' => 'db_error',
+    'message' => 'Something went wrong, please try again',
+  ]));
 }
 
-
 $username = $_POST['username'];
-
 $password = $_POST['password'];
 
-
-
-if($_SERVER["REQUEST_METHOD"]== "POST"){
-    if(isset($_POST['username']) && isset($_POST['password'])){
-
-    $sql = "SELECT password FROM users WHERE username='$username'"; 
-    
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  if (isset($_POST['username']) && isset($_POST['password'])) {
+    $sql = "SELECT password FROM users WHERE username='$username'";
     $results = mysqli_query($connection, $sql);
-
-    if($row = mysqli_fetch_assoc($results)){
-        
-         if(password_verify($password, $row['password'])){
-            session_start();
-            $_SESSION['user'] = true;
-         }
-
-    }else{
-        echo "username and/or password are invalid";
+    if ($row = mysqli_fetch_assoc($results)) {
+      if (password_verify($password, $row['password'])) {
+        session_start();
+        $_SESSION['user'] = true;
+        echo json_encode([
+          'status' => 'success',
+        ]);
+      } else {
+        echo json_encode([
+          "status" => "input_error",
+          "message" => "Username and/or password are invalid"
+        ]);
+      }
+    } else {
+      echo json_encode([
+        "status" => "exists_error",
+        "message" => "Username does not exist"
+      ]);
     }
     mysqli_free_result($results);
     mysqli_close($connection);
-    }
+  } else {
+    echo json_encode([
+      "status" => "empty_error",
+      "message" => "Please enter a username and password"
+    ]);
+  }
+} else {
+  echo json_encode([
+    "status" => "request_error",
+    "message" => "invalid request",
+  ]);
 }

@@ -14,7 +14,7 @@
 <body>
   <div class="mt-5">
     <div class="d-flex justify-content-center align-items-center">
-      <form class="col-3" style="min-width: 300px" autocomplete="on" method="post">
+      <div class="col-3" style="min-width: 300px">
         <h3 class="text-white text-center" id="login">Login</h3>
         <input type="username" name="username" id="login_username" placeholder="Username" class="form-control mb-2">
         <input type="password" name="password" id="login_password" placeholder="Password" class="form-control mb-2">
@@ -25,9 +25,9 @@
         <div class="d-flex justify-content-center align-items-center mt-3">
           <input id="login-button" class="btn btn-dark" type="submit"></input>
         </div>
-      </form>
+        <div class="alert alert-danger text-center mt-2" role="alert" id="login_feedback"></div>
+      </div>
     </div>
-  </div>
 </body>
 
 </html>
