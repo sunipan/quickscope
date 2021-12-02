@@ -16,15 +16,12 @@
     <div class="d-flex justify-content-center align-items-center">
       <div class="col-3 form-container">
         <h3 class="text-white text-center" id="login">Login</h3>
-        <input type="username" name="username" id="login_username" placeholder="Username" class="form-control mb-2">
-        <input type="password" name="password" id="login_password" placeholder="Password" class="form-control mb-2">
+        <input type="username" id="login_username" placeholder="Username" class="form-control mb-2">
+        <input type="password" id="login_password" placeholder="Password" class="form-control mb-2">
         <div class="d-flex justify-content-between">
-          <a href="forgot_pass.php" class="gray_on_hover">Forgot Password?</a>
-          <a href="sign_up.php" class="gray_on_hover">Sign up now!</a>
+          <a href="sign_up.php" class="gray_on_hover">Don't have an accout? Sign up now!</a>
         </div>
-        <div class="d-flex justify-content-center align-items-center mt-3">
-          <input id="login-button" class="btn btn-dark" type="submit"></input>
-        </div>
+        <button id="login-button" class="btn btn-dark w-100 mt-3">Login</button>
         <div class="alert alert-danger text-center mt-2" role="alert" id="login_feedback"></div>
       </div>
     </div>
