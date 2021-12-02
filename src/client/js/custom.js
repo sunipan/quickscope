@@ -138,5 +138,17 @@ $(document).ready(function () {
         alert("Please fill all the fields correctly");
       }
     });
+    // Play around with AJAX
+    $("#test_submit").click(function (e) {
+      $.post(
+        "../server/test.php",
+        {
+          email: $("#create_email").val(),
+        },
+        function (data) {
+          console.log(data);
+        }
+      );
+    });
   }
 });
