@@ -20,22 +20,18 @@
                 <a href="sign_up.php" class="d-none d-lg-flex text-decoration-none text-white btn btn-dark me-2">
                   Sign Up
                 </a>';
-      }
-      ?>
-      <?php
-      if (isset($_SESSION['user'])) {
+        // If user isn't logged in, display normal menu icon
+        echo '<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>';
+      } else {
         // If user is logged in, display their profile pic as the icon
         echo '<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                   <span>
                     <img class="rounded-circle border border-3 border-danger" src="img/default_profile_pic.png" width="40" height="40" alt="Profile Picture" />
-                    <i class="fas fa-caret-down"></i>
+                    <i class="bi bi-caret-down-fill"></i>
                   </span>
                 </div>';
-      } else {
-        // If user isn't logged in, display normal menu icon
-        echo '<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                  <span class="navbar-toggler-icon"></span>
-                </button>';
       } ?>
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
@@ -46,27 +42,24 @@
         <div class="offcanvas-body mt-0">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+              <a class="nav-link" href="#">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="#">Create a Post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Create a Forum</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
               <?php if (isset($_SESSION['user'])) {
                 // If user isn't logged in, display logout button
                 echo '<li class="nav-item">
                         <a class="nav-link" href="logout.php">Logout</a>
+                      </li>';
+              } else {
+                // If user is not logged in, display login button
+                echo '<li class="nav-item">
+                        <a class="nav-link" href="login.php">Login</a>
                       </li>';
               } ?>
             </li>

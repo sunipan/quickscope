@@ -1,5 +1,8 @@
 <?php $title = "Create Post | Quickscope 🎯";
 require('components/head.php');
+if (!isset($_SESSION['user'])) {
+  header('Location: login.php');
+}
 require('components/header.php');
 ?>
 

@@ -1,5 +1,9 @@
 <?php $title = "My Profile | Quickscope 🎯";
+// Restrict access to logged in users
 require('components/head.php');
+if (!isset($_SESSION['user'])) {
+  header('Location: login.php');
+}
 require('components/header.php'); ?>
 
 <div class="container-fluid post-container">
