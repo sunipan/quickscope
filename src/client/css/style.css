@@ -4,6 +4,7 @@ body {
 
 .post-container {
   margin-top: 100px;
+  max-width: 1400px;
 }
 
 .recent-post:hover {
@@ -33,6 +34,11 @@ body {
   margin-top: 10em;
 }
 
+.form-container {
+  max-width: 400px;
+  min-width: 300px;
+}
+
 .gray_on_hover {
   font-size: 12px;
   color: white;
@@ -45,7 +51,8 @@ body {
 }
 
 #pass_validation,
-#sign_up_feedback {
+#sign_up_feedback,
+#login_feedback {
   display: none;
 }
 
@@ -56,6 +63,7 @@ body {
 .text-green {
   color: #2ecf0e;
 }
+
 @media (min-width: 992px) {
   .container {
     max-width: 1140px !important;
