@@ -16,7 +16,7 @@ if ($type != 'POST') {
     $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // Connect to database
-    include('db_setup.php');
+    include('db_connect.php');
 
     if ($error) {
       // Send error message back to AJAX in JSON format
