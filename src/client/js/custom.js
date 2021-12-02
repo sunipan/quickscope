@@ -109,7 +109,7 @@ $(document).ready(function () {
                 // Give user feedback that account was created and give route to login
                 $("#sign_up_feedback").html(
                   data.message +
-                    "<a class='btn btn-dark' href='login.php'>Login</a>"
+                    "<a class='btn btn-dark w-100 mt-3' href='login.php'>Login</a>"
                 );
                 $("#sign_up_feedback").removeClass("alert-danger");
                 $("#sign_up_feedback").addClass("alert-success");
@@ -119,7 +119,7 @@ $(document).ready(function () {
                 if (data.status === "exists_error")
                   $("#sign_up_feedback").html(
                     data.message +
-                      "<a class='btn btn-dark ms-2 mt-3' href='login.php'>Login</a>"
+                      "<a class='btn btn-dark w-100 mt-3' href='login.php'>Login</a>"
                   );
                 else $("#sign_up_feedback").html(data.message);
                 $("#sign_up_feedback").slideDown();

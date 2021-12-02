@@ -9,7 +9,6 @@ if ($type != 'POST') {
 } else {
 
   if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password'])) {
-
     $email = $_POST['email'];
     $username = $_POST['username'];
     $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
