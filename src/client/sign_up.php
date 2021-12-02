@@ -20,10 +20,10 @@
 <body>
   <div class="mt-5">
     <div class="d-flex justify-content-center align-items-center">
-      <form id="sign_up_form" class="col-3" action="create_account.php" style="min-width:300px;" method="POST">
+      <form id="sign_up_form" class="col-3" method="post" style="min-width:300px;">
         <h1 class="h3 text-white text-center" id="createAcc">Create Account</h1>
-        <input type="email" id="create_email" name="email" placeholder="Email" class="form-control mb-2" required>
-        <input type="text" id="create_username" name="username" placeholder="Username" class="form-control mb-2" required>
+        <input type="email" id="create_email" placeholder="Email" class="form-control mb-2" required>
+        <input type="text" id="create_username" placeholder="Username" class="form-control mb-2" required>
         <input class="form-control mb-2" placeholder="Password" type="password" id="create_pass" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
         <div id="pass_validation" class="flex-column rounded-2 bg-white ps-3">
           <strong>Password must contain the following:</strong>

@@ -1,4 +1,3 @@
-// Can contain styling JS or other AJAX requests
 $(document).ready(function () {
   // Validate sign up form
   if (window.location.href.includes("sign_up.php")) {
@@ -96,7 +95,21 @@ $(document).ready(function () {
     $("#sign_up_submit").click(function (e) {
       e.preventDefault();
       if (valid_email && valid_username && valid_password) {
-        $("#sign_up_form").submit();
+        $.post(
+          "create_account.php",
+          {
+            email: $("#create_email").val(),
+            username: $("#create_username").val(),
+            password: $("#create_pass").val(),
+          },
+          function (data, status) {
+            if (status === "success") {
+              console.log(data);
+            } else {
+              console.log(status);
+            }
+          }
+        );
       } else {
         alert("Please fill all the fields correctly");
       }
