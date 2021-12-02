@@ -20,7 +20,7 @@
 <body>
   <div class="mt-5">
     <div class="d-flex justify-content-center align-items-center">
-      <form id="sign_up_form" class="col-3" method="post" style="min-width:300px;">
+      <div class="col-3 form-container">
         <h1 class="h3 text-white text-center" id="createAcc">Create Account</h1>
         <input type="email" id="create_email" placeholder="Email" class="form-control mb-2" required>
         <input type="text" id="create_username" placeholder="Username" class="form-control mb-2" required>
@@ -38,7 +38,7 @@
         </div>
         <input id="test_submit" class="btn btn-dark w-100 mt-2" type="submit" value="Test">
         <div class="alert alert-danger text-center mt-2" role="alert" id="sign_up_feedback"></div>
-      </form>
+      </div>
     </div>
   </div>
 </body>

@@ -14,7 +14,7 @@
 <body>
   <div class="mt-5">
     <div class="d-flex justify-content-center align-items-center">
-      <div class="col-3" style="min-width: 300px">
+      <div class="col-3 form-container">
         <h3 class="text-white text-center" id="login">Login</h3>
         <input type="username" name="username" id="login_username" placeholder="Username" class="form-control mb-2">
         <input type="password" name="password" id="login_password" placeholder="Password" class="form-control mb-2">

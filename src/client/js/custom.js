@@ -90,8 +90,7 @@ $(document).ready(function () {
       }
     });
 
-    $("#sign_up_submit").click(function (e) {
-      e.preventDefault();
+    $("#sign_up_submit").click(function () {
       if (valid_email && valid_username && valid_password) {
         // Use $.get(...) for a GET request
         $.post(
@@ -139,7 +138,7 @@ $(document).ready(function () {
       }
     });
     // Play around with AJAX
-    $("#test_submit").click(function (e) {
+    $("#test_submit").click(function () {
       $.post(
         "../server/test.php",
         {
@@ -151,10 +150,9 @@ $(document).ready(function () {
       );
     });
   }
-
+  // Validate login
   if (window.location.href.includes("login.php")) {
-    $("#login-button").click(function (e) {
-      e.preventDefault();
+    $("#login-button").click(function () {
       let username = $("#login_username").val();
       let password = $("#login_password").val();
 
