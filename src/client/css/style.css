@@ -32,6 +32,10 @@
   margin-top: 10em;
 }
 
+#profile_card {
+  max-width: 1400px;
+}
+
 .form-container {
   max-width: 400px;
   min-width: 300px;
@@ -65,5 +69,12 @@
 @media (min-width: 992px) {
   .container {
     max-width: 1140px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .profile_user,
+  .profile_email {
+    font-size: 18px !important;
   }
 }
