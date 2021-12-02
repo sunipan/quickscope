@@ -18,17 +18,9 @@ if ($type != 'POST') {
     $host = "localhost";
     $database = "quickscope";
     $user = "root";           //will probably have to change on your machine
-    $password = "fsdaf";
+    $password = "";
 
-    $connection = mysqli_connect($host, $user, $password, $database) or die(json_encode(array(
-      'status' => 'db_error',
-      'message' => 'Something went wrong, please try again',
-    )));
-    // Catch DB connect error
-    echo json_encode(array(
-      'status' => 'db_error',
-      'message' => 'Something went wrong, please try again',
-    ));
+    $connection = mysqli_connect($host, $user, $password, $database);
 
     if (mysqli_connect_error()) {
       // Send error message back to AJAX in JSON format
