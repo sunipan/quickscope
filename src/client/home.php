@@ -76,7 +76,7 @@
             <h5 class="card-title">Join or Create Your Own Community!</h5>
             <div class="post-forum-buttons d-flex flex-column">
               <a href="create-post.php" class="btn btn-primary mb-3">Create a Post</a>
-              <a href="#" class="btn btn-danger">Create a Forum</a>
+              <a href="create-forum.php" class="btn btn-danger">Create a Forum</a>
             </div>
           </div>
         </div>

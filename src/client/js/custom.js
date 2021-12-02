@@ -149,6 +149,48 @@ $(document).ready(function () {
         }
       );
     });
+
+    
+  }
+
+  if (window.location.href.includes("create-forum.php")) {
+    $("#forumButton").click(function () {
+      let postTitle = $("#postTitle").val();
+      let checked = $("#confirm").is(':checked');
+      if(postTitle && checked){
+      $.post(
+        "../server/forumProcess.php",
+        {
+          postTitle: postTitle,
+          checked: checked,
+        },
+       function (data, status) {
+            data = data && JSON.parse(data);
+            if (status === "success") {
+              if (data.status === "success") {
+                // Redirect to home page
+                $("#login_feedback").removeClass("alert-danger");
+                $("#login_feedback").addClass("alert-success");
+                $("#login_feedback").html(data.message);
+                $("#login_feedback").slideDown();
+              } else {
+                // Show error message
+                $("#login_feedback").html(data.message);
+                $("#login_feedback").slideDown();
+              }
+            } else {
+              // Show error message
+              $("#login_feedback").html(data.message);
+              $("#login_feedback").slideDown();
+            }
+          }
+      );
+      }
+      else{
+            $("#login_feedback").html("Inputs cannot be left blank!");
+            $("#login_feedback").slideDown();
+      }
+    });
   }
   // Validate login
   if (window.location.href.includes("login.php")) {
@@ -184,4 +226,6 @@ $(document).ready(function () {
       }
     });
   }
+
+  
 });
