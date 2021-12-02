@@ -32,6 +32,10 @@ require('components/header.php');
           <div class="p-1 col-lg-12">
             <textarea class="form-control" id="description" placeholder="Description" rows="12"></textarea>
           </div>
+          <div class="p-1 col-lg-12 mt-4">
+            <h5 class="text-white" style="display: inline">Upload Image</h5>
+            <input type="file" name="postImage" id="postImage">
+          </div>
           <div class="offset-lg-11 p-2">
             <button type="Submit" class="btn btn-dark">Submit</button>
           </div>
