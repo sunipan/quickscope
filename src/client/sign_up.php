@@ -20,7 +20,7 @@
 <body>
   <div class="mt-5">
     <div class="d-flex justify-content-center align-items-center">
-      <form id="sign_up_form" class="col-3" method="post" style="min-width:300px;">
+      <div class="col-3 form-container">
         <h1 class="h3 text-white text-center" id="createAcc">Create Account</h1>
         <input type="email" id="create_email" placeholder="Email" class="form-control mb-2" required>
         <input type="text" id="create_username" placeholder="Username" class="form-control mb-2" required>
@@ -33,12 +33,10 @@
           <p id="length" class="text-red mb-1">Minimum <b>8 characters</b></p>
         </div>
         <a href="login.php" class="gray_on_hover">Already have an account?</a>
-        <div class="d-flex justify-content-center mt-3">
-          <input id="sign_up_submit" class="btn btn-dark w-100" type="submit" value="Sign Up">
-        </div>
-        <input id="test_submit" class="btn btn-dark w-100 mt-2" type="submit" value="Test">
+        <button id="sign_up_submit" class="btn btn-dark w-100 mt-3">Sign Up</button>
+        <button id="test_submit" class="btn btn-dark w-100 mt-2">Test</button>
         <div class="alert alert-danger text-center mt-2" role="alert" id="sign_up_feedback"></div>
-      </form>
+      </div>
     </div>
   </div>
 </body>

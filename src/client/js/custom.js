@@ -90,8 +90,7 @@ $(document).ready(function () {
       }
     });
 
-    $("#sign_up_submit").click(function (e) {
-      e.preventDefault();
+    $("#sign_up_submit").click(function () {
       if (valid_email && valid_username && valid_password) {
         // Use $.get(...) for a GET request
         $.post(
@@ -139,7 +138,7 @@ $(document).ready(function () {
       }
     });
     // Play around with AJAX
-    $("#test_submit").click(function (e) {
+    $("#test_submit").click(function () {
       $.post(
         "../server/test.php",
         {
@@ -149,6 +148,40 @@ $(document).ready(function () {
           console.log(data);
         }
       );
+    });
+  }
+  // Validate login
+  if (window.location.href.includes("login.php")) {
+    $("#login-button").click(function () {
+      let username = $("#login_username").val();
+      let password = $("#login_password").val();
+
+      if (username && password) {
+        $.post(
+          "../server/loginprocess.php",
+          {
+            username: username,
+            password: password,
+          },
+          function (data, status) {
+            data = data && JSON.parse(data);
+            if (status === "success") {
+              if (data.status === "success") {
+                // Redirect to home page
+                window.location.replace("home.php");
+              } else {
+                // Show error message
+                $("#login_feedback").html(data.message);
+                $("#login_feedback").slideDown();
+              }
+            } else {
+              // Show error message
+              $("#login_feedback").html(data.message);
+              $("#login_feedback").slideDown();
+            }
+          }
+        );
+      }
     });
   }
 });

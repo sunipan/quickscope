@@ -112,18 +112,6 @@
       </div>
     </div>
   </div>
-  <!-- This script contains the JS for the moving About Us card -->
-  <script>
-    $(window).scroll(() => {
-      var pos = $(window).scrollTop();
-      if (pos > 630) {
-        $(".about-us-home").css("margin-top", pos - 615);
-      } else {
-        if ($(".about-us-home").css("margin-top") != "0px")
-          $(".about-us-home").css("margin-top", "0px");
-      }
-    });
-  </script>
 </body>
 
 </html>
