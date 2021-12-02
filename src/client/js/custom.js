@@ -90,7 +90,8 @@ $(document).ready(function () {
       }
     });
 
-    $("#sign_up_submit").click(function () {
+    $("#sign_up_submit").click(function (e) {
+      e.preventDefault();
       if (valid_email && valid_username && valid_password) {
         // Use $.get(...) for a GET request
         $.post(
@@ -152,7 +153,8 @@ $(document).ready(function () {
   }
   // Validate login
   if (window.location.href.includes("login.php")) {
-    $("#login-button").click(function () {
+    $("#login-button").click(function (e) {
+      e.preventDefault();
       let username = $("#login_username").val();
       let password = $("#login_password").val();
 
