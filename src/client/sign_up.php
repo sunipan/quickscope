@@ -36,6 +36,7 @@
         <div class="d-flex justify-content-center mt-3">
           <input id="sign_up_submit" class="btn btn-dark" type="submit" value="Sign Up">
         </div>
+        <div class="alert alert-danger text-center mt-2" role="alert" id="sign_up_feedback"></div>
       </form>
     </div>
   </div>

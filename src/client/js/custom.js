@@ -15,7 +15,6 @@ $(document).ready(function () {
         $("#create_email").css("border", "2px solid #2ecf0e");
         $("#create_email").css("box-shadow", "0 0 5px #2ecf0e");
       }
-      console.log(!!valid_email);
     });
 
     // Validate username
@@ -28,7 +27,6 @@ $(document).ready(function () {
         $("#create_username").css("border", "2px solid #2ecf0e");
         $("#create_username").css("box-shadow", "0 0 5px #2ecf0e");
       }
-      console.log("valid_username", !!valid_username);
     });
 
     // Validate password
@@ -95,6 +93,7 @@ $(document).ready(function () {
     $("#sign_up_submit").click(function (e) {
       e.preventDefault();
       if (valid_email && valid_username && valid_password) {
+        // Use $.get(...) for a GET request
         $.post(
           "create_account.php",
           {
@@ -103,14 +102,39 @@ $(document).ready(function () {
             password: $("#create_pass").val(),
           },
           function (data, status) {
+            console.log(data, status);
             if (status === "success") {
-              console.log(data);
+              data = JSON.parse(data);
+              if (data.status === "success") {
+                // Give user feedback that account was created and give route to login
+                $("#sign_up_feedback").html(
+                  data.message +
+                    "<a class='btn btn-dark' href='login.php'>Login</a>"
+                );
+                $("#sign_up_feedback").removeClass("alert-danger");
+                $("#sign_up_feedback").addClass("alert-success");
+                $("#sign_up_feedback").slideDown();
+              } else {
+                // Show error message dynamic error message
+                if (data.status === "exists_error")
+                  $("#sign_up_feedback").html(
+                    data.message +
+                      "<a class='btn btn-dark ms-2 mt-3' href='login.php'>Login</a>"
+                  );
+                else $("#sign_up_feedback").html(data.message);
+                $("#sign_up_feedback").slideDown();
+              }
             } else {
-              console.log(status);
+              // Show error message
+              $("#sign_up_feedback").html(
+                "Something went wrong, please try again."
+              );
+              $("#sign_up_feedback").slideDown();
             }
           }
         );
       } else {
+        // If input is invalid on submission
         alert("Please fill all the fields correctly");
       }
     });

@@ -44,7 +44,8 @@ body {
   color: Gray !important;
 }
 
-#pass_validation {
+#pass_validation,
+#sign_up_feedback {
   display: none;
 }
 
