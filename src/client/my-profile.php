@@ -27,9 +27,7 @@ if ($row = mysqli_fetch_assoc($result)) {
         <h4 class='text-black'>My Profile</h4>
         <figure id="profile-figure">
           <?php
-          if (isset($_SESSION['avatar']))
-            echo '<img class="rounded-circle border border-3 border-danger" src="' . $_SESSION['avatar'] . '" height="100px" width="100px">';
-          else echo '<img class="rounded-circle border border-3 border-danger" src="..server/avatars/default_profile_pic.png" height="100px" width="100px">';
+          echo '<img class="rounded-circle border border-3 border-danger" src="' . $_SESSION['avatar'] . '" height="100px" width="100px">';
           ?>
         </figure>
         <!-- Button trigger modal -->

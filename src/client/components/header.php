@@ -26,21 +26,12 @@
               </button>';
       } else {
         // If user is logged in, display their profile pic as the icon
-        if (!isset($_SESSION['avatar'])) {
-          echo '<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                  <span id="avatar-span">
-                    <img class="rounded-circle border border-3 border-danger" src="../server/avatars/default_profile_pic.png" width="40" height="40" alt="Profile Picture" />
-                    <i class="bi bi-caret-down-fill"></i>
-                  </span>
-                </div>';
-        } else {
-          echo '<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span id="avatar-span">
-                      <img class="rounded-circle border border-3 border-danger" src="' . $_SESSION['avatar'] . '" width="40" height="40" alt="Profile Picture" />
-                      <i class="bi bi-caret-down-fill"></i>
-                    </span>
-                  </div>';
-        }
+        echo '<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span id="avatar-span">
+                  <img class="rounded-circle border border-3 border-danger" src="' . $_SESSION['avatar'] . '" width="40" height="40" alt="Profile Picture" />
+                  <i class="bi bi-caret-down-fill"></i>
+                </span>
+              </div>';
       } ?>
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
