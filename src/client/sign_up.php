@@ -1,4 +1,4 @@
-<?php $title = "Sign Up | Quickscop 🎯";
+<?php $title = "Sign Up | Quickscope 🎯";
 require('components/head.php');
 require('components/header.php');
 ?>
