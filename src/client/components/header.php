@@ -36,7 +36,7 @@
         } else {
           echo '<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span id="avatar-span">
-                      <img class="rounded-circle border border-3 border-danger" src="../server/uploads/' . $_SESSION['user'] . '.' . $_SESSION['avatarType'] . '" width="40" height="40" alt="Profile Picture" />
+                      <img class="rounded-circle border border-3 border-danger" src="../server/avatars/' . $_SESSION['user'] . '.' . $_SESSION['avatarType'] . '" width="40" height="40" alt="Profile Picture" />
                       <i class="bi bi-caret-down-fill"></i>
                     </span>
                   </div>';
