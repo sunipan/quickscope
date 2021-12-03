@@ -4,6 +4,7 @@ $(document).ready(function () {
     let valid_email = false;
     let valid_username = false;
     let valid_password = false;
+    let valid_confirm_password = false;
     $("#create_email").keyup(function (e) {
       valid_email = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
         $("#create_email").val()
@@ -80,13 +81,31 @@ $(document).ready(function () {
       ) {
         $("#create_pass").css("border", "2px solid #2ecf0e");
         $("#create_pass").css("box-shadow", "0 0 5px #2ecf0e");
-        $("#pass_validation").slideUp();
         valid_password = true;
       } else {
         $("#create_pass").css("border", "2px solid red");
         $("#create_pass").css("box-shadow", "0 0 5px red");
         $("#pass_validation").slideDown();
         valid_password = false;
+      }
+    });
+
+    // Validate confirm password
+    $("#create_pass_confirm").keyup(function () {
+      if ($(this).val() == $("#create_pass").val()) {
+        $("#create_pass_confirm").css("border", "2px solid #2ecf0e");
+        $("#create_pass_confirm").css("box-shadow", "0 0 5px #2ecf0e");
+        $("#create_pass_confirm").removeClass("text-red");
+        $("#create_pass_confirm").addClass("text-green");
+        $("#pass_validation").slideUp();
+        valid_confirm_password = true;
+      } else {
+        $("#create_pass_confirm").removeClass("text-green");
+        $("#create_pass_confirm").addClass("text-red");
+        $("#create_pass_confirm").css("border", "2px solid red");
+        $("#create_pass_confirm").css("box-shadow", "0 0 5px red");
+        $("#pass_validation").slideDown();
+        valid_confirm_password = false;
       }
     });
 
