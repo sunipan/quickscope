@@ -52,15 +52,17 @@ if (isset($file)) {
   if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $final_file)) {
     $sql = "UPDATE users SET avatarType = '$imageFileType' WHERE id = '$_SESSION[user]'";
     $result = mysqli_query($connection, $sql);
-    mysqli_close($connection);
     if (!$result) {
+      mysqli_close($connection);
       exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
     } else {
       if (!$username && !$email) {
+        mysqli_close($connection);
         exit(json_encode(["status" => "success", "message" => "Profile updated successfully.", "image" => isset($final_file) ? $final_file : false]));
       }
     }
   } else {
+    mysqli_close($connection);
     exit(json_encode(["status" => 'error', "message" => 'Something went wrong, please try again.']));
   }
 }
