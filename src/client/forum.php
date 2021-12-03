@@ -26,7 +26,7 @@ else {
   }
 }
 $forum = mysqli_fetch_assoc($result);
-$title = $title . " | Quickscope 🎯";
+$title = $title;// . " | Quickscope 🎯";
 require('components/head.php');
 require('components/header.php');
 ?>
@@ -37,13 +37,18 @@ require('components/header.php');
     <div class="col-lg-7 offset-lg-1">
       <!-- Create fake posts by changing $i threshold -->
       <?php
+      
+      echo'<div class="card mb-2">
+      <div class="card-body"><h4>'.$title.'</h4></div>
+      </div>';
+
       foreach ($posts as $post) {
-        if ($i === 0) {
           // Print the first post
-          echo '<div class="card col-lg-12 mb-2">
+          echo '
+          <div class="card col-lg-12 mb-2">
             <div class="card-body">
-              <h5 class="card-title">' . $post['title'] . '</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
+              <h5 class="card-title">'.$post['title'].'</h5>
+              <p class="card-text">'.$post['description'].'</p>
               <a href="#" class="btn btn-dark">Go somewhere</a>
             </div>
             <div class="col-10 offset-1">
@@ -56,25 +61,25 @@ require('components/header.php');
               </span>
             </div>
           </div>';
-        } else {
-          // Print the rest of the posts
-          echo '<div class="card col-lg-12 mb-2">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
-                <a href="#" class="btn btn-dark">Go somewhere</a>
-              </div>
-              <div class="col-10 offset-1">
-                <img src="img/kermit.png" class="card-img-bottom" />
-              </div>
-              <div class="col-1 offset-1 comment-stuff d-flex mt-3">
-                <span style="font-size: 1.25rem;" class="comment-count d-flex">
-                  <i class="bi bi-chat-left-text-fill"></i>
-                  <span>&nbsp;0</span>
-                </span>
-              </div>
-            </div>';
-        }
+        //  else {
+        //   // Print the rest of the posts
+        //   echo '<div class="card col-lg-12 mb-2">
+        //       <div class="card-body">
+        //         <h5 class="card-title">Card title</h5>
+        //         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
+        //         <a href="#" class="btn btn-dark">Go somewhere</a>
+        //       </div>
+        //       <div class="col-10 offset-1">
+        //         <img src="img/kermit.png" class="card-img-bottom" />
+        //       </div>
+        //       <div class="col-1 offset-1 comment-stuff d-flex mt-3">
+        //         <span style="font-size: 1.25rem;" class="comment-count d-flex">
+        //           <i class="bi bi-chat-left-text-fill"></i>
+        //           <span>&nbsp;0</span>
+        //         </span>
+        //       </div>
+        //     </div>';
+        // }
       }
       ?>
     </div>
