@@ -27,7 +27,7 @@ if ($row = mysqli_fetch_assoc($result)) {
         <figure id="profile-figure">
           <?php
           if (isset($_SESSION['avatarType']))
-            echo '<img class="rounded-circle border border-3 border-danger" src="../server/uploads/' . $_SESSION['user'] . '.' . $_SESSION['avatarType'] . '" height="100px" width="100px">';
+            echo '<img class="rounded-circle border border-3 border-danger" src="../server/avatars/' . $_SESSION['user'] . '.' . $_SESSION['avatarType'] . '" height="100px" width="100px">';
           else echo '<img class="rounded-circle border border-3 border-danger" src="img/default_profile_pic.png" height="100px" width="100px">';
           ?>
         </figure>
