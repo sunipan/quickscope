@@ -1,7 +1,7 @@
 <?php
 // Need this so invalid DB connection doesn't break the feedback to user
 // COMMENT OUT WHEN TESTING AJAX REQUESTS TO SEE ERRORS
-error_reporting(0);
+// error_reporting(0);
 $host = "localhost";
 $database = "quickscope";
 $user = "root";           //will probably have to change on your machine

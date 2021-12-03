@@ -26,12 +26,21 @@
               </button>';
       } else {
         // If user is logged in, display their profile pic as the icon
-        echo '<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                  <span>
+        if (!isset($_SESSION['avatarType'])) {
+          echo '<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                  <span id="avatar-span">
                     <img class="rounded-circle border border-3 border-danger" src="img/default_profile_pic.png" width="40" height="40" alt="Profile Picture" />
                     <i class="bi bi-caret-down-fill"></i>
                   </span>
                 </div>';
+        } else {
+          echo '<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span id="avatar-span">
+                      <img class="rounded-circle border border-3 border-danger" src="../server/uploads/' . $_SESSION['user'] . '.' . $_SESSION['avatarType'] . '" width="40" height="40" alt="Profile Picture" />
+                      <i class="bi bi-caret-down-fill"></i>
+                    </span>
+                  </div>';
+        }
       } ?>
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
@@ -42,13 +51,13 @@
         <div class="offcanvas-body mt-0">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
+              <a class="nav-link" href="my-profile.php">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Create a Post</a>
+              <a class="nav-link" href="create-post.php">Create a Post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Create a Forum</a>
+              <a class="nav-link" href="create-forum.php">Create a Forum</a>
             </li>
             <li class="nav-item dropdown">
               <?php if (isset($_SESSION['user'])) {

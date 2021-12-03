@@ -186,4 +186,99 @@ $(document).ready(function () {
       }
     });
   }
+  let valid_edit_username = false;
+  let valid_edit_email = false;
+  $("#edit_username").keyup(function (e) {
+    valid_edit_username = /^[a-zA-Z0-9]{3,}$/.test($("#edit_username").val());
+    if (!valid_edit_username) {
+      $("#edit_username").css("border", "2px solid red");
+      $("#edit_username").css("box-shadow", "0 0 5px red");
+    } else {
+      $("#edit_username").css("border", "2px solid #2ecf0e");
+      $("#edit_username").css("box-shadow", "0 0 5px #2ecf0e");
+    }
+  });
+  $("#edit_email").keyup(function (e) {
+    valid_edit_email = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
+      $("#edit_email").val()
+    );
+    if (!valid_edit_email) {
+      $("#edit_email").css("border", "2px solid red");
+      $("#edit_email").css("box-shadow", "0 0 5px red");
+    } else {
+      $("#edit_email").css("border", "2px solid #2ecf0e");
+      $("#edit_email").css("box-shadow", "0 0 5px #2ecf0e");
+    }
+  });
+
+  $("#edit_submit").click(function (e) {
+    e.preventDefault();
+    // Get values
+    let username = valid_edit_username && $("#edit_username").val();
+    let email = valid_edit_email && $("#edit_email").val();
+    let profile_pic = $("#edit_profile_pic")[0].files[0];
+    // Check if any of them have value
+    if (username || email || profile_pic) {
+      // Create FormData object, send off to server
+      let form = $("#edit_form")[0];
+      let formData = new FormData(form);
+      formData.append("username", username);
+      formData.append("email", email);
+      formData.append("profile_pic", profile_pic);
+      $.ajax({
+        url: "../server/edit-profile.php",
+        type: "POST",
+        enctype: "multipart/form-data",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+          console.log(data);
+          data = JSON.parse(data);
+          if (data.image) {
+            // Update profile pic and navbar avatar
+            $("#profile-figure").html(
+              '<img src="../server/' +
+                data.image +
+                '" class="rounded-circle border border-3 border-danger" height="100px" width="100px" alt="Profile Picture"><i class="bi bi-caret-down-fill"></i>'
+            );
+            $("#avatar-span").html(
+              '<img src="../server/' +
+                data.image +
+                '" class="rounded-circle border border-3 border-danger" height="40px" width="40px" alt="Profile Picture"><i class="bi bi-caret-down-fill"></i>'
+            );
+          }
+          console.log(data.username);
+          if (data.username) {
+            // Update username
+            $("#username_text").html(data.username);
+          }
+          if (data.email) {
+            // Update email
+            $("#email_text").html(data.email);
+          }
+
+          // Reset form after submission
+          $("#edit_form")[0].reset();
+          $("#editModal").modal("hide");
+          // Error handling
+          if (data.status === "home") window.location.replace("home.php");
+          else {
+            if (data.status === "success") {
+              $("#edit_success").html(data.message);
+              $("#edit_success").slideDown();
+            } else {
+              $("#edit_error").html(data.message);
+              $("#edit_error").slideDown();
+            }
+          }
+        },
+        complete: setTimeout(() => {
+          $("#edit_success").slideUp();
+          $("#edit_error").slideUp();
+        }, 5000),
+      });
+    }
+  });
 });
