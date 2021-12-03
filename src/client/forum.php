@@ -14,77 +14,61 @@ else {
   // Query for posts inside queried forum
   $row = mysqli_fetch_assoc($result);
   $title = $row['name'];
-  $query = "SELECT * FROM posts WHERE forum_id = '$id'";
+  $query = "SELECT * FROM posts WHERE forum_id = '$id' ORDER BY created_at DESC";
   $result = mysqli_query($connection, $query);
-  if (!$result)
-    die("Error: " . mysqli_error($connection));
-  else {
-    $posts = array();
-    while ($row = mysqli_fetch_array($result)) {
-      $posts[] = $row;
-    }
+  $isArray = false;
+  if (mysqli_num_rows($result) != 0) {
+    $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $isArray = true;
+    mysqli_free_result($result);
+    mysqli_close($connection);
   }
 }
-$forum = mysqli_fetch_assoc($result);
-$title = $title;// . " | Quickscope 🎯";
+$title = $title; // . " | Quickscope 🎯";
 require('components/head.php');
 require('components/header.php');
 ?>
 
 <div class="container-fluid post-container">
   <div class="row">
-    <!-- This column shows most recent post from each forum -->
     <div class="col-lg-7 offset-lg-1">
-      <!-- Create fake posts by changing $i threshold -->
+      <div class="h2 text-white">
+        All Activity
+      </div>
       <?php
-      
-      echo'<div class="card mb-2">
-      <div class="card-body"><h4>'.$title.'</h4></div>
-      </div>';
 
-      foreach ($posts as $post) {
-          // Print the first post
+      echo '<div class="card mb-2">
+      <div class="card-body"><h4>' . $title . '</h4></div>
+      </div>';
+      if ($isArray) {
+        foreach ($posts as $post) {
+          $hasImage = isset($post['image']) ? '' : 'd-none';
           echo '
           <div class="card col-lg-12 mb-2">
             <div class="card-body">
-              <h5 class="card-title">'.$post['title'].'</h5>
-              <p class="card-text">'.$post['description'].'</p>
-              <a href="#" class="btn btn-dark">Go somewhere</a>
+              <h5 class="card-title">' . $post['title'] . '</h5>
+              <p class="card-text">' . $post['description'] . '</p>
+              <a href="post.php?id=' . $post['id'] . ' " class="btn btn-dark">See Post</a>
             </div>
-            <div class="col-10 offset-1">
-              <img src="img/kermit.png" class="card-img-bottom" />
+            <div class="col-10 offset-1 ' . $hasImage . '">
+              <img src="' . $post['image'] . '" class="card-img-bottom" />
             </div>
-            <div class="col-1 offset-1 comment-stuff d-flex mt-3">
-              <span style="font-size: 1.25rem;" class="comment-count d-flex">
-                <i class="bi bi-chat-left-text-fill"></i>
+            <div class="col-1 comment-stuff d-flex">
+              <a href="post.php?id=' . $post['id'] . '" class="comment-count fs-4 text-decoration-none text-dark d-flex">
+                <i class="bi bi-chat-square-dots"></i>
                 <span>&nbsp;0</span>
-              </span>
+              </a>
             </div>
           </div>';
-        //  else {
-        //   // Print the rest of the posts
-        //   echo '<div class="card col-lg-12 mb-2">
-        //       <div class="card-body">
-        //         <h5 class="card-title">Card title</h5>
-        //         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
-        //         <a href="#" class="btn btn-dark">Go somewhere</a>
-        //       </div>
-        //       <div class="col-10 offset-1">
-        //         <img src="img/kermit.png" class="card-img-bottom" />
-        //       </div>
-        //       <div class="col-1 offset-1 comment-stuff d-flex mt-3">
-        //         <span style="font-size: 1.25rem;" class="comment-count d-flex">
-        //           <i class="bi bi-chat-left-text-fill"></i>
-        //           <span>&nbsp;0</span>
-        //         </span>
-        //       </div>
-        //     </div>';
-        // }
+        }
+      } else {
+        echo '<div class="card h2 text-center mt-5 py-3">No posts yet, be the first!</div>';
       }
       ?>
     </div>
     <!-- Recent posts card -->
     <div class="col-3 d-none d-lg-block">
+      <div class="h2" style="visibility:hidden">placeholder</div>
       <div class="card mb-3">
         <div class="card-body">
           <h5 class="card-title">Recent Posts</h5>

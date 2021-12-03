@@ -4,63 +4,48 @@ if (!isset($_SESSION['user'])) {
   header('Location: login.php');
 }
 require('components/header.php');
+require('../server/db_connect.php');
+if ($error)
+  die($error);
+$forums = mysqli_fetch_all(mysqli_query($connection, "SELECT * FROM forums"), MYSQLI_ASSOC);
+mysqli_close($connection);
+?>
 
-
-echo
-'<div class="container mt-5 pt-5 pb-4 offset-lg-1">
-  <h1 class="text-white">Create Post</h1>
-</div>
-
-
-<div class="container-fluid">
-  <div class="col-lg-10 offset-lg-1">
-    <div class="card col-lg-12 mb-2 bg-secondary">
+<div class="container-fluid post-container">
+  <div class="col-lg-10 m-auto">
+    <div class="h2 text-white pt-5 mt-5">Create Post</div>
+    <div id="post-card" class="card col-lg-12">
       <div class="card-body">
-        
-          <div class="p-1 col-lg-12">
-            <select class="form-select" name="forum" id="forum">
-              <option value="" disabled selected>Post to a Forum!</option>';
-
-
-              include('../server/db_connect.php');
-              if ($error) {
-                
-                
-            } 
-            else{
-              $sql = "SELECT * FROM forums;";
-              $results = mysqli_query($connection, $sql);
-              
-              
-              while ($row = mysqli_fetch_assoc($results)) {
-                echo '<option value="'.$row["name"].'">'.$row["name"].'</option>';
-               }
-
-            }
-              
-
-
-              echo
-            '</select>
+        <div class="col-lg-12 mb-1">
+          <select class="form-select border border-1 border-secondary" name="forum" id="forum">
+            <option value="" disabled selected>Post to a Forum!</option>
+            <?php foreach ($forums as $forum) {
+              echo '<option value="' . $forum['id'] . '">' . $forum['name'] . '</option>';
+            } ?>
+          </select>
+        </div>
+        <div class="col-lg-12 mb-1">
+          <input type="text" class="form-control border border-1 border-secondary" id="postTitle" placeholder="Title">
+        </div>
+        <div class="col-lg-12">
+          <textarea class="form-control border border-1 border-secondary" id="postDesc" placeholder="Description" rows="12"></textarea>
+        </div>
+        <div class="form-group d-flex flex-column flex-sm-row justify-content-between">
+          <div>
+            <label class="text-dark mt-3" for="edit_profile">Upload Image</label>
+            <input type="file" class="form-control border border-1 border-secondary" id="postImage" accept="image/png, image/jpeg, image/jpg, image/gif">
           </div>
-          <div class="p-1 col-lg-12">
-            <input type="text" class="form-control" id="postTitle" placeholder="Title">
-          </div>
-          <div class="p-1 col-lg-12">
-            <textarea class="form-control" id="description" placeholder="Description" rows="12"></textarea>
-          </div>
-          <div class="p-1 col-lg-12 mt-4">
-            <h5 class="text-white" style="display: inline">Upload Image</h5>
-            <input type="file" name="postImage" id="postImage">
-          </div>
-          <div class="offset-lg-11 p-2">
-            <button type="Submit" class="btn btn-dark" id="postButton">Submit</button>
-          </div>
-        <div class="alert alert-danger text-center mt-2 col-lg-4 offset-lg-4" role="alert" id="login_feedback"></div>
+          <button class="btn btn-dark h-50 align-self-end mt-2 mt-sm-0" id="postButton">Submit</button>
+        </div>
+        <div class="offset-lg-10">
+        </div>
+        <div class="alert alert-danger text-center mt-2 col-lg-4 offset-lg-4" role="alert" id="post_error"></div>
+        <div class="alert alert-success text-center mt-2 col-lg-4 offset-lg-4" role="alert" id="post_success"></div>
       </div>
     </div>
   </div>
-</div>';
+</div>
 
+<?php
 $scripts = ['js/custom.js'];
- require('components/scripts.php'); ?>
+require('components/scripts.php'); ?>

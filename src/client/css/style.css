@@ -1,4 +1,7 @@
-.post-container {
+@charset "UTF-8";
+
+.post-container,
+#create-post-container {
   margin-top: 100px;
   max-width: 1400px;
 }
@@ -32,6 +35,10 @@
   margin-top: 10em;
 }
 
+.comment-stuff {
+  padding: 1rem 1rem 0.5rem;
+}
+
 #profile_card {
   max-width: 1400px;
 }
@@ -54,7 +61,9 @@
 
 #pass_validation,
 #sign_up_feedback,
-#login_feedback {
+#login_feedback,
+#post_error,
+#post_success {
   display: none;
 }
 
@@ -64,6 +73,10 @@
 
 .text-green {
   color: #2ecf0e;
+}
+
+#post-card {
+  background: lightgray;
 }
 
 @media (min-width: 992px) {

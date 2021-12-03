@@ -26,17 +26,17 @@
               </button>';
       } else {
         // If user is logged in, display their profile pic as the icon
-        if (!isset($_SESSION['avatarType'])) {
+        if (!isset($_SESSION['avatar'])) {
           echo '<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                   <span id="avatar-span">
-                    <img class="rounded-circle border border-3 border-danger" src="img/default_profile_pic.png" width="40" height="40" alt="Profile Picture" />
+                    <img class="rounded-circle border border-3 border-danger" src="../server/avatars/default_profile_pic.png" width="40" height="40" alt="Profile Picture" />
                     <i class="bi bi-caret-down-fill"></i>
                   </span>
                 </div>';
         } else {
           echo '<div data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span id="avatar-span">
-                      <img class="rounded-circle border border-3 border-danger" src="../server/avatars/' . $_SESSION['user'] . '.' . $_SESSION['avatarType'] . '" width="40" height="40" alt="Profile Picture" />
+                      <img class="rounded-circle border border-3 border-danger" src="' . $_SESSION['avatar'] . '" width="40" height="40" alt="Profile Picture" />
                       <i class="bi bi-caret-down-fill"></i>
                     </span>
                   </div>';

@@ -9,12 +9,13 @@ require('../server/db_connect.php');
 if ($error)
   exit($error);
 
-$sql = "SELECT username, email FROM users WHERE id = {$_SESSION['user']}";
+$sql = "SELECT username, email, avatar FROM users WHERE id = {$_SESSION['user']}";
 $result = mysqli_query($connection, $sql);
 mysqli_close($connection);
 if ($row = mysqli_fetch_assoc($result)) {
   $username = $row['username'];
   $email = $row['email'];
+  $avatar = $row['avatar'];
 } ?>
 
 <div class="container-fluid post-container">
@@ -26,9 +27,9 @@ if ($row = mysqli_fetch_assoc($result)) {
         <h4 class='text-black'>My Profile</h4>
         <figure id="profile-figure">
           <?php
-          if (isset($_SESSION['avatarType']))
-            echo '<img class="rounded-circle border border-3 border-danger" src="../server/avatars/' . $_SESSION['user'] . '.' . $_SESSION['avatarType'] . '" height="100px" width="100px">';
-          else echo '<img class="rounded-circle border border-3 border-danger" src="img/default_profile_pic.png" height="100px" width="100px">';
+          if (isset($_SESSION['avatar']))
+            echo '<img class="rounded-circle border border-3 border-danger" src="' . $_SESSION['avatar'] . '" height="100px" width="100px">';
+          else echo '<img class="rounded-circle border border-3 border-danger" src="..server/avatars/default_profile_pic.png" height="100px" width="100px">';
           ?>
         </figure>
         <!-- Button trigger modal -->

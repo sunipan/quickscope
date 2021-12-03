@@ -152,86 +152,87 @@ $(document).ready(function () {
     });
   }
 
-  if (window.location.href.includes("create-forum.php")) {
-    $("#forumButton").click(function () {
-      let postTitle = $("#postTitle").val();
-      let checked = $("#confirm").is(":checked");
-      if (postTitle && checked) {
-        $.post(
-          "../server/forumProcess.php",
-          {
-            postTitle: postTitle,
-            checked: checked,
-          },
-          function (data, status) {
-            data = data && JSON.parse(data);
-            if (status === "success") {
-              if (data.status === "success") {
-                // Redirect to home page
-                $("#login_feedback").removeClass("alert-danger");
-                $("#login_feedback").addClass("alert-success");
-                $("#login_feedback").html(data.message);
-                $("#login_feedback").slideDown();
-              } else {
-                // Show error message
-                $("#login_feedback").html(data.message);
-                $("#login_feedback").slideDown();
-              }
+  $("#forumButton").click(function () {
+    let postTitle = $("#postTitle").val();
+    let checked = $("#confirm").is(":checked");
+    if (postTitle && checked) {
+      $.post(
+        "../server/forumProcess.php",
+        {
+          postTitle: postTitle,
+          checked: checked,
+        },
+        function (data, status) {
+          data = data && JSON.parse(data);
+          if (status === "success") {
+            if (data.status === "success") {
+              // Redirect to home page
+              $("#login_feedback").removeClass("alert-danger");
+              $("#login_feedback").addClass("alert-success");
+              $("#login_feedback").html(data.message);
+              $("#login_feedback").slideDown();
             } else {
               // Show error message
               $("#login_feedback").html(data.message);
               $("#login_feedback").slideDown();
             }
+          } else {
+            // Show error message
+            $("#login_feedback").html(data.message);
+            $("#login_feedback").slideDown();
           }
-        );
-      } else {
-        $("#login_feedback").html("Inputs cannot be left blank!");
-        $("#login_feedback").slideDown();
-      }
-    });
-  }
+        }
+      );
+    } else {
+      $("#login_feedback").html("Inputs cannot be left blank!");
+      $("#login_feedback").slideDown();
+    }
+  });
 
-  if (window.location.href.includes("create-post.php")) {
-    $("#postButton").click(function () {
-      let forum = $("#forum").val();
-      let title = $("#postTitle").val();
-      let desc = $("#description").val();
-      if (forum && title && desc) {
-        $.post(
-          "../server/postProcess.php",
-          {
-            forum: forum,
-            title: title,
-            desc: desc,
-          },
-          function (data) {
-            console.log(data);
-            data = data && JSON.parse(data, status);
-            if (status === "success") {
-              if (data.status === "success") {
-                // Redirect to home page
-                $("#login_feedback").removeClass("alert-danger");
-                $("#login_feedback").addClass("alert-success");
-                $("#login_feedback").html(data.message);
-                $("#login_feedback").slideDown();
-              } else {
-                // Show error message
-                $("#login_feedback").html(data.message);
-                $("#login_feedback").slideDown();
-              }
+  $("#postButton").click(function () {
+    let formData = new FormData();
+    let forum = $("#forum").val();
+    let title = $("#postTitle").val();
+    let desc = $("#postDesc").val();
+    let post_img = $("#postImage")[0].files[0];
+    if (forum && title && desc) {
+      if (post_img) formData.append("post_img", post_img);
+      formData.append("forum", forum);
+      formData.append("title", title);
+      formData.append("desc", desc);
+      $.ajax({
+        url: "../server/postProcess.php",
+        type: "POST",
+        enctype: "multipart/form-data",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data, status) {
+          data = JSON.parse(data);
+          console.log(data);
+          if (status === "success") {
+            if (data.status === "success") {
+              // Give feedback
+              $("#post_success").html(data.message);
+              $("#post_success").slideDown();
             } else {
               // Show error message
-              $("#login_feedback").html(data.message);
-              $("#login_feedback").slideDown();
+              $("#post_error").html(data.message);
+              $("#post_error").slideDown();
             }
+          } else {
+            // Show error message
+            $("#post_error").html(data.message);
+            $("#post_error").slideDown();
           }
-        );
-      } else {
-        $("#login_feedback").html("Inputs cannot be left blank!");
-        $("#login_feedback").slideDown();
-      }
-    });
-  }
+        },
+      });
+    } else {
+      $("#post_error").html("Inputs cannot be left blank!");
+      $("#post_error").slideDown();
+    }
+  });
   // Validate login
   if (window.location.href.includes("login.php")) {
     $("#login-button").click(function (e) {
@@ -301,8 +302,7 @@ $(document).ready(function () {
     // Check if any of them have value
     if (username || email || profile_pic) {
       // Create FormData object, send off to server
-      let form = $("#edit_form")[0];
-      let formData = new FormData(form);
+      let formData = new FormData();
       formData.append("username", username);
       formData.append("email", email);
       formData.append("profile_pic", profile_pic);
@@ -320,12 +320,12 @@ $(document).ready(function () {
           if (data.image) {
             // Update profile pic and navbar avatar
             $("#profile-figure").html(
-              '<img src="../server/' +
+              '<img src="' +
                 data.image +
                 '" class="rounded-circle border border-3 border-danger" height="100px" width="100px" alt="Profile Picture">'
             );
             $("#avatar-span").html(
-              '<img src="../server/' +
+              '<img src="' +
                 data.image +
                 '" class="rounded-circle border border-3 border-danger" height="40px" width="40px" alt="Profile Picture"><i class="bi bi-caret-down-fill"></i>'
             );

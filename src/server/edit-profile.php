@@ -25,13 +25,11 @@ include('db_connect.php');
 if ($error) {
   exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
 }
-
 // Check image and store it for upload to server
 if (isset($file)) {
-  $target_dir = "avatars/";
-  $target_file = $target_dir . basename($_FILES["profile_pic"]["name"]);
+  $target_file = "avatars/" . basename($_FILES["profile_pic"]["name"]);
   $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-  $final_file = $target_dir . $_SESSION['user'] . "." . $imageFileType;
+  $uniqueDir = "../server/avatars/" . time().uniqid(rand()) . "." . $imageFileType;
   // Check if image file is a actual image or fake image
   if (isset($_FILES['profile_pic'])) {
     $check = getimagesize($_FILES["profile_pic"]["tmp_name"]);
@@ -45,21 +43,33 @@ if (isset($file)) {
     mysqli_close($connection);
     exit(json_encode(["status" => 'error', "message" => 'Sorry, your file is too large.']));
   }
-  if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "gif") {
+  if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "gif" && $imageFileType != "jpeg") {
     mysqli_close($connection);
     exit(json_encode(["status" => "error", "message" => "Sorry, only JPG, JPEG, PNG & GIF files are allowed."]));
   }
-  if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $final_file)) {
-    $sql = "UPDATE users SET avatarType = '$imageFileType' WHERE id = '$_SESSION[user]'";
+  // Upload file to server
+  if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $uniqueDir)) {
+    // Get current profile picture directory
+    $sql = "SELECT avatar FROM users WHERE id = '{$_SESSION['user']}'";
+    $result = mysqli_query($connection, $sql);
+    if($result) {
+      // Delete the old profile picture
+      if($row = mysqli_fetch_assoc($result))
+        unlink($row['avatar']);
+    } else {
+      mysqli_close($connection);
+      exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
+    }
+    $sql = "UPDATE users SET avatar = '$uniqueDir' WHERE id = '{$_SESSION['user']}'";
     $result = mysqli_query($connection, $sql);
     if (!$result) {
       mysqli_close($connection);
       exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
     } else {
-      $_SESSION['avatarType'] = $imageFileType;
+      $_SESSION['avatar'] = $uniqueDir;
       if (!$username && !$email) {
         mysqli_close($connection);
-        exit(json_encode(["status" => "success", "message" => "Profile updated successfully.", "image" => isset($final_file) ? $final_file : false]));
+        exit(json_encode(["status" => "success", "message" => "Profile updated successfully.", "image" => isset($uniqueDir) ? $uniqueDir : false]));
       }
     }
   } else {
@@ -83,7 +93,7 @@ if ($username && $email) {
   if ($result) {
     exit(json_encode([
       "status" => "success", "message" => "Profile updated successfully.",
-      "image" => isset($final_file) ? $final_file : false, "username" => $username, "email" => $email
+      "image" => isset($uniqueDir) ? $uniqueDir : false, "username" => $username, "email" => $email
     ]));
   } else {
     exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
@@ -103,7 +113,7 @@ if ($username && $email) {
   if ($result) {
     exit(json_encode([
       "status" => "success", "message" => "Profile updated successfully.",
-      "image" => isset($final_file) ? $final_file : false, "username" => $username
+      "image" => isset($uniqueDir) ? $uniqueDir : false, "username" => $username
     ]));
   } else {
     exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
@@ -124,7 +134,7 @@ if ($username && $email) {
   if ($result) {
     exit(json_encode([
       "status" => "success", "message" => "Profile updated successfully.",
-      "image" => isset($final_file) ? $final_file : false,
+      "image" => isset($uniqueDir) ? $uniqueDir : false,
       "email" => $email
     ]));
   } else {
