@@ -28,7 +28,7 @@ if ($error) {
 
 // Check image and store it for upload to server
 if (isset($file)) {
-  $target_dir = "avtars/";
+  $target_dir = "avatars/";
   $target_file = $target_dir . basename($_FILES["profile_pic"]["name"]);
   $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
   $final_file = $target_dir . $_SESSION['user'] . "." . $imageFileType;
