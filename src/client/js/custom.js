@@ -249,7 +249,6 @@ $(document).ready(function () {
                 '" class="rounded-circle border border-3 border-danger" height="40px" width="40px" alt="Profile Picture"><i class="bi bi-caret-down-fill"></i>'
             );
           }
-          console.log(data.username);
           if (data.username) {
             // Update username
             $("#username_text").html(data.username);
@@ -258,7 +257,6 @@ $(document).ready(function () {
             // Update email
             $("#email_text").html(data.email);
           }
-
           // Reset form after submission
           $("#edit_form")[0].reset();
           $("#editModal").modal("hide");

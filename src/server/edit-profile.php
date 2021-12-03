@@ -70,7 +70,6 @@ if (isset($file)) {
 // Check if username and email were receieved
 if ($username && $email) {
   $sqlcheck = "SELECT id FROM users WHERE username = '$username' OR email = '$email'";
-  mysqli_query($connection, $sqlcheck);
   $result = mysqli_query($connection, $sqlcheck);
   if (mysqli_num_rows($result) > 0) {
     mysqli_close($connection);
@@ -81,7 +80,10 @@ if ($username && $email) {
   mysqli_close($connection);
 
   if ($result) {
-    exit(json_encode(["status" => "success", "message" => "Profile updated successfully.", "image" => isset($final_file) ? $final_file : false]));
+    exit(json_encode([
+      "status" => "success", "message" => "Profile updated successfully.",
+      "image" => isset($final_file) ? $final_file : false, "username" => $username, "email" => $email
+    ]));
   } else {
     exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
   }
@@ -97,11 +99,10 @@ if ($username && $email) {
   $sql = "UPDATE users SET username = '$username' WHERE id = '$_SESSION[user]'";
   $result = mysqli_query($connection, $sql);
   mysqli_close($connection);
-
   if ($result) {
     exit(json_encode([
-      "status" => "success", "message" => "Profile updated successfully.", "image" => isset($final_file) ? $final_file : false,
-      "username" => $username
+      "status" => "success", "message" => "Profile updated successfully.",
+      "image" => isset($final_file) ? $final_file : false, "username" => $username
     ]));
   } else {
     exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
@@ -121,7 +122,8 @@ if ($username && $email) {
 
   if ($result) {
     exit(json_encode([
-      "status" => "success", "message" => "Profile updated successfully.", "image" => isset($final_file) ? $final_file : false,
+      "status" => "success", "message" => "Profile updated successfully.",
+      "image" => isset($final_file) ? $final_file : false,
       "email" => $email
     ]));
   } else {
