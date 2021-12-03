@@ -241,7 +241,7 @@ $(document).ready(function () {
             $("#profile-figure").html(
               '<img src="../server/' +
                 data.image +
-                '" class="rounded-circle border border-3 border-danger" height="100px" width="100px" alt="Profile Picture"><i class="bi bi-caret-down-fill"></i>'
+                '" class="rounded-circle border border-3 border-danger" height="100px" width="100px" alt="Profile Picture">'
             );
             $("#avatar-span").html(
               '<img src="../server/' +

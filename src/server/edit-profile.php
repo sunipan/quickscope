@@ -67,6 +67,13 @@ if (isset($file)) {
 
 // Check if username and email were receieved
 if ($username && $email) {
+  $sqlcheck = "SELECT id FROM users WHERE username = '$username' OR email = '$email'";
+  mysqli_query($connection, $sqlcheck);
+  $result = mysqli_query($connection, $sqlcheck);
+  if (mysqli_num_rows($result) > 0) {
+    mysqli_close($connection);
+    exit(json_encode(["status" => "error", "message" => "Username or email already exists."]));
+  }
   $sql = "UPDATE users SET username = '$username', email = '$email' WHERE id = '{$_SESSION['user']}'";
   $result = mysqli_query($connection, $sql);
   mysqli_close($connection);
@@ -78,6 +85,13 @@ if ($username && $email) {
   }
   // Check if username was received
 } else if ($username) {
+  $sqlcheck = "SELECT id FROM users WHERE username = '$username'";
+  mysqli_query($connection, $sqlcheck);
+  $result = mysqli_query($connection, $sqlcheck);
+  if (mysqli_num_rows($result) > 0) {
+    mysqli_close($connection);
+    exit(json_encode(["status" => "error", "message" => "Username already exists."]));
+  }
   $sql = "UPDATE users SET username = '$username' WHERE id = '$_SESSION[user]'";
   $result = mysqli_query($connection, $sql);
   mysqli_close($connection);
@@ -92,6 +106,13 @@ if ($username && $email) {
   }
   // Check if email was received
 } else if ($email) {
+  $sqlcheck = "SELECT id FROM users WHERE email = '$email'";
+  mysqli_query($connection, $sqlcheck);
+  $result = mysqli_query($connection, $sqlcheck);
+  if (mysqli_num_rows($result) > 0) {
+    mysqli_close($connection);
+    exit(json_encode(["status" => "error", "message" => "Email already exists."]));
+  }
   $sql = "UPDATE users SET email = '$email' WHERE id = '$_SESSION[user]'";
   $result = mysqli_query($connection, $sql);
   mysqli_close($connection);
