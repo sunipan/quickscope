@@ -190,6 +190,48 @@ $(document).ready(function () {
       }
     });
   }
+
+  if (window.location.href.includes("create-post.php")) {
+    $("#postButton").click(function () {
+      let forum = $("#forum").val();
+      let title = $("#postTitle").val();
+      let desc = $("#description").val();
+      if (forum && title && desc) {
+        $.post(
+          "../server/postProcess.php",
+          {
+            forum: forum,
+            title: title,
+            desc: desc,
+          },
+          function (data) {
+            console.log(data);
+            data = data && JSON.parse(data, status);
+            if (status === "success") {
+              if (data.status === "success") {
+                // Redirect to home page
+                $("#login_feedback").removeClass("alert-danger");
+                $("#login_feedback").addClass("alert-success");
+                $("#login_feedback").html(data.message);
+                $("#login_feedback").slideDown();
+              } else {
+                // Show error message
+                $("#login_feedback").html(data.message);
+                $("#login_feedback").slideDown();
+              }
+            } else {
+              // Show error message
+              $("#login_feedback").html(data.message);
+              $("#login_feedback").slideDown();
+            }
+          }
+        );
+      } else {
+        $("#login_feedback").html("Inputs cannot be left blank!");
+        $("#login_feedback").slideDown();
+      }
+    });
+  }
   // Validate login
   if (window.location.href.includes("login.php")) {
     $("#login-button").click(function (e) {
