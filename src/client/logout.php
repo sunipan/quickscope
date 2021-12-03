@@ -1,6 +1,4 @@
 <?php
 session_start();
-if ($_SESSION['user'] === true) {
-  session_destroy();
-}
+session_destroy();
 header("Location: home.php");

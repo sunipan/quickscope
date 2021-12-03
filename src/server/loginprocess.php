@@ -12,18 +12,15 @@ $password = $_POST['password'];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   if (isset($_POST['username']) && isset($_POST['password'])) {
-    $sql = "SELECT password FROM users WHERE username='$username'";
+    $sql = "SELECT id, avatarType, password FROM users WHERE username='$username'";
     $results = mysqli_query($connection, $sql);
     if ($row = mysqli_fetch_assoc($results)) {
       if (password_verify($password, $row['password'])) {
-
-        $sql2 = "SELECT id FROM users WHERE username='$username'";
-        $results2 = mysqli_query($connection, $sql2);
-        if ($row2 = mysqli_fetch_assoc($results2)) {
-
-          session_start();
-          $_SESSION['user'] = $row2['id'];
-          echo json_encode([
+        session_start();
+        // Set session variables
+        $_SESSION['user'] = $row['id'];
+        $_SESSION['avatarType'] = $row['avatarType'];
+        echo json_encode([
           'status' => 'success',
           ]);
           mysqli_free_result($results2);
