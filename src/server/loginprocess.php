@@ -22,10 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['avatarType'] = $row['avatarType'];
         echo json_encode([
           'status' => 'success',
-          ]);
-          mysqli_free_result($results2);
-        }
-        
+        ]);
       } else {
         echo json_encode([
           "status" => "input_error",
