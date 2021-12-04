@@ -13,6 +13,8 @@ if (!$result)
 else {
   // Query for posts inside queried forum
   $row = mysqli_fetch_assoc($result);
+  if (!$row)
+    header("Location: 404.php");
   $forumTitle = $row['name'];
   $query = "SELECT * FROM posts WHERE forum_id = '$id' ORDER BY created_at DESC";
   $result = mysqli_query($connection, $query);
@@ -33,7 +35,7 @@ require('components/header.php');
   <div class="row">
     <div class="col-lg-7 offset-lg-1">
       <div class="h2 text-white">
-        <?= $forumTitle ?>
+        Forum - <?= $forumTitle ?>
       </div>
       <?php
 

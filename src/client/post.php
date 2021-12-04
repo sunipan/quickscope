@@ -13,6 +13,10 @@ if (!$result)
 else {
   // Query for posts inside queried forum
   $post = mysqli_fetch_assoc($result);
+  if (!$post) {
+    header("Location: 404.php");
+    exit();
+  }
   $title = $post['title'] . " | Quickscope 🎯";
   $query = "SELECT username FROM users WHERE id = '{$post['user_id']}'";
   $result = mysqli_query($connection, $query);

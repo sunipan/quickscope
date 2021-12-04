@@ -203,6 +203,8 @@ $(document).ready(function () {
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
+              $("#forum-button").html("Creating Forum...");
+              $("#forum-button").attr("disabled", true);
               $("#forum_success").prepend(data.message);
               $("#goto-forum").attr("href", `forum.php?id=${data.id}`);
               $("#createForum")[0].reset();
@@ -258,6 +260,8 @@ $(document).ready(function () {
           console.log(data);
           if (status === "success") {
             if (data.status === "success") {
+              $("#postButton").html("Posting...");
+              $("#postButton").attr("disabled", true);
               // Give feedback
               $("#post_success").prepend(data.message);
               $("#goto-post").attr("href", `post.php?id=${data.id}`);

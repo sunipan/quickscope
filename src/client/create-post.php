@@ -13,7 +13,7 @@ mysqli_close($connection);
 
 <div class="container-fluid post-container">
   <div class="col-lg-10 m-auto">
-    <div class="h2 text-white pt-5 mt-5">Create Post</div>
+    <div class="h2 text-white text-center pt-5 mt-5">Create Post</div>
     <div id="post-card" class="card col-lg-12">
       <div class="card-body">
         <div class="col-lg-12 mb-1">
@@ -35,7 +35,7 @@ mysqli_close($connection);
             <label class="text-dark mt-3" for="edit_profile">Upload Image</label>
             <input type="file" class="form-control border border-1 border-secondary" id="postImage" accept="image/png, image/jpeg, image/jpg, image/gif">
           </div>
-          <button class="btn btn-dark h-50 align-self-end mt-2 mt-sm-0" id="postButton">Submit</button>
+          <button class="btn btn-dark h-50 align-self-end mt-2 mt-sm-0" id="postButton">Create</button>
         </div>
         <div class="offset-lg-10">
         </div>
