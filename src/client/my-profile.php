@@ -49,7 +49,7 @@ $forums = mysqli_fetch_all(mysqli_query($connection, $sql2), MYSQLI_ASSOC);
     </div>
     <hr class="my-2">
     <div class="row col-lg-10 offset-lg-1 py-2">
-      <div class="col-lg-8">
+      <div class="col-lg-8 px-0">
         <select class="form-select border border-1 border-secondary" name="forumList" id="forumList">
           <option value="" disabled selected>Select a Created Forum</option>
           <?php foreach ($forums as $forum) {
@@ -57,7 +57,7 @@ $forums = mysqli_fetch_all(mysqli_query($connection, $sql2), MYSQLI_ASSOC);
           } ?>
         </select>
       </div>
-      <div class="col-lg-4 mt-2 mt-lg-0 d-flex justify-content-end">
+      <div class="col-lg-4 mt-2 mt-lg-0 d-flex justify-content-end px-0">
         <button class="btn btn-dark" id="forumLink" disabled>Go to Forum</button>
       </div>
     </div>
