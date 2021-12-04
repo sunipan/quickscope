@@ -20,7 +20,7 @@ if (!$result) {
 if (mysqli_affected_rows($connection) == 1) {
   mysqli_close($connection);
   session_destroy();
-  exit(json_encode(['status' => 'success', 'message' => 'Password Updated, please wait while we redirect you to the login page']));
+  exit(json_encode(['status' => 'success', 'message' => 'Password Updated, please wait while we redirect you to the login page...']));
 } else {
   mysqli_close($connection);
   session_destroy();
