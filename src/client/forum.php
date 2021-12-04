@@ -13,7 +13,7 @@ if (!$result)
 else {
   // Query for posts inside queried forum
   $row = mysqli_fetch_assoc($result);
-  $title = $row['name'];
+  $forumTitle = $row['name'];
   $query = "SELECT * FROM posts WHERE forum_id = '$id' ORDER BY created_at DESC";
   $result = mysqli_query($connection, $query);
   $isArray = false;
@@ -24,7 +24,7 @@ else {
     mysqli_close($connection);
   }
 }
-$title = $title . " | Quickscope 🎯";
+$title = $forumTitle . " | Quickscope 🎯";
 require('components/head.php');
 require('components/header.php');
 ?>
@@ -33,33 +33,30 @@ require('components/header.php');
   <div class="row">
     <div class="col-lg-7 offset-lg-1">
       <div class="h2 text-white">
-        All Activity
+        <?= $forumTitle ?>
       </div>
       <?php
 
-      echo '<div class="card mb-2">
-      <div class="card-body"><h4>' . $title . '</h4></div>
-      </div>';
       if ($isArray) {
         foreach ($posts as $post) {
           $hasImage = isset($post['image']) ? '' : 'd-none';
-          echo '
-          <div class="card col-lg-12 mb-2">
-            <div class="card-body">
-              <h5 class="card-title">' . $post['title'] . '</h5>
-              <p class="card-text">' . $post['description'] . '</p>
-              <a href="post.php?id=' . $post['id'] . ' " class="btn btn-dark">See Post</a>
-            </div>
-            <div class="col-10 offset-1 ' . $hasImage . '">
-              <img src="' . $post['image'] . '" class="card-img-bottom" />
-            </div>
-            <div class="col-1 comment-stuff d-flex">
-              <a href="post.php?id=' . $post['id'] . '" class="comment-count fs-4 text-decoration-none text-dark d-flex">
-                <i class="bi bi-chat-square-dots"></i>
-                <span>&nbsp;0</span>
-              </a>
-            </div>
-          </div>';
+          echo '<div class="card col-lg-12 mb-2">
+                  <a class="card-body text-decoration-none text-dark">
+                    <h6 class="text-decoration-underline">Posted by - ' . $post['user_name'] . '</h6>
+                    <h5 class="card-title">' . $post['title'] . '</h5>
+                    <p class="card-text">' . $post['description'] . '</p>
+                  </a>
+                  <hr class="my-0">
+                  <div class="col-10 offset-1 ' . $hasImage . '">
+                    <img src="' . $post['image'] . '" class="card-img-bottom" />
+                  </div>
+                  <div class="col-1 comment-stuff d-flex">
+                    <a href="post.php?id=' . $post['id'] . '" class="comment-count fs-4 text-decoration-none text-dark d-flex">
+                      <i class="bi bi-chat-square-dots"></i>
+                      <span>&nbsp;0</span>
+                    </a>
+                  </div>
+                </div>';
         }
       } else {
         echo '<div class="card h2 text-center py-3">No posts yet, be the first!</div>';
@@ -73,7 +70,7 @@ require('components/header.php');
         <div class="card-body">
           <h5 class="card-title">Recent Posts</h5>
           <ul class="list-group list-group-flush recent-list">
-            <?php include('../server/get_recent_posts.php'); ?>
+            <?php include('../server/get_recent_forums.php'); ?>
         </div>
       </div>
       <!-- Create a forum card -->

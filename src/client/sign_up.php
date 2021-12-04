@@ -25,7 +25,6 @@ require('components/header.php');
       </div>
       <a href="login.php" class="gray_on_hover">Already have an account?</a>
       <button id="sign_up_submit" class="btn btn-dark w-100 mt-3">Sign Up</button>
-      <button id="test_submit" class="btn btn-dark w-100 mt-2">Test</button>
       <div class="alert alert-danger text-center mt-2" role="alert" id="sign_up_feedback"></div>
     </form>
   </div>

@@ -50,7 +50,7 @@ require('components/header.php');
               <div class="col-1 comment-stuff d-flex">
                 <a href="post.php?id=' . $post['id'] . '" class="comment-count fs-4 text-decoration-none text-dark d-flex">
                   <i class="bi bi-chat-square-dots"></i>
-                  <span>&nbsp;0</span>
+                  <span>&nbsp;' . $post['comment_count'] . ' </span>
                 </a>
               </div>
             </div>';
@@ -63,7 +63,7 @@ require('components/header.php');
         <div class="card-body">
           <h5 class="card-title">Recent Posts</h5>
           <ul class="list-group list-group-flush recent-list">
-            <?php include('../server/get_recent_posts.php'); ?>
+            <?php include('../server/get_recent_forums.php'); ?>
         </div>
       </div>
       <!-- Create a forum card -->

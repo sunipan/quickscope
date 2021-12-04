@@ -28,7 +28,7 @@ mysqli_close($connection);
           <input type="text" class="form-control border border-1 border-secondary" id="postTitle" placeholder="Title">
         </div>
         <div class="col-lg-12">
-          <textarea class="form-control border border-1 border-secondary" id="postDesc" placeholder="Description" rows="12"></textarea>
+          <textarea class="form-control border border-1 border-secondary" id="postDesc" placeholder="Description (Optional)" rows="12"></textarea>
         </div>
         <div class="form-group d-flex flex-column flex-sm-row justify-content-between">
           <div>
@@ -40,7 +40,9 @@ mysqli_close($connection);
         <div class="offset-lg-10">
         </div>
         <div class="alert alert-danger text-center mt-2 col-lg-4 offset-lg-4" role="alert" id="post_error"></div>
-        <div class="alert alert-success text-center mt-2 col-lg-4 offset-lg-4" role="alert" id="post_success"></div>
+        <div class="alert alert-success text-center mt-2 col-lg-4 offset-lg-4" role="alert" id="post_success">
+          <a href="#" class="btn btn-dark w-100 mt-3" id="goto-post">Visit your new Post!</a>
+        </div>
       </div>
     </div>
   </div>

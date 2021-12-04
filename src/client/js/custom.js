@@ -126,7 +126,6 @@ $(document).ready(function () {
             password: $("#create_pass").val(),
           },
           function (data, status) {
-            console.log(data, status);
             if (status === "success") {
               data = JSON.parse(data);
               if (data.status === "success") {
@@ -172,15 +171,31 @@ $(document).ready(function () {
       }
     });
   }
+
+  $("#forumTitle").keyup(function () {
+    if (/\s/g.test($(this).val())) {
+      $("#forumTitle").css("border", "2px solid red");
+      $("#forumTitle").css("box-shadow", "0 0 5px red");
+      $("#forum_error").html("Forum title cannot contain spaces");
+      $("#forum_error").slideDown();
+      setTimeout(() => {
+        $("#forum_error").slideUp();
+      }, 5000);
+    } else {
+      $("#forumTitle").css("border", "2px solid #2ecf0e");
+      $("#forumTitle").css("box-shadow", "0 0 5px #2ecf0e");
+    }
+  });
+
   $("#forum-button").click(function (e) {
     e.preventDefault();
-    let postTitle = $("#forumTitle").val();
+    let forumTitle = $("#forumTitle").val();
     let checked = $("#confirm-forum").is(":checked");
-    if (postTitle && checked) {
+    if (forumTitle && checked) {
       $.post(
         "../server/forumProcess.php",
         {
-          postTitle: postTitle,
+          forumTitle: forumTitle,
           checked: checked,
         },
         function (data, status) {
@@ -188,11 +203,10 @@ $(document).ready(function () {
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
-              $("#forum_success").html(data.message);
+              $("#forum_success").prepend(data.message);
+              $("#goto-forum").attr("href", `forum.php?id=${data.id}`);
+              $("#createForum")[0].reset();
               $("#forum_success").slideDown();
-              setTimeout(() => {
-                $("#forum_success").slideUp();
-              }, 5000);
             } else {
               // Show error message
               $("#forum_error").html(data.message);
@@ -226,7 +240,7 @@ $(document).ready(function () {
     let title = $("#postTitle").val();
     let desc = $("#postDesc").val();
     let post_img = $("#postImage")[0].files[0];
-    if (forum && title && desc) {
+    if (forum && title) {
       if (post_img) formData.append("post_img", post_img);
       formData.append("forum", forum);
       formData.append("title", title);
@@ -242,15 +256,12 @@ $(document).ready(function () {
         success: function (data, status) {
           console.log(data);
           data = JSON.parse(data);
-          console.log(data);
           if (status === "success") {
             if (data.status === "success") {
               // Give feedback
-              $("#post_success").html(data.message);
+              $("#post_success").prepend(data.message);
+              $("#goto-post").attr("href", `post.php?id=${data.id}`);
               $("#post_success").slideDown();
-              setTimeout(() => {
-                $("#post_success").slideUp();
-              }, 5000);
             } else {
               // Show error message
               $("#post_error").html(data.message);
@@ -365,7 +376,6 @@ $(document).ready(function () {
         cache: false,
         processData: false,
         success: function (data) {
-          console.log(data);
           data = JSON.parse(data);
           if (data.image) {
             // Update profile pic and navbar avatar
@@ -421,7 +431,6 @@ $(document).ready(function () {
           email: email,
         },
         function (data, status) {
-          console.log(data);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
@@ -544,7 +553,6 @@ $(document).ready(function () {
             token: urlParams.get("token"),
           },
           function (data, status) {
-            console.log(data);
             data = data && JSON.parse(data);
             if (status === "success") {
               if (data.status === "success") {
