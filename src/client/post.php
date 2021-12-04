@@ -36,7 +36,6 @@ require('components/header.php');
         All Activity
       </div>
       <?php
-
       echo '<div class="card mb-2">
       <div class="card-body"><h4>' . $title . '</h4></div>
       </div>';

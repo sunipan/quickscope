@@ -29,7 +29,7 @@ if ($error) {
 if (isset($file)) {
   $target_file = "avatars/" . basename($_FILES["profile_pic"]["name"]);
   $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-  $uniqueDir = "../server/avatars/" . time().uniqid(rand()) . "." . $imageFileType;
+  $uniqueDir = "../server/avatars/" . time() . uniqid(rand()) . "." . $imageFileType;
   // Check if image file is a actual image or fake image
   if (isset($_FILES['profile_pic'])) {
     $check = getimagesize($_FILES["profile_pic"]["tmp_name"]);
@@ -52,10 +52,11 @@ if (isset($file)) {
     // Get current profile picture directory
     $sql = "SELECT avatar FROM users WHERE id = '{$_SESSION['user']}'";
     $result = mysqli_query($connection, $sql);
-    if($result) {
+    if ($result) {
       // Delete the old profile picture
-      if($row = mysqli_fetch_assoc($result))
-        unlink($row['avatar']);
+      if ($row = mysqli_fetch_assoc($result))
+        if ($row['avatar'] != "../server/avatars/default_profile_pic.png")
+          unlink($row['avatar']);
     } else {
       mysqli_close($connection);
       exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
