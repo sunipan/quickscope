@@ -237,12 +237,11 @@ $(document).ready(function () {
   });
 
   $("#forumList").change(function () {
-
     let forumID = $("#forumList").val();
     let newhref = "forum.php?id=" + forumID;
     $("#forumLink").removeAttr("disabled");
     $("#forumLink").click(function () {
-      window.location.href=newhref;
+      window.location.href = newhref;
     });
   });
 

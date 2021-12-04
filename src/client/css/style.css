@@ -29,6 +29,10 @@
   padding-left: 0.75rem !important;
 }
 
+.mypost:hover {
+  text-decoration: underline;
+}
+
 #login,
 #sign_up,
 #profile_card,
