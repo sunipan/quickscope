@@ -38,4 +38,4 @@
   <title><?php echo $title; ?></title>
 </head>
 
-<body style="margin-top: 56px; background: #0b4f6c; height: 100%;">
+<body style="margin-top: 56px; background: #0b4f6c; height: 100%; padding-bottom: 200px;">

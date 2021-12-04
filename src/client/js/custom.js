@@ -126,7 +126,6 @@ $(document).ready(function () {
             password: $("#create_pass").val(),
           },
           function (data, status) {
-            console.log(data, status);
             if (status === "success") {
               data = JSON.parse(data);
               if (data.status === "success") {
@@ -172,15 +171,31 @@ $(document).ready(function () {
       }
     });
   }
+
+  $("#forumTitle").keyup(function () {
+    if (/\s/g.test($(this).val())) {
+      $("#forumTitle").css("border", "2px solid red");
+      $("#forumTitle").css("box-shadow", "0 0 5px red");
+      $("#forum_error").html("Forum title cannot contain spaces");
+      $("#forum_error").slideDown();
+      setTimeout(() => {
+        $("#forum_error").slideUp();
+      }, 5000);
+    } else {
+      $("#forumTitle").css("border", "2px solid #2ecf0e");
+      $("#forumTitle").css("box-shadow", "0 0 5px #2ecf0e");
+    }
+  });
+
   $("#forum-button").click(function (e) {
     e.preventDefault();
-    let postTitle = $("#forumTitle").val();
+    let forumTitle = $("#forumTitle").val();
     let checked = $("#confirm-forum").is(":checked");
-    if (postTitle && checked) {
+    if (forumTitle && checked) {
       $.post(
         "../server/forumProcess.php",
         {
-          postTitle: postTitle,
+          forumTitle: forumTitle,
           checked: checked,
         },
         function (data, status) {
@@ -188,11 +203,12 @@ $(document).ready(function () {
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
-              $("#forum_success").html(data.message);
+              $("#forum-button").html("Creating Forum...");
+              $("#forum-button").attr("disabled", true);
+              $("#forum_success").prepend(data.message);
+              $("#goto-forum").attr("href", `forum.php?id=${data.id}`);
+              $("#createForum")[0].reset();
               $("#forum_success").slideDown();
-              setTimeout(() => {
-                $("#forum_success").slideUp();
-              }, 5000);
             } else {
               // Show error message
               $("#forum_error").html(data.message);
@@ -236,7 +252,7 @@ $(document).ready(function () {
     let title = $("#postTitle").val();
     let desc = $("#postDesc").val();
     let post_img = $("#postImage")[0].files[0];
-    if (forum && title && desc) {
+    if (forum && title) {
       if (post_img) formData.append("post_img", post_img);
       formData.append("forum", forum);
       formData.append("title", title);
@@ -249,18 +265,17 @@ $(document).ready(function () {
         contentType: false,
         cache: false,
         processData: false,
+        dataType: "json",
         success: function (data, status) {
-          console.log(data);
-          data = JSON.parse(data);
           console.log(data);
           if (status === "success") {
             if (data.status === "success") {
+              $("#postButton").html("Posting...");
+              $("#postButton").attr("disabled", true);
               // Give feedback
-              $("#post_success").html(data.message);
+              $("#post_success").prepend(data.message);
+              $("#goto-post").attr("href", `post.php?id=${data.id}`);
               $("#post_success").slideDown();
-              setTimeout(() => {
-                $("#post_success").slideUp();
-              }, 5000);
             } else {
               // Show error message
               $("#post_error").html(data.message);
@@ -287,6 +302,7 @@ $(document).ready(function () {
       }, 5000);
     }
   });
+
   // Validate login
   if (window.location.href.includes("login.php")) {
     $("#login-button").click(function (e) {
@@ -374,9 +390,9 @@ $(document).ready(function () {
         contentType: false,
         cache: false,
         processData: false,
+        dataType: "json",
         success: function (data) {
           console.log(data);
-          data = JSON.parse(data);
           if (data.image) {
             // Update profile pic and navbar avatar
             $("#profile-figure").html(
@@ -554,7 +570,6 @@ $(document).ready(function () {
             token: urlParams.get("token"),
           },
           function (data, status) {
-            console.log(data);
             data = data && JSON.parse(data);
             if (status === "success") {
               if (data.status === "success") {
@@ -581,5 +596,126 @@ $(document).ready(function () {
         );
       }
     });
+  }
+
+  $("#post-comment").click(() => {
+    let comment = $("#comment").val();
+    let post_id = $("#post_id").val();
+    if (comment && post_id) {
+      $.post(
+        "../server/comment.php",
+        {
+          comment: comment,
+          post_id: post_id,
+        },
+        function (data, status) {
+          console.log(data);
+          data = data && JSON.parse(data);
+          if (status === "success") {
+            if (data.status === "success") {
+              $("#no-comments").hide();
+              $("#comment_success").html(data.message);
+              $("#comment_success").slideDown();
+              $("#comment-count").html(
+                parseInt($("#comment-count").html()) + 1
+              );
+              $("#comment-section").append(
+                `<li class="list-group-item">
+                <div class="row my-2">
+                  <div class="col-2">
+                    <img class="rounded-circle border border-2 border-danger" height=50 width=50 src="${data.avatar}" class="rounded-circle" />
+                  </div>
+                  <div class="col-10">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="col-12 d-flex flex-column">
+                              <div class="fw-light fst-italic">Commented by - <span class="fw-bold">${data.username}</span></div>
+                              <div id="comment-text" class="pe-4">${data.comment}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>`
+              );
+              setTimeout(() => {
+                $("#comment_success").slideUp();
+              }, 5000);
+              $("#comment").val("");
+              $("#comment").focus();
+            } else {
+              $("#comment_error").html(data.message);
+              $("#comment_error").slideDown();
+              setTimeout(() => {
+                $("#comment_error").slideUp();
+              }, 5000);
+            }
+          } else {
+            $("#comment_error").html(data.message);
+            $("#comment_error").slideDown();
+            setTimeout(() => {
+              $("#comment_error").slideUp();
+            }, 5000);
+          }
+        }
+      );
+    } else {
+      $("#comment_error").html("Please enter a comment");
+      $("#comment_error").slideDown();
+      setTimeout(() => {
+        $("#comment_error").slideUp();
+      }, 5000);
+    }
+  });
+
+  if (window.location.href.includes("post.php")) {
+    // Run a get request to fetch data every 5 seconds
+    setInterval(() => {
+      numComments = document.querySelectorAll("#comment-text").length;
+      $.get(
+        "../server/get-comments.php",
+        {
+          post_id: $("#post_id").val(),
+          comments: numComments,
+        },
+        function (data, status) {
+          console.log(data);
+          data = data && JSON.parse(data);
+          if (status === "success") {
+            if (data.status === "success") {
+              $("#no-comments").hide();
+              data.comments.forEach((comment) => {
+                $("#comment-section").append(
+                  `<li class="list-group-item">
+                <div class="row my-2">
+                  <div class="col-2">
+                    <img class="rounded-circle border border-2 border-danger" height=50 width=50 src="${comment.user_avatar}" class="rounded-circle" />
+                  </div>
+                  <div class="col-10">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="col-12 d-flex flex-column">
+                              <div class="fw-light fst-italic">Commented by - <span class="fw-bold">${comment.user_name}</span></div>
+                              <div id="comment-text" class="pe-4">${comment.comment}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>`
+                );
+                $("#comment-count").html(
+                  parseInt($("#comment-count").html()) + 1
+                );
+              });
+            }
+          }
+        }
+      );
+    }, 5000);
   }
 });

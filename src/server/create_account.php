@@ -24,10 +24,9 @@ if ($type != 'POST') {
       )));
     } else {
 
-      $sql = "SELECT * FROM users WHERE username LIKE '" . $username . "' OR email LIKE '" . $email . "';";
+      $sql = "SELECT id FROM users WHERE username = '$username' OR email = '$email';";
       $results = mysqli_query($connection, $sql);
-      $row = mysqli_fetch_assoc($results);
-      if ($row) {
+      if (mysqli_num_rows($results) > 0) {
         // Send error message back to AJAX in JSON format
         echo json_encode(array(
           'status' => 'exists_error',

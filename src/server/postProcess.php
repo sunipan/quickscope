@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
       if (!$check)
         exit(json_encode(['status' => 'image_error', 'message' => "File is not an image."]));
       // Check file size
-      if ($_FILES["post_img"]["size"] > 500000) {
+      if ($_FILES["post_img"]["size"] > 1000000) {
         exit(json_encode(['status' => 'file_size_error', 'message' => 'Sorry, your file is too large.']));
       }
       // Allow certain file formats
@@ -47,20 +47,42 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         'message' => 'Something went wrong, please try again',
       ]));
     } else {
-      // Insert post into database
-      $sql = "INSERT INTO posts (forum_id, user_id, title, description, image) VALUES ('$forum','{$_SESSION['user']}','$title','$desc', '$uniqueDir');";
-      $result = mysqli_query($connection, $sql);
+      $result = mysqli_query($connection, "SELECT username FROM users WHERE id = {$_SESSION['user']}");
       if (!$result) {
-        // Send error message back to AJAX in JSON format
-        echo json_encode(array(
-          'status' => 'insert_error',
+        exit(json_encode([
+          'status' => 'db_error',
           'message' => 'Something went wrong, please try again',
-        ));
+        ]));
       } else {
-        echo json_encode(array(
-          'status' => 'success',
-          'message' => 'Post created successfully!',
-        ));
+        $row = mysqli_fetch_assoc($result);
+      }
+      // Insert post into database
+      $sql = "INSERT INTO posts (forum_id, user_id, user_name, title, description, image) VALUES ('$forum','{$_SESSION['user']}','{$row['username']}', '$title','$desc', '$uniqueDir');";
+      $result = mysqli_query($connection, $sql);
+
+      if (!$result) {
+        exit(json_encode([
+          'status' => 'db_error',
+          'message' => 'Something went wrong, please try again',
+        ]));
+      } else {
+        $postId = mysqli_insert_id($connection);
+
+        $result = mysqli_query($connection, "UPDATE forums SET post_count = post_count + 1 WHERE id = $forum;");
+        if (!$result) {
+          // Send error message back to AJAX in JSON format
+          echo json_encode(array(
+            'status' => 'update_error',
+            'message' => 'Something went wrong, please try again',
+          ));
+        } else {
+          // Send success message back to AJAX in JSON format
+          echo json_encode(array(
+            'status' => 'success',
+            'message' => 'Post successfully created',
+            'id' => $postId,
+          ));
+        }
       }
       mysqli_close($connection);
     }

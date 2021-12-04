@@ -18,7 +18,7 @@ require('components/header.php');
         <a href="sign_up.php" class="gray_on_hover">Don't have an account? Sign up!</a>
       </div>
       <button id="login-button" class="btn btn-dark w-100 mt-3">Login</button>
-      <div class="alert alert-danger text-center mt-2" role="alert" id="login_feedback"></div>
+      <div class="alert alert-danger text-center mt-2 d-hide" role="alert" id="login_feedback"></div>
     </form>
   </div>
 </div>

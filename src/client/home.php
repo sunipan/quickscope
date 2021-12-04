@@ -21,23 +21,26 @@ empty($posts) ? $isArray = false : $isArray = true;
       if ($isArray) {
         foreach ($posts as $post) {
           $hasImage = isset($post['image']) ? '' : 'd-none';
-          echo '
-          <div class="card col-lg-12 mb-2">
-            <div class="card-body">
-              <h5 class="card-title">' . $post['title'] . '</h5>
-              <p class="card-text">' . $post['description'] . '</p>
-              <a href="post.php?id=' . $post['id'] . ' " class="btn btn-dark">See Post</a>
-            </div>
-            <div class="col-10 offset-1 ' . $hasImage . '">
-              <img src="' . $post['image'] . '" class="card-img-bottom" />
-            </div>
-            <div class="col-1 comment-stuff d-flex">
-              <a href="post.php?id=' . $post['id'] . '" class="comment-count fs-4 text-decoration-none text-dark d-flex">
-                <i class="bi bi-chat-square-dots"></i>
-                <span>&nbsp;0</span>
-              </a>
-            </div>
-          </div>';
+          echo '<div class="card col-lg-12 mb-2">
+                  <a href="post.php?id=' . $post['id'] . '" class="card-body text-decoration-none text-dark">
+                    <h6 class="text-decoration-underline">Posted by - ' . $post['user_name'] . '</h6>
+                    <h5 class="card-title">' . $post['title'] . '</h5>
+                    <p class="card-text">' . $post['description'] . '</p>
+                  </a>
+                  <hr class="my-0">
+                  <a href="post.php?id=' . $post['id'] . '" class="col-10 offset-1 ' . $hasImage . '">
+                    <img src="' . $post['image'] . '" class="card-img-bottom" />
+                  </a>
+                  <div class="col-3 comment-stuff d-flex">
+                    <a href="post.php?id=' . $post['id'] . '" class="comment-count text-decoration-none text-dark d-flex flex-row">
+                      <i class="bi bi-chat-square-dots"></i>
+                      <span>&nbsp;Comments ' . $post['comment_count'] . '</span>
+                    </a>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted">Posted at - ' . $post['created_at'] . '</small>
+                  </div>
+                </div>';
         }
       } else {
         echo '<div class="card h2 text-center py-3">No posts yet, be the first!</div>';
@@ -51,7 +54,7 @@ empty($posts) ? $isArray = false : $isArray = true;
         <div class="card-body">
           <h5 class="card-title">Recent Posts</h5>
           <ul class="list-group list-group-flush recent-list">
-            <?php include('../server/get_recent_posts.php'); ?>
+            <?php include('../server/get_recent_forums.php'); ?>
         </div>
       </div>
       <!-- Create a forum card -->
