@@ -40,7 +40,7 @@ empty($posts) ? $isArray = false : $isArray = true;
           </div>';
         }
       } else {
-        echo '<div class="card h2 text-center mt-5 py-3">No posts yet, be the first!</div>';
+        echo '<div class="card h2 text-center py-3">No posts yet, be the first!</div>';
       }
       ?>
     </div>
