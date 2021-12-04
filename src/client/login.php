@@ -10,7 +10,8 @@ require('components/header.php');
       <input type="username" id="login_username" placeholder="Username" class="form-control mb-2">
       <input type="password" id="login_password" placeholder="Password" class="form-control mb-2">
       <div class="d-flex justify-content-between">
-        <a href="sign_up.php" class="gray_on_hover">Don't have an accout? Sign up now!</a>
+        <a href="forgot.php" class="gray_on_hover">Forgot Password?</a>
+        <a href="sign_up.php" class="gray_on_hover">Don't have an account? Sign up!</a>
       </div>
       <button id="login-button" class="btn btn-dark w-100 mt-3">Login</button>
       <div class="alert alert-danger text-center mt-2" role="alert" id="login_feedback"></div>

@@ -111,7 +111,12 @@ $(document).ready(function () {
 
     $("#sign_up_submit").click(function (e) {
       e.preventDefault();
-      if (valid_email && valid_username && valid_password) {
+      if (
+        valid_email &&
+        valid_username &&
+        valid_password &&
+        valid_confirm_password
+      ) {
         // Use $.get(...) for a GET request
         $.post(
           "../server/create_account.php",
@@ -133,6 +138,9 @@ $(document).ready(function () {
                 $("#sign_up_feedback").removeClass("alert-danger");
                 $("#sign_up_feedback").addClass("alert-success");
                 $("#sign_up_feedback").slideDown();
+                setTimeout(() => {
+                  $("#sign_up_feedback").slideUp();
+                }, 5000);
               } else {
                 // Show error message dynamic error message
                 if (data.status === "exists_error")
@@ -142,6 +150,9 @@ $(document).ready(function () {
                   );
                 else $("#sign_up_feedback").html(data.message);
                 $("#sign_up_feedback").slideDown();
+                setTimeout(() => {
+                  $("#sign_up_feedback").slideUp();
+                }, 5000);
               }
             } else {
               // Show error message
@@ -149,6 +160,9 @@ $(document).ready(function () {
                 "Something went wrong, please try again."
               );
               $("#sign_up_feedback").slideDown();
+              setTimeout(() => {
+                $("#sign_up_feedback").slideUp();
+              }, 5000);
             }
           }
         );
@@ -190,21 +204,33 @@ $(document).ready(function () {
               $("#login_feedback").addClass("alert-success");
               $("#login_feedback").html(data.message);
               $("#login_feedback").slideDown();
+              setTimeout(() => {
+                $("#login_feedback").slideUp();
+              }, 5000);
             } else {
               // Show error message
               $("#login_feedback").html(data.message);
               $("#login_feedback").slideDown();
+              setTimeout(() => {
+                $("#login_feedback").slideUp();
+              }, 5000);
             }
           } else {
             // Show error message
             $("#login_feedback").html(data.message);
             $("#login_feedback").slideDown();
+            setTimeout(() => {
+              $("#login_feedback").slideUp();
+            }, 5000);
           }
         }
       );
     } else {
       $("#login_feedback").html("Inputs cannot be left blank!");
       $("#login_feedback").slideDown();
+      setTimeout(() => {
+        $("#login_feedback").slideUp();
+      }, 5000);
     }
   });
 
@@ -235,21 +261,33 @@ $(document).ready(function () {
               // Give feedback
               $("#post_success").html(data.message);
               $("#post_success").slideDown();
+              setTimeout(() => {
+                $("#post_success").slideUp();
+              }, 5000);
             } else {
               // Show error message
               $("#post_error").html(data.message);
               $("#post_error").slideDown();
+              setTimeout(() => {
+                $("#post_error").slideUp();
+              }, 5000);
             }
           } else {
             // Show error message
             $("#post_error").html(data.message);
             $("#post_error").slideDown();
+            setTimeout(() => {
+              $("#post_error").slideUp();
+            }, 5000);
           }
         },
       });
     } else {
       $("#post_error").html("Inputs cannot be left blank!");
       $("#post_error").slideDown();
+      setTimeout(() => {
+        $("#post_error").slideUp();
+      }, 5000);
     }
   });
   // Validate login
@@ -276,11 +314,17 @@ $(document).ready(function () {
                 // Show error message
                 $("#login_feedback").html(data.message);
                 $("#login_feedback").slideDown();
+                setTimeout(() => {
+                  $("#login_feedback").slideUp();
+                }, 5000);
               }
             } else {
               // Show error message
               $("#login_feedback").html(data.message);
               $("#login_feedback").slideDown();
+              setTimeout(() => {
+                $("#login_feedback").slideUp();
+              }, 5000);
             }
           }
         );
@@ -379,4 +423,166 @@ $(document).ready(function () {
       });
     }
   });
+
+  $("#forgot-button").click(function (e) {
+    e.preventDefault();
+    let email = $("#forgot_email").val();
+    if (email) {
+      $.post(
+        "../server/forgotProcess.php",
+        {
+          email: email,
+        },
+        function (data, status) {
+          console.log(data);
+          data = data && JSON.parse(data);
+          if (status === "success") {
+            if (data.status === "success") {
+              $("#forgot_success").html(data.message);
+              $("#forgot_success").slideDown();
+              setTimeout(() => {
+                $("#forgot_success").slideUp();
+              }, 5000);
+            } else {
+              $("#forgot_error").html(data.message);
+              $("#forgot_error").slideDown();
+              setTimeout(() => {
+                $("#forgot_error").slideUp();
+              }, 5000);
+            }
+          } else {
+            $("#forgot_error").html(data.message);
+            $("#forgot_error").slideDown();
+            setTimeout(() => {
+              $("#forgot_error").slideUp();
+            }, 5000);
+          }
+        }
+      );
+    }
+  });
+  if (window.location.href.includes("reset.php?")) {
+    valid_password = false;
+    valid_confirm_password = false;
+    // Validate password
+    $("#new_pass").focus(function (e) {
+      $("#pass_validation").slideDown();
+    });
+
+    $("#new_pass").keyup(function () {
+      let lowerCaseLetters = /[a-z]/g;
+      let upperCaseLetters = /[A-Z]/g;
+      let numbers = /[0-9]/g;
+      let valid_length = 8;
+
+      if ($(this).val().match(lowerCaseLetters)) {
+        $("#letter").removeClass("text-red");
+        $("#letter").addClass("text-green");
+      } else {
+        $("#letter").removeClass("text-green");
+        $("#letter").addClass("text-red");
+      }
+
+      if ($(this).val().match(upperCaseLetters)) {
+        $("#capital").removeClass("text-red");
+        $("#capital").addClass("text-green");
+      } else {
+        $("#capital").removeClass("text-green");
+        $("#capital").addClass("text-red");
+      }
+
+      if ($(this).val().match(numbers)) {
+        $("#number").removeClass("text-red");
+        $("#number").addClass("text-green");
+      } else {
+        $("#number").removeClass("text-green");
+        $("#number").addClass("text-red");
+      }
+
+      if ($(this).val().length >= valid_length) {
+        $("#length").removeClass("text-red");
+        $("#length").addClass("text-green");
+      } else {
+        $("#length").removeClass("text-green");
+        $("#length").addClass("text-red");
+      }
+
+      if (
+        $(this).val().length >= valid_length &&
+        $(this).val().match(numbers) &&
+        $(this).val().match(upperCaseLetters) &&
+        $(this).val().match(lowerCaseLetters)
+      ) {
+        $("#new_pass").css("border", "2px solid #2ecf0e");
+        $("#new_pass").css("box-shadow", "0 0 5px #2ecf0e");
+        valid_password = true;
+      } else {
+        $("#new_pass").css("border", "2px solid red");
+        $("#new_pass").css("box-shadow", "0 0 5px red");
+        $("#pass_validation").slideDown();
+        valid_password = false;
+      }
+    });
+
+    // Validate confirm password
+    $("#new_pass_confirm").keyup(function () {
+      if ($(this).val() == $("#new_pass").val()) {
+        $("#new_pass_confirm").css("border", "2px solid #2ecf0e");
+        $("#new_pass_confirm").css("box-shadow", "0 0 5px #2ecf0e");
+        $("#new_pass_confirm").removeClass("text-red");
+        $("#new_pass_confirm").addClass("text-green");
+        $("#pass_validation").slideUp();
+        valid_confirm_password = true;
+      } else {
+        $("#new_pass_confirm").removeClass("text-green");
+        $("#new_pass_confirm").addClass("text-red");
+        $("#new_pass_confirm").css("border", "2px solid red");
+        $("#new_pass_confirm").css("box-shadow", "0 0 5px red");
+        $("#pass_validation").slideDown();
+        valid_confirm_password = false;
+      }
+    });
+
+    // Submit form
+    $("#reset-button").click(function (e) {
+      e.preventDefault();
+      if (valid_password && valid_confirm_password) {
+        const urlParams = new URLSearchParams(window.location.search);
+        $.post(
+          "../server/new-pass.php",
+          {
+            password: $("#new_pass").val(),
+            password_confirm: $("#new_pass_confirm").val(),
+            email: urlParams.get("email"),
+            token: urlParams.get("token"),
+          },
+          function (data, status) {
+            console.log(data);
+            data = data && JSON.parse(data);
+            if (status === "success") {
+              if (data.status === "success") {
+                $("#reset_success").html(data.message);
+                $("#reset_success").slideDown();
+                setTimeout(() => {
+                  window.location.href = "login.php";
+                }, 2500);
+              } else {
+                $("#reset_error").html(data.message);
+                $("#reset_error").slideDown();
+                setTimeout(() => {
+                  $("#reset_error").slideUp();
+                }, 5000);
+              }
+            } else {
+              $("#reset_error").html(data.message);
+              $("#reset_error").slideDown();
+              setTimeout(() => {
+                $("#reset_error").slideUp();
+              }, 5000);
+            }
+          }
+        );
+      }
+    });
+  }
 });

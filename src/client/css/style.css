@@ -31,7 +31,8 @@
 
 #login,
 #sign_up,
-#profile_card {
+#profile_card,
+#forgot {
   margin-top: 10em;
 }
 
@@ -63,7 +64,11 @@
 #sign_up_feedback,
 #login_feedback,
 #post_error,
-#post_success {
+#post_success,
+#forgot_error,
+#forgot_success,
+#reset_error,
+#reset_success {
   display: none;
 }
 

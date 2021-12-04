@@ -11,7 +11,7 @@ require('components/header.php');
       <input type="text" id="create_username" placeholder="Username" class="form-control mb-2" required>
       <input class="form-control mb-2" placeholder="Password" type="password" id="create_pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
       <input class="form-control mb-2" placeholder="Confirm Password" type="password" id="create_pass_confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-      <div id="pass_validation" class="flex-column rounded-2 bg-white ps-3">
+      <div id="pass_validation" class="flex-column rounded-2 bg-white ps-3 py-2">
         <strong>Password must contain the following:</strong>
         <p id="letter" class="text-red mb-1">A <b>lowercase</b> letter</p>
         <p id="capital" class="text-red mb-1">A <b>capital (uppercase)</b> letter</p>
