@@ -82,10 +82,9 @@ require('components/header.php');
                         <div class="row">
                           <div class="col-12">
                             <div class="row">
-                              <div class="comment-id d-none">' . $comment['id'] . '</div>
                               <div class="col-12 d-flex flex-column">
                                   <div class="fw-light fst-italic">Commented by - <span class="fw-bold">' . $comment['user_name'] . '</span></div>
-                                  <div class="pe-4">' . $comment['comment'] . '</div>
+                                  <div id="comment-text" class="pe-4">' . $comment['comment'] . '</div>
                               </div>
                             </div>
                           </div>
