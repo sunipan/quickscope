@@ -580,4 +580,8 @@ $(document).ready(function () {
       }
     });
   }
+
+  $("#post-comment").click(() => {
+    let comment = $("#comment").val();
+  });
 });

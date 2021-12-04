@@ -39,11 +39,11 @@ if (mysqli_num_rows($result) == 1) {
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPDebug = 0;
     $mail->SMTPAuth = true;
-    $mail->Username = 'quickscope.resets@gmail.com';
-    $mail->Password = 'Buyer123';
+    $mail->Username = getenv('FROM_EMAIL');
+    $mail->Password = getenv('FROM_PASSWORD');
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
-    $mail->setFrom('quickscope.resets@gmail.com', 'Quickscope');
+    $mail->setFrom(getenv('FROM_EMAIL'), 'Quickscope');
     $mail->addAddress($_POST['email']);
     $mail->isHTML(true);
     $mail->Subject = 'Reset Quickscope Password';

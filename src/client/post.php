@@ -57,12 +57,12 @@ require('components/header.php');
                 <div class="col-12 form-group">
                   <label for="comment">Comment</label>
                   <textarea class="form-control" id="comment" placeholder="Share your thoughts!" rows="3"></textarea>
-                  <button class="btn btn-primary col-12 mt-2">Post Comment</button>
+                  <button id="post-comment" class="btn btn-primary col-12 mt-2">Post Comment</button>
                 </div>
                 <small class="text-muted">Posted at - ' . $post['created_at'] . '</small>
               </div>
-              <div id="comment-section" class="col-12">
-                <ul class="px-2" style="list-style-type: none">
+              <div class="col-12">
+                <ul id="comment-section" class="px-2" style="list-style-type: none">
                   <li>
                     <div class="row my-2">
                       <div class="col-2">
