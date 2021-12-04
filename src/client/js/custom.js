@@ -171,20 +171,7 @@ $(document).ready(function () {
         alert("Please fill all the fields correctly");
       }
     });
-    // Play around with AJAX
-    $("#test_submit").click(function () {
-      $.post(
-        "../server/test.php",
-        {
-          email: $("#create_email").val(),
-        },
-        function (data) {
-          console.log(data);
-        }
-      );
-    });
   }
-
   $("#forumButton").click(function () {
     let postTitle = $("#postTitle").val();
     let checked = $("#confirm").is(":checked");
