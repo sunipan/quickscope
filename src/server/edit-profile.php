@@ -39,7 +39,7 @@ if (isset($file)) {
     }
   }
   // Check file size/type
-  if ($_FILES["profile_pic"]["size"] > 100000) {
+  if ($_FILES["profile_pic"]["size"] > 1000000) {
     mysqli_close($connection);
     exit(json_encode(["status" => 'error', "message" => 'Sorry, your file is too large.']));
   }

@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
       if (!$check)
         exit(json_encode(['status' => 'image_error', 'message' => "File is not an image."]));
       // Check file size
-      if ($_FILES["post_img"]["size"] > 500000) {
+      if ($_FILES["post_img"]["size"] > 1000000) {
         exit(json_encode(['status' => 'file_size_error', 'message' => 'Sorry, your file is too large.']));
       }
       // Allow certain file formats

@@ -47,11 +47,50 @@ require('components/header.php');
               <div class="col-10 offset-1 ' . $hasImage . '">
                 <img src="' . $post['image'] . '" class="card-img-bottom" />
               </div>
-              <div class="col-1 comment-stuff d-flex">
-                <a href="post.php?id=' . $post['id'] . '" class="comment-count fs-4 text-decoration-none text-dark d-flex">
+              <div class="col-3 comment-stuff d-flex">
+                <a href="post.php?id=' . $post['id'] . '" class="comment-count text-decoration-none text-dark d-flex flex-row">
                   <i class="bi bi-chat-square-dots"></i>
-                  <span>&nbsp;' . $post['comment_count'] . ' </span>
+                  <span>&nbsp;Comments ' . $post['comment_count'] . '</span>
                 </a>
+              </div>
+              <div class="card-footer">
+                <div class="col-12 form-group">
+                  <label for="comment">Comment</label>
+                  <textarea class="form-control" id="comment" placeholder="Share your thoughts!" rows="3"></textarea>
+                  <button class="btn btn-primary col-12 mt-2">Post Comment</button>
+                </div>
+                <small class="text-muted">Posted at - ' . $post['created_at'] . '</small>
+              </div>
+              <div id="comment-section" class="col-12">
+                <ul class="px-2" style="list-style-type: none">
+                  <li>
+                    <div class="row my-2">
+                      <div class="col-2">
+                        <img src="https://via.placeholder.com/50" class="rounded-circle" />
+                      </div>
+                      <div class="col-10">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="row">
+                              <div class="col-12 d-flex flex-column">
+                                  <div class="fw-bold">Commented by - ' . $username . '</div>
+                                  <div class="pe-4">Lorem Ipsum is simply dummy text of the printing
+                                  and typesetting industry. Lorem Ipsum has been the industrys standard
+                                  dummy text ever since the 1500s, when an unknown printer took a galley
+                                  of type and scrambled it to make a type specimen book. It has survived
+                                  not only five centuries, but also the leap into electronic typesetting,
+                                  remaining essentially unchanged. It was popularised in the 1960s with
+                                  the release of Letraset sheets containing Lorem Ipsum passages, and
+                                  more recently with desktop publishing software like Aldus PageMaker
+                                  including versions of Lorem Ipsum.</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>';
       ?>
