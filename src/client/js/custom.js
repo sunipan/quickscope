@@ -240,6 +240,7 @@ $(document).ready(function () {
         cache: false,
         processData: false,
         success: function (data, status) {
+          console.log(data);
           data = JSON.parse(data);
           console.log(data);
           if (status === "success") {
