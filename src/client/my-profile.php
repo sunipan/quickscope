@@ -11,12 +11,16 @@ if ($error)
 
 $sql = "SELECT username, email, avatar FROM users WHERE id = {$_SESSION['user']}";
 $result = mysqli_query($connection, $sql);
-mysqli_close($connection);
+
 if ($row = mysqli_fetch_assoc($result)) {
   $username = $row['username'];
   $email = $row['email'];
   $avatar = $row['avatar'];
-} ?>
+} 
+  $sql2 = "SELECT * FROM forums WHERE user_id =".$_SESSION['user'].";";
+  $forums = mysqli_fetch_all(mysqli_query($connection, $sql2), MYSQLI_ASSOC);
+  //mysqli_close($connection);
+?>
 
 <div class="container-fluid post-container">
   <div class="card col-lg-8 m-auto px-5 pb-3">
@@ -44,23 +48,42 @@ if ($row = mysqli_fetch_assoc($result)) {
       </div>
     </div>
     <hr class="my-2">
-    <div class="row">
-      <div class="col-lg-4 offset-lg-1 mt-2">
-        <h4 class='text-black'>My Posts</h4>
+    <div class="row p-2" >
+      <div class="col-lg-8">
+        <select class="form-select border border-1 border-secondary" name="forumList" id="forumList">
+          <option value="" disabled selected>Select a forum created by me</option>
+          <?php foreach ($forums as $forum) {
+              echo '<option value="' . $forum['id'] . '">' . $forum['name'] . '</option>';
+            } ?>
+        </select>
+      </div>
+      <div class="col-lg-3">
+          <button class="btn btn-dark align-self-end mt-2 mt-sm-0" id="forumLink" disabled>Go to Forum</button>
       </div>
     </div>
-    <?php for ($i = 0; $i < 5; $i++) {
+      <div class="col-lg-4 offset-lg-1 mt-2">
+        <h4 class='text-black'>My Posts</h4>
+        <hr class="my-2">
+      </div>
+    
+    <?php 
+    
+    $sql3 = "SELECT * FROM posts WHERE user_id =".$_SESSION['user'].";";
+    $posts = mysqli_fetch_all(mysqli_query($connection, $sql3), MYSQLI_ASSOC);
+    mysqli_close($connection);
+    
+    foreach ($posts as $post) {
+      $link ="post.php?id=".$post["id"];
       echo '<div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <h6 class="text-dark d-flex my-2">Post Title lorem ipsum dolor sit amet, consectetur adipisicing elit. lorem ips
-          <a class="text-dark ms-2" href="post-detail.php">
-            <h5><i class="bi bi-pencil-square"></i></h5>
-          </a>
-        </h6>
+        <h6 class="text-dark d-flex my-2">'.$post["title"].'</h6>
+        <a class="text-dark ms-2" href="post.php?id='.$post["id"].'">
+          <button class="btn btn-dark align-self-end mt-2 mt-sm-0">Go to Post</button>
+        </a>
+        <hr class="my-2">
       </div>
     </div>';
-      if ($i < 4)
-        echo '<hr class="mt-0 mb-2">';
+   
     } ?>
 
 
