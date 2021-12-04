@@ -56,7 +56,7 @@ else{
                   ));
               }
             }
-            mysqli_free_result($results);
+            //mysqli_free_result($results);
         }
 }
     

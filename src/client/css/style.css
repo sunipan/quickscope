@@ -68,7 +68,9 @@
 #forgot_error,
 #forgot_success,
 #reset_error,
-#reset_success {
+#reset_success,
+#forum_success,
+#forum_error {
   display: none;
 }
 

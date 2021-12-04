@@ -172,9 +172,10 @@ $(document).ready(function () {
       }
     });
   }
-  $("#forumButton").click(function () {
-    let postTitle = $("#postTitle").val();
-    let checked = $("#confirm").is(":checked");
+  $("#forum-button").click(function (e) {
+    e.preventDefault();
+    let postTitle = $("#forumTitle").val();
+    let checked = $("#confirm-forum").is(":checked");
     if (postTitle && checked) {
       $.post(
         "../server/forumProcess.php",
@@ -183,40 +184,38 @@ $(document).ready(function () {
           checked: checked,
         },
         function (data, status) {
+          console.log(data);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
-              // Redirect to home page
-              $("#login_feedback").removeClass("alert-danger");
-              $("#login_feedback").addClass("alert-success");
-              $("#login_feedback").html(data.message);
-              $("#login_feedback").slideDown();
+              $("#forum_success").html(data.message);
+              $("#forum_success").slideDown();
               setTimeout(() => {
-                $("#login_feedback").slideUp();
+                $("#forum_success").slideUp();
               }, 5000);
             } else {
               // Show error message
-              $("#login_feedback").html(data.message);
-              $("#login_feedback").slideDown();
+              $("#forum_error").html(data.message);
+              $("#forum_error").slideDown();
               setTimeout(() => {
-                $("#login_feedback").slideUp();
+                $("#forum_error").slideUp();
               }, 5000);
             }
           } else {
             // Show error message
-            $("#login_feedback").html(data.message);
-            $("#login_feedback").slideDown();
+            $("#forum_error").html(data.message);
+            $("#forum_error").slideDown();
             setTimeout(() => {
-              $("#login_feedback").slideUp();
+              $("#forum_error").slideUp();
             }, 5000);
           }
         }
       );
     } else {
-      $("#login_feedback").html("Inputs cannot be left blank!");
-      $("#login_feedback").slideDown();
+      $("#forum_error").html("Inputs cannot be left blank!");
+      $("#forum_error").slideDown();
       setTimeout(() => {
-        $("#login_feedback").slideUp();
+        $("#forum_error").slideUp();
       }, 5000);
     }
   });
