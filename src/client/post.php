@@ -6,25 +6,25 @@ if ($error)
   die($error);
 $id = $_GET['id'];
 // Query for forum
-$query = "SELECT * FROM forums WHERE id = '$id'";
+$query = "SELECT * FROM posts WHERE id = '$id'";
 $result = mysqli_query($connection, $query);
 if (!$result)
   die("Error: " . mysqli_error($connection));
 else {
   // Query for posts inside queried forum
-  $row = mysqli_fetch_assoc($result);
-  $title = $row['name'];
-  $query = "SELECT * FROM posts WHERE forum_id = '$id' ORDER BY created_at DESC";
+  $post = mysqli_fetch_assoc($result);
+  $title = $row['name'] . " | Quickscope 🎯";
+  $query = "SELECT username FROM users WHERE id = '{$row['user_id']}'";
   $result = mysqli_query($connection, $query);
-  $isArray = false;
-  if (mysqli_num_rows($result) != 0) {
-    $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    $isArray = true;
+  if (!$result)
+    die("Error: " . mysqli_error($connection));
+  else {
+    $row = mysqli_fetch_assoc($result);
+    $username = $row['username'];
     mysqli_free_result($result);
     mysqli_close($connection);
   }
 }
-$title = $title . " | Quickscope 🎯";
 require('components/head.php');
 require('components/header.php');
 ?>
@@ -36,14 +36,9 @@ require('components/header.php');
         All Activity
       </div>
       <?php
-      echo '<div class="card mb-2">
-      <div class="card-body"><h4>' . $title . '</h4></div>
-      </div>';
-      if ($isArray) {
-        foreach ($posts as $post) {
-          $hasImage = isset($post['image']) ? '' : 'd-none';
-          echo '
-          <div class="card col-lg-12 mb-2">
+      if ($post)
+        $hasImage = isset($post['image']) ? '' : 'd-none';
+      echo '<div class="card col-lg-12 mb-2">
             <div class="card-body">
               <h5 class="card-title">' . $post['title'] . '</h5>
               <p class="card-text">' . $post['description'] . '</p>
@@ -59,10 +54,6 @@ require('components/header.php');
               </a>
             </div>
           </div>';
-        }
-      } else {
-        echo '<div class="card h2 text-center mt-5 py-3">No posts yet, be the first!</div>';
-      }
       ?>
     </div>
     <!-- Recent posts card -->

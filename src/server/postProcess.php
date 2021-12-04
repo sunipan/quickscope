@@ -7,11 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     'message' => 'Invalid request method'
   ));
 } else {
+  $uniqueDir = '';
   if (isset($_POST['forum']) && isset($_POST['title']) && isset($_POST['desc'])) {
     if (isset($_FILES['post_img'])) {
       $target_file = "posts/" . basename($_FILES["post_img"]["name"]);
       $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-      $uniqueDir = "../server/posts/" . time().uniqid(rand()) . "." . $imageFileType;
+      $uniqueDir = "../server/posts/" . time() . uniqid(rand()) . "." . $imageFileType;
       // Check if image file is a actual image or fake image
       $check = getimagesize($_FILES["post_img"]["tmp_name"]);
       if (!$check)
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
       if (!move_uploaded_file($_FILES["post_img"]["tmp_name"], $uniqueDir)) {
         exit(json_encode(['status' => 'upload_error', 'message' => 'Error uploading file']));
       }
-    } 
+    }
     // Connect to database
     include "db_connect.php";
 
