@@ -1,4 +1,8 @@
-<?php $title = "Login | Quickscope 🎯";
+<?php
+if (isset($_SESSION['user'])) {
+  header("Location: home.php");
+}
+$title = "Login | Quickscope 🎯";
 require('components/head.php');
 require('components/header.php');
 ?>

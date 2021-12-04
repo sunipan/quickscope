@@ -42,8 +42,8 @@ require('components/header.php');
             <div class="card-body">
               <h5 class="card-title">' . $post['title'] . '</h5>
               <p class="card-text">' . $post['description'] . '</p>
-              <a href="post.php?id=' . $post['id'] . ' " class="btn btn-dark">See Post</a>
             </div>
+            <hr class="m-0">
             <div class="col-10 offset-1 ' . $hasImage . '">
               <img src="' . $post['image'] . '" class="card-img-bottom" />
             </div>
@@ -72,7 +72,7 @@ require('components/header.php');
           <h5 class="card-title">Join or Create Your Own Community!</h5>
           <div class="post-forum-buttons d-flex flex-column">
             <a href="create-post.php" class="btn btn-primary mb-3">Create a Post</a>
-            <a href="#" class="btn btn-danger">Create a Forum</a>
+            <a href="create-forum.php" class="btn btn-danger">Create a Forum</a>
           </div>
         </div>
       </div>

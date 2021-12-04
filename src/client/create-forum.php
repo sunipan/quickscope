@@ -1,8 +1,8 @@
-<?php $title = "Create Forum | Quickscope 🎯";
-// Send user to login if not logged in
-if (!isset($_SESSION['user'])) {
-  header('Location: login.php');
+<?php
+if (isset($_SESSION['user'])) {
+  header("Location: login.php");
 }
+$title = "Create Forum | Quickscope 🎯";
 require('components/head.php');
 require('components/header.php');
 ?>
