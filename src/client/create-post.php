@@ -39,8 +39,8 @@ mysqli_close($connection);
         </div>
         <div class="offset-lg-10">
         </div>
-        <div class="alert alert-danger text-center mt-2 col-lg-4 offset-lg-4" role="alert" id="post_error"></div>
-        <div class="alert alert-success text-center mt-2 col-lg-4 offset-lg-4" role="alert" id="post_success">
+        <div class="alert alert-danger text-center mt-2 col-lg-4 offset-lg-4 d-hide" role="alert" id="post_error"></div>
+        <div class="alert alert-success text-center mt-2 col-lg-4 offset-lg-4 d-hide" role="alert" id="post_success">
           <a href="#" class="btn btn-dark w-100 mt-3" id="goto-post">Visit your new Post!</a>
         </div>
       </div>

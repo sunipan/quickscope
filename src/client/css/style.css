@@ -60,17 +60,7 @@
   color: Gray !important;
 }
 
-#pass_validation,
-#sign_up_feedback,
-#login_feedback,
-#post_error,
-#post_success,
-#forgot_error,
-#forgot_success,
-#reset_error,
-#reset_success,
-#forum_success,
-#forum_error {
+.d-hide {
   display: none;
 }
 

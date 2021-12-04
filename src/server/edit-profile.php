@@ -68,6 +68,12 @@ if (isset($file)) {
       exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
     } else {
       $_SESSION['avatar'] = $uniqueDir;
+      // Update comments avatar if it is changed
+      $result = mysqli_query($connection, "UPDATE comments SET user_avatar = '$uniqueDir' WHERE user_id = '{$_SESSION['user']}'");
+      if (!$result) {
+        mysqli_close($connection);
+        exit(json_encode(["status" => "error", "message" => "Something went wrong, please try again."]));
+      }
       if (!$username && !$email) {
         mysqli_close($connection);
         exit(json_encode(["status" => "success", "message" => "Profile updated successfully.", "image" => isset($uniqueDir) ? $uniqueDir : false]));

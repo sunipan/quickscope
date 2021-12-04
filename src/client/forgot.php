@@ -12,8 +12,8 @@ require('components/header.php');
         <input type="email" class="form-control" id="forgot_email" placeholder="Email">
       </div>
       <button id="forgot-button" class="btn btn-dark w-100 mt-2">Send Verification Email</button>
-      <div class="alert alert-danger text-center mt-2" role="alert" id="forgot_error"></div>
-      <div class="alert alert-success text-center mt-2" role="alert" id="forgot_success"></div>
+      <div class="alert alert-danger text-center mt-2 d-hide" role="alert" id="forgot_error"></div>
+      <div class="alert alert-success text-center mt-2 d-hide" role="alert" id="forgot_success"></div>
     </form>
   </div>
 </div>

@@ -19,8 +19,8 @@ require('components/header.php');
         </label>
       </div>
       <button id="forum-button" class="btn btn-dark w-100 mt-3">Create</button>
-      <div class="alert alert-danger text-center mt-2" role="alert" id="forum_error"></div>
-      <div class="alert alert-success text-center mt-2" role="alert" id="forum_success">
+      <div class="alert alert-danger text-center mt-2 d-hide" role="alert" id="forum_error"></div>
+      <div class="alert alert-success text-center mt-2 d-hide" role="alert" id="forum_success">
         <a href="#" class="btn btn-dark w-100 mt-3" id="goto-forum">Visit your new Forum!</a>
       </div>
     </form>
