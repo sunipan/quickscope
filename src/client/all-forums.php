@@ -1,68 +1,38 @@
-<?php
-if ($_SERVER['REQUEST_METHOD'] != "GET")
-  header("Location: home.php");
-require("../server/db_connect.php");
-if ($error)
-  die($error);
-$id = $_GET['id'];
-// Query for forum
-$query = "SELECT * FROM forums WHERE id = '$id'";
-$result = mysqli_query($connection, $query);
-if (!$result)
-  die("Error: " . mysqli_error($connection));
-else {
-  // Query for posts inside queried forum
-  $row = mysqli_fetch_assoc($result);
-  $forumTitle = $row['name'];
-  $query = "SELECT * FROM posts WHERE forum_id = '$id' ORDER BY created_at DESC";
-  $result = mysqli_query($connection, $query);
-  $isArray = false;
-  if (mysqli_num_rows($result) != 0) {
-    $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    $isArray = true;
-    mysqli_free_result($result);
-    mysqli_close($connection);
-  }
-}
-$title = $forumTitle . " | Quickscope 🎯";
+<?php $title = "All Forums | Quickscope 🎯";
 require('components/head.php');
 require('components/header.php');
+require('../server/db_connect.php');
+if ($error)
+  die($error);
+$forums = mysqli_fetch_all(mysqli_query($connection, "SELECT * FROM forums ORDER BY created_at DESC"), MYSQLI_ASSOC);
+mysqli_close($connection);
+empty($forums) ? $isArray = false : $isArray = true;
 ?>
 
 <div class="container-fluid post-container">
   <div class="row">
+    <!-- This column shows most recent post from each forum -->
     <div class="col-lg-7 offset-lg-1">
       <div class="h2 text-white">
-        <?= $forumTitle ?>
+        All Forums
       </div>
+      <!-- Create fake posts by changing $i threshold -->
       <?php
-
       if ($isArray) {
-        foreach ($posts as $post) {
-          $hasImage = isset($post['image']) ? '' : 'd-none';
+        foreach ($forums as $forum) {
           echo '<div class="card col-lg-12 mb-2">
-                  <a href="post.php?id=' . $post['id'] . '" class="card-body text-decoration-none text-dark">
-                    <h6 class="text-decoration-underline">Posted by - ' . $post['user_name'] . '</h6>
-                    <h5 class="card-title">' . $post['title'] . '</h5>
-                    <p class="card-text">' . $post['description'] . '</p>
+                  <a href="forum.php?id=' . $forum['id'] . '" class="card-body text-decoration-none text-dark">
+                    <h5 class="card-title">' . $forum['name'] . '</h5>
+                    <button  class="btn btn-dark">Go to Forum</button>
                   </a>
                   <hr class="my-0">
-                  <a href="post.php?id=' . $post['id'] . '" class="col-10 offset-1 ' . $hasImage . '">
-                    <img src="' . $post['image'] . '" class="card-img-bottom" />
-                  </a>
-                  <div class="col-3 comment-stuff d-flex">
-                    <a href="post.php?id=' . $post['id'] . '" class="comment-count text-decoration-none text-dark d-flex flex-row">
-                      <i class="bi bi-chat-square-dots"></i>
-                      <span>&nbsp;Comments ' . $post['comment_count'] . '</span>
-                    </a>
-                  </div>
                   <div class="card-footer">
-                    <small class="text-muted">Posted at - ' . $post['created_at'] . '</small>
+                    <small class="text-muted">Posted at - ' . $forum['created_at'] . '</small>
                   </div>
                 </div>';
         }
       } else {
-        echo '<div class="card h2 text-center py-3">No posts yet, be the first!</div>';
+        echo '<div class="card h2 text-center py-3">No forums yet, be the first!</div>';
       }
       ?>
     </div>
@@ -119,5 +89,4 @@ require('components/header.php');
   </div>
 </div>
 
-<?php $scripts = ['js/custom.js'];
-require('components/scripts.php'); ?>
+<?php require('components/scripts.php'); ?>

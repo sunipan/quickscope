@@ -1,51 +1,45 @@
-<?php $title = "Home | Quickscope 🎯";
+<?php $title = "Terms of Service | Quickscope 🎯";
 require('components/head.php');
 require('components/header.php');
-require('../server/db_connect.php');
-if ($error)
-  die($error);
-$posts = mysqli_fetch_all(mysqli_query($connection, "SELECT * FROM posts ORDER BY created_at DESC"), MYSQLI_ASSOC);
-mysqli_close($connection);
-empty($posts) ? $isArray = false : $isArray = true;
 ?>
 
 <div class="container-fluid post-container">
   <div class="row">
-    <!-- This column shows most recent post from each forum -->
+    
     <div class="col-lg-7 offset-lg-1">
       <div class="h2 text-white">
-        All Activity
+        Terms of Service
       </div>
-      <!-- Create fake posts by changing $i threshold -->
-      <?php
-      if ($isArray) {
-        foreach ($posts as $post) {
-          $hasImage = isset($post['image']) ? '' : 'd-none';
-          echo '<div class="card col-lg-12 mb-2">
-                  <a href="post.php?id=' . $post['id'] . '" class="card-body text-decoration-none text-dark">
-                    <h6 class="text-decoration-underline">Posted by - ' . $post['user_name'] . '</h6>
-                    <h5 class="card-title">' . $post['title'] . '</h5>
-                    <p class="card-text">' . $post['description'] . '</p>
-                  </a>
-                  <hr class="my-0">
-                  <a href="post.php?id=' . $post['id'] . '" class="col-10 offset-1 ' . $hasImage . '">
-                    <img src="' . $post['image'] . '" class="card-img-bottom" />
-                  </a>
-                  <div class="col-3 comment-stuff d-flex">
-                    <a href="post.php?id=' . $post['id'] . '" class="comment-count text-decoration-none text-dark d-flex flex-row">
-                      <i class="bi bi-chat-square-dots"></i>
-                      <span>&nbsp;Comments ' . $post['comment_count'] . '</span>
-                    </a>
-                  </div>
-                  <div class="card-footer">
-                    <small class="text-muted">Posted at - ' . $post['created_at'] . '</small>
-                  </div>
-                </div>';
-        }
-      } else {
-        echo '<div class="card h2 text-center py-3">No posts yet, be the first!</div>';
-      }
-      ?>
+      <div class="card col-lg-12 mb-2">
+        <div class="h3 card-body">
+            Effetive December 8, 2021. Last revised December 4, 2021.
+        </div>
+        <div class="h4 card-body mb-3">
+            1. Privacy
+        </div>
+        <div class="h5 card-body mb-3">
+            Our <a href="privacy-policy.php">Privacy Policy</a> states the information we use, and the security measures taken.
+        </div>
+        <div class="h4 card-body mb-3">
+            2. Your Content
+        </div>
+        <div class="h5 card-body mb-3">
+            When you create new content, you grant Quickscope the ability to access, edit, modify, and delete your content.
+        </div>
+        <div class="h4 card-body mb-3">
+            3. Things You Cannot Do
+        </div>
+        <div class="h5 card-body mb-3">
+            When using Quickscope, you may not do any of the following:
+            <ul>
+                <li class="m-2">Upload any malicious content with intent to harm the software</li>
+                <li class="m-2">Gain unauthorized access to administrator's profile, or any other user profile</li>
+                <li class="m-2">Upload any illegal content</li>
+            </ul>
+        </div>
+
+    </div>
+      
     </div>
     <!-- Recent posts card -->
     <div class="col-3 d-none d-lg-block">
@@ -99,5 +93,3 @@ empty($posts) ? $isArray = false : $isArray = true;
     </div>
   </div>
 </div>
-
-<?php require('components/scripts.php'); ?>

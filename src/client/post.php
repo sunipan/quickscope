@@ -129,23 +129,23 @@ require('components/header.php');
         <div class="card-body">
           <h5 class="card-title">Quickscope Information</h5>
           <div class="row">
-            <a class="col text-decoration-none text-secondary" href="about.html">
+            <a class="col text-decoration-none text-secondary" href="about-us.php">
               <p class="font-title-12 mt-3">About Us</p>
             </a>
-            <a class="col text-decoration-none text-secondary" href="privacy.html">
+            <a class="col text-decoration-none text-secondary" href="privacy-policy.php">
               <p class="font-title-12 mt-3">Privacy Policy</p>
             </a>
           </div>
           <div class="row">
-            <a class="col text-decoration-none text-secondary" href="terms.html">
+            <a class="col text-decoration-none text-secondary" href="terms.php">
               <p class="font-title-12">Terms</p>
             </a>
-            <a class="col text-decoration-none text-secondary" href="contact.html">
+            <a class="col text-decoration-none text-secondary" href="contact-us.php">
               <p class="font-title-12">Contact</p>
             </a>
           </div>
           <div class="row">
-            <a class="col text-decoration-none text-secondary" href="allforums.php">
+            <a class="col text-decoration-none text-secondary" href="all-forums.php">
               <p class="font-title-12">All Forums</p>
             </a>
             <a class="col text-decoration-none text-secondary" href="https://www.youtube.com/watch?v=Udvwea3YzZA">
