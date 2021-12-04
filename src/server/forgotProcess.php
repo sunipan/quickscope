@@ -22,14 +22,14 @@ if ($error) {
 $query = "SELECT email FROM users WHERE email = '{$_POST['email']}'";
 $result = mysqli_query($connection, $query);
 if (!$result) {
-  exit(json_encode(['status' => 'db_error', 'message' => 'Something went wrong, please try again.']));
+  exit(json_encode(['status' => 'db_error1', 'message' => 'Something went wrong, please try again.']));
 }
 if (mysqli_num_rows($result) == 1) {
   $token = bin2hex(random_bytes(32));
   $query = "UPDATE users SET reset_token = '{$token}' WHERE email = '{$_POST['email']}'";
   $result = mysqli_query($connection, $query);
   if (!$result) {
-    exit(json_encode(['status' => 'db_error', 'message' => 'Something went wrong, please try again.']));
+    exit(json_encode(['status' => 'db_error2', 'message' => 'Something went wrong, please try again.']));
   }
 
   $mail = new PHPMailer();
