@@ -5,7 +5,6 @@ if (!isset($_SESSION['user'])) {
 }
 require('components/head.php');
 require('components/header.php');
-
 ?>
 
 <div class="mt-5">

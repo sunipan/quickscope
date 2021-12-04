@@ -13,8 +13,8 @@ if (!$result)
 else {
   // Query for posts inside queried forum
   $post = mysqli_fetch_assoc($result);
-  $title = $row['name'] . " | Quickscope 🎯";
-  $query = "SELECT username FROM users WHERE id = '{$row['user_id']}'";
+  $title = $post['title'] . " | Quickscope 🎯";
+  $query = "SELECT username FROM users WHERE id = '{$post['user_id']}'";
   $result = mysqli_query($connection, $query);
   if (!$result)
     die("Error: " . mysqli_error($connection));
@@ -33,7 +33,7 @@ require('components/header.php');
   <div class="row">
     <div class="col-lg-7 offset-lg-1">
       <div class="h2 text-white">
-        All Activity
+        <?php echo $username . '\'s post'; ?>
       </div>
       <?php
       if ($post)
