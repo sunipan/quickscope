@@ -431,6 +431,7 @@ $(document).ready(function () {
           email: email,
         },
         function (data, status) {
+          console.log(data);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
@@ -583,5 +584,7 @@ $(document).ready(function () {
 
   $("#post-comment").click(() => {
     let comment = $("#comment").val();
+    if (comment) {
+    }
   });
 });

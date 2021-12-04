@@ -6,7 +6,6 @@ if (!$_POST['comment'])
 
 $comment = $_POST['comment'];
 
-
 require('db_connect.php');
 if ($error)
   exit(json_encode(['status' => 'db_error', 'message' => 'Something went wrong, please try again']));

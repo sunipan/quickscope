@@ -5,6 +5,9 @@ use PHPMailer\PHPMailer\Exception;
 
 require('../../vendor/autoload.php');
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
   exit(json_encode(['status' => 'error', 'message' => 'Wrong request method']));
 if (isset($_POST['email'])) {
@@ -28,17 +31,18 @@ if (!$result) {
 }
 
 $mail = new PHPMailer();
+
 try {
   $mail->CharSet = 'UTF-8';
   $mail->isSMTP();
   $mail->Host = 'smtp.gmail.com';
   $mail->SMTPDebug = 0;
   $mail->SMTPAuth = true;
-  $mail->Username = getenv('FROM_EMAIL');
-  $mail->Password = getenv('FROM_PASSWORD');
+  $mail->Username = $_ENV['FROM_EMAIL'];
+  $mail->Password = $_ENV['FROM_PASSWORD'];
   $mail->SMTPSecure = 'tls';
   $mail->Port = 587;
-  $mail->setFrom(getenv('FROM_EMAIL'), 'Quickscope');
+  $mail->setFrom($_ENV['FROM_EMAIL'], 'Quickscope');
   $mail->addAddress($_POST['email']);
   $mail->isHTML(true);
   $mail->Subject = 'Reset Quickscope Password';
