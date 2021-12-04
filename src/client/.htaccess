@@ -141,7 +141,7 @@
 
 # https://httpd.apache.org/docs/current/mod/core.html#errordocument
 
-ErrorDocument 404 /404.html
+ErrorDocument 404 http://localhost/the-project-360-quickscope/src/client/404.php
 
 # ----------------------------------------------------------------------
 
