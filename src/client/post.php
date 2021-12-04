@@ -39,21 +39,21 @@ require('components/header.php');
       if ($post)
         $hasImage = isset($post['image']) ? '' : 'd-none';
       echo '<div class="card col-lg-12 mb-2">
-            <div class="card-body">
-              <h5 class="card-title">' . $post['title'] . '</h5>
-              <p class="card-text">' . $post['description'] . '</p>
-            </div>
-            <hr class="m-0">
-            <div class="col-10 offset-1 ' . $hasImage . '">
-              <img src="' . $post['image'] . '" class="card-img-bottom" />
-            </div>
-            <div class="col-1 comment-stuff d-flex">
-              <a href="post.php?id=' . $post['id'] . '" class="comment-count fs-4 text-decoration-none text-dark d-flex">
-                <i class="bi bi-chat-square-dots"></i>
-                <span>&nbsp;0</span>
-              </a>
-            </div>
-          </div>';
+              <div class="card-body">
+                <h5 class="card-title">' . $post['title'] . '</h5>
+                <p class="card-text">' . $post['description'] . '</p>
+              </div>
+              <hr class="m-0">
+              <div class="col-10 offset-1 ' . $hasImage . '">
+                <img src="' . $post['image'] . '" class="card-img-bottom" />
+              </div>
+              <div class="col-1 comment-stuff d-flex">
+                <a href="post.php?id=' . $post['id'] . '" class="comment-count fs-4 text-decoration-none text-dark d-flex">
+                  <i class="bi bi-chat-square-dots"></i>
+                  <span>&nbsp;0</span>
+                </a>
+              </div>
+            </div>';
       ?>
     </div>
     <!-- Recent posts card -->
