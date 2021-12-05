@@ -14,13 +14,17 @@ if ($error) {
 }
 $user = mysqli_query(
   $connection,
-  "SELECT id, username, email FROM users WHERE username = '$search' OR email = '$search'"
+  "SELECT id, username, email FROM users WHERE isAdmin = 0 AND (username = '$search' OR email = '$search')"
 );
 if (!$user) {
   mysqli_close($connection);
   exit(json_encode(['status' => 'error1', 'message' => 'Database query error']));
 }
 $user = mysqli_fetch_assoc($user);
+if (!$user) {
+  mysqli_close($connection);
+  exit(json_encode(['status' => 'error2', 'message' => 'User not found']));
+}
 if (empty($user)) {
   // Get user account from post instead
   $userByPost = mysqli_query(
@@ -34,13 +38,17 @@ if (empty($user)) {
   $userByPost = mysqli_fetch_assoc($userByPost);
   $user = mysqli_query(
     $connection,
-    "SELECT id, username, email FROM users WHERE id = '{$userByPost['user_id']}'"
+    "SELECT id, username, email FROM users WHERE isAdmin = 0 AND id = '{$userByPost['user_id']}'"
   );
   if (!$user) {
     mysqli_close($connection);
     exit(json_encode(['status' => 'error3', 'message' => 'Database query error']));
   }
   $user = mysqli_fetch_assoc($user);
+  if (empty($user)) {
+    mysqli_close($connection);
+    exit(json_encode(['status' => 'error4', 'message' => 'User not found']));
+  }
   // Get user's posts
   $posts = mysqli_query(
     $connection,
