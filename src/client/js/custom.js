@@ -795,8 +795,7 @@ $(document).ready(function () {
                                 <button id="editComment-${comment.id}" class="btn btn-secondary mb-2" data-bs-toggle="modal" data-bs-target="#editCommentModal-${comment.id}">Edit Comment</button>
                                 <button id="deleteComment-${comment.id}" class="btn btn-danger">Delete Comment</button>
                               </div>
-                            </li>
-                            <div
+                              <div
                               class="modal fade"
                               id="editCommentModal-${comment.id}"
                               tabindex="-1"
@@ -849,7 +848,8 @@ $(document).ready(function () {
                                   </div>
                                 </div>
                               </div>
-                            </div>`);
+                            </div>
+                            </li>`);
                 });
               } else {
                 $("#search_results").html(
@@ -897,7 +897,7 @@ $(document).ready(function () {
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
-              $("#commentText-" + id).html("");
+              $("#comment-" + id).remove();
             }
           }
         }
