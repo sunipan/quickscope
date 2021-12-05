@@ -9,13 +9,14 @@ require('../server/db_connect.php');
 if ($error)
   exit($error);
 
-$sql = "SELECT username, email, avatar FROM users WHERE id = {$_SESSION['user']}";
+$sql = "SELECT username, email, avatar, isAdmin FROM users WHERE id = {$_SESSION['user']}";
 $result = mysqli_query($connection, $sql);
 
 if ($row = mysqli_fetch_assoc($result)) {
   $username = $row['username'];
   $email = $row['email'];
   $avatar = $row['avatar'];
+  $isAdmin = $row['isAdmin'];
 }
 $sql2 = "SELECT * FROM forums WHERE user_id =" . $_SESSION['user'] . ";";
 $forums = mysqli_fetch_all(mysqli_query($connection, $sql2), MYSQLI_ASSOC);
@@ -47,7 +48,17 @@ $forums = mysqli_fetch_all(mysqli_query($connection, $sql2), MYSQLI_ASSOC);
         <h5 id="email_text" class="profile_email"><?php echo $email ?></h5>
       </div>
     </div>
-    <hr class="my-2">
+    <?php if ($isAdmin == 1) {
+      echo '<hr class="my-2">
+            <div id="admin-panel" class="col-lg-10 offset-lg-1">
+              <h4 class="text-black">Admin Panel <small class="fs-6 fw-light fst-italic"> - Search by Username, Email, orpost</small></h4>
+              <input type="text" id="search_user" class="form-control" placeholder="Search for a user">
+              <ul id="search_results" class="list-group my-2">
+              </ul>
+            </div>';
+    }
+    ?>
+    <hr>
     <div class="row col-lg-10 offset-lg-1 py-2">
       <div class="col-lg-8 px-0">
         <select class="form-select border border-1 border-secondary" name="forumList" id="forumList">

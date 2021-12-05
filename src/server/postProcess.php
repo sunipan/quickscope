@@ -1,5 +1,11 @@
 <?php
 session_start();
+if (!$_SESSION['isAble']) {
+  exit(json_encode([
+    'status' => 'error',
+    'message' => 'Your account is disabled.'
+  ]));
+}
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
   // Send error message back to AJAX in JSON format
   echo json_encode(array(
