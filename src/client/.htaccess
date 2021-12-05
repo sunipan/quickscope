@@ -1,4 +1,4 @@
-ErrorDocument 404 http://cosc360.ok.ubc.ca/onebread/public_html/the-project-360-quickscope/src/client/404.php
+ErrorDocument 404 http://cosc360.ok.ubc.ca/onebread/the-project-360-quickscope/src/client/404.php
 <IfModule mod_autoindex.c>
 DirectoryIndex home.php
 </IfModule>
