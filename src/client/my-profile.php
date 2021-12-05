@@ -9,14 +9,19 @@ require('../server/db_connect.php');
 if ($error)
   exit($error);
 
-$sql = "SELECT username, email, avatar FROM users WHERE id = {$_SESSION['user']}";
+$sql = "SELECT username, email, avatar, isAdmin FROM users WHERE id = {$_SESSION['user']}";
 $result = mysqli_query($connection, $sql);
-mysqli_close($connection);
+
 if ($row = mysqli_fetch_assoc($result)) {
   $username = $row['username'];
   $email = $row['email'];
   $avatar = $row['avatar'];
-} ?>
+  $isAdmin = $row['isAdmin'];
+}
+$sql2 = "SELECT * FROM forums WHERE user_id =" . $_SESSION['user'] . ";";
+$forums = mysqli_fetch_all(mysqli_query($connection, $sql2), MYSQLI_ASSOC);
+//mysqli_close($connection);
+?>
 
 <div class="container-fluid post-container">
   <div class="card col-lg-8 m-auto px-5 pb-3">
@@ -43,26 +48,46 @@ if ($row = mysqli_fetch_assoc($result)) {
         <h5 id="email_text" class="profile_email"><?php echo $email ?></h5>
       </div>
     </div>
-    <hr class="my-2">
-    <div class="row">
-      <div class="col-lg-4 offset-lg-1 mt-2">
-        <h4 class='text-black'>My Posts</h4>
+    <?php if ($isAdmin == 1) {
+      echo '<hr class="my-2">
+            <div id="admin-panel" class="col-lg-10 offset-lg-1">
+              <h4 class="text-black">Admin Panel <small class="fs-6 fw-light fst-italic"> - Search by Username, Email, orpost</small></h4>
+              <input type="text" id="search_user" class="form-control" placeholder="Search for a user">
+              <ul id="search_results" class="list-group my-2">
+              </ul>
+            </div>';
+    }
+    ?>
+    <hr>
+    <div class="row col-lg-10 offset-lg-1 py-2">
+      <div class="col-lg-8 px-0">
+        <select class="form-select border border-1 border-secondary" name="forumList" id="forumList">
+          <option value="" disabled selected>Select a Created Forum</option>
+          <?php foreach ($forums as $forum) {
+            echo '<option value="' . $forum['id'] . '">' . $forum['name'] . '</option>';
+          } ?>
+        </select>
+      </div>
+      <div class="col-lg-4 mt-2 mt-lg-0 d-flex justify-content-end px-0">
+        <button class="btn btn-dark" id="forumLink" disabled>Go to Forum</button>
       </div>
     </div>
-    <?php for ($i = 0; $i < 5; $i++) {
-      echo '<div class="row">
-      <div class="col-lg-10 offset-lg-1">
-        <h6 class="text-dark d-flex my-2">Post Title lorem ipsum dolor sit amet, consectetur adipisicing elit. lorem ips
-          <a class="text-dark ms-2" href="post-detail.php">
-            <h5><i class="bi bi-pencil-square"></i></h5>
-          </a>
-        </h6>
-      </div>
-    </div>';
-      if ($i < 4)
-        echo '<hr class="mt-0 mb-2">';
-    } ?>
+    <div class="col-lg-10 offset-lg-1 mt-2">
+      <h4 class='text-black'>My Posts <small class="fs-6 fw-light fst-italic"> - Click to visit your posts</small></h4>
+    </div>
+    <ul class="ps-0 list-group col-lg-10 offset-lg-1">
+      <?php
 
+      $sql3 = "SELECT * FROM posts WHERE user_id =" . $_SESSION['user'] . ";";
+      $posts = mysqli_fetch_all(mysqli_query($connection, $sql3), MYSQLI_ASSOC);
+      mysqli_close($connection);
+
+      foreach ($posts as $post) {
+        echo '<a href="post.php?id=' . $post["id"] . '" class="row d-flex justify-content-start list-group-item">
+                <h6 class="col-9 text-dark my-2">' . $post["title"] . '</h6>
+              </a>';
+      } ?>
+    </ul>
 
     <!-- Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">

@@ -1,5 +1,11 @@
 <?php
 session_start();
+if (!$_SESSION['isAble']) {
+  exit(json_encode([
+    'status' => 'error',
+    'message' => 'Your account is disabled.'
+  ]));
+}
 if ($_SERVER['REQUEST_METHOD'] != 'POST')
   exit(json_encode(['status' => 'request_error', 'message' => 'Request method must be POST!']));
 if (!$_POST['comment'] && !$_POST['post_id'])

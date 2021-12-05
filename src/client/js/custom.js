@@ -236,6 +236,15 @@ $(document).ready(function () {
     }
   });
 
+  $("#forumList").change(function () {
+    let forumID = $("#forumList").val();
+    let newhref = "forum.php?id=" + forumID;
+    $("#forumLink").removeAttr("disabled");
+    $("#forumLink").click(function () {
+      window.location.href = newhref;
+    });
+  });
+
   $("#postButton").click(function () {
     let formData = new FormData();
     let forum = $("#forum").val();
@@ -707,5 +716,304 @@ $(document).ready(function () {
         }
       );
     }, 5000);
+  }
+
+  function debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func.apply(this, args);
+      }, timeout);
+    };
+  }
+
+  $("#search_user").keyup(
+    debounce(() => {
+      let search = $("#search_user").val();
+      if (search) {
+        $.get(
+          "../server/search-users.php",
+          {
+            search: search,
+          },
+          function (data, status) {
+            console.log(data);
+            data = data && JSON.parse(data);
+            if (status === "success") {
+              if (data.status === "success") {
+                $("#search_results").html(
+                  "<h5 class='fw-light fst-italic'>Search Results:</h5><h6 class='fst-italic'>User</h6>"
+                );
+                $("#search_results").append(
+                  `<li class="list-group-item">
+                      <div class="d-flex">
+                        <div class="col-8 d-flex flex-column justify-content-center">
+                          <div class="text-3 mb-3 pe-3"><b>User:</b> ${data.user.username}</div>
+                          <div class="text-3 pe-3"><b>Email:</b> ${data.user.email}</div>
+                        </div>
+                        <div class="col-4 d-flex flex-column justify-content-end ">
+                          <button id="enable-${data.user.id}" class="btn btn-primary mb-2">Enable</button>
+                          <button id="disable-${data.user.id}" class="btn btn-danger">Disable</button>
+                        </div>
+                      </div>
+                      <div class="alert alert-danger col-12 text-center d-hide mt-2" id="enable-error"></div>
+                      <div class="alert alert-success col-12 text-center d-hide mt-2" id="enable-success"></div>
+                      <div class="alert alert-danger col-12 text-center d-hide mt-2" id="disable-error"></div>
+                      <div class="alert alert-success col-12 text-center d-hide mt-2" id="disable-success"></div>
+                      </li>`
+                );
+                if (data.posts.length)
+                  $("#search_results").append(
+                    "<h6 class='fst-italic'>Posts</h6>"
+                  );
+                data.posts.forEach((post) => {
+                  $("#search_results")
+                    .append(`<li id="post-${post.id}" class="list-group-item d-flex">
+                              <div class="col-8 d-flex flex-column justify-content-center">
+                                <div class="text-3 mb-3 pe-3"><b>User:</b> ${post.user_name}</div>
+                                <div class="text-3 pe-3"><b>Post Title:</b> ${post.title}</div>
+                              </div>
+                              <div class="col-4 d-flex flex-column justify-content-end">
+                                <a href="post.php?id=${post.id}" class="btn btn-primary mb-2 text-decoration-none text-white">Go to Post</a>
+                                <button id="deletePost-${post.id}" class="btn btn-danger">Delete Post</button>
+                              </div>
+                            </li>`);
+                });
+                if (data.comments.length)
+                  $("#search_results").append(
+                    "<h6 class='fst-italic'>Comments</h6>"
+                  );
+                data.comments.forEach((comment) => {
+                  $("#search_results")
+                    .append(`<li id="comment-${comment.id}" class="list-group-item d-flex">
+                              <div class="col-8 d-flex flex-column justify-content-center">
+                                <div class="text-3 mb-3"><b>User:</b> ${comment.user_name}</div>
+                                <div id="commentText-${comment.id}" class="text-3 pe-3"><b>Comment:</b> ${comment.comment}</div>
+                              </div>
+                              <div class="col-4 d-flex flex-column justify-content-end">
+                                <button id="editComment-${comment.id}" class="btn btn-secondary mb-2" data-bs-toggle="modal" data-bs-target="#editCommentModal-${comment.id}">Edit Comment</button>
+                                <button id="deleteComment-${comment.id}" class="btn btn-danger">Delete Comment</button>
+                              </div>
+                            </li>
+                            <div
+                              class="modal fade"
+                              id="editCommentModal-${comment.id}"
+                              tabindex="-1"
+                              aria-labelledby="editCommentModalLabel-${comment.id}"
+                              aria-hidden="true"
+                            >
+                              <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="editCommentModalLabel-${comment.id}">
+                                      Edit Comment
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      class="btn-close"
+                                      data-bs-dismiss="modal"
+                                      aria-label="Close"
+                                    ></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="mb-3">
+                                      <label for="editCommentText" class="form-label">
+                                        Enter New Comment
+                                      </label>
+                                      <textarea
+                                        placeholder="${comment.comment}"
+                                        class="form-control"
+                                        id="editCommentText-${comment.id}"
+                                        rows="4"
+                                      ></textarea>
+                                      <div class="alert alert-danger d-hide text-center mt-2" id="editCommentError-${comment.id}" role="alert"></div>
+                                      <div class="alert alert-success d-hide text-center mt-2" id="editCommentSuccess-${comment.id}" role="alert"></div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button
+                                      type="button"
+                                      class="btn btn-secondary"
+                                      data-bs-dismiss="modal"
+                                    >
+                                      Close
+                                    </button>
+                                    <button
+                                      id="editComment-${comment.id}"
+                                      type="button"
+                                      class="btn btn-primary"
+                                    >
+                                      Save changes
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>`);
+                });
+              } else {
+                $("#search_results").html(
+                  "<li class='list-group-item'>No results found</li>"
+                );
+              }
+            }
+          }
+        );
+      } else {
+        $("#search_results").html("");
+      }
+    }, 500)
+  );
+
+  if (window.location.href.includes("my-profile.php")) {
+    $("body").on("click", 'button[id^="deletePost-"]', function () {
+      let id = $(this).attr("id").split("-")[1];
+      $.post(
+        "../server/delete-post.php",
+        {
+          post_id: id,
+        },
+        function (data, status) {
+          console.log(data);
+          data = data && JSON.parse(data);
+          if (status === "success") {
+            if (data.status === "success") {
+              $("#post-" + id).remove();
+            }
+          }
+        }
+      );
+    });
+
+    $("body").on("click", 'button[id^="deleteComment-"]', function () {
+      let id = $(this).attr("id").split("-")[1];
+      $.post(
+        "../server/delete-comment.php",
+        {
+          comment_id: id,
+        },
+        function (data, status) {
+          console.log(data);
+          data = data && JSON.parse(data);
+          if (status === "success") {
+            if (data.status === "success") {
+              $("#commentText-" + id).html("");
+            }
+          }
+        }
+      );
+    });
+
+    $("body").on("click", 'button[id^="editComment-"]', function () {
+      let id = $(this).attr("id").split("-")[1];
+      let newComment = $("#editCommentText-" + id).val();
+      if (newComment) {
+        $.post(
+          "../server/edit-comment.php",
+          {
+            comment_id: id,
+            comment: $("#editCommentText-" + id).val(),
+          },
+          function (data, status) {
+            console.log(data);
+            data = data && JSON.parse(data);
+            if (status === "success") {
+              if (data.status === "success") {
+                $("#editCommentSuccess-" + id).html(
+                  "Comment Edited Successfully"
+                );
+                $("#editCommentSuccess-" + id).slideDown();
+                setTimeout(() => {
+                  $("#editCommentSuccess-" + id).slideUp();
+                }, 5000);
+                $("#commentText-" + id).html(`<b>Comment:</b> ${newComment}`);
+              } else {
+                $("#editCommentError-" + id).html(data.message);
+                $("#editCommentError-" + id).slideDown();
+                setTimeout(() => {
+                  $("#editCommentError-" + id).slideUp();
+                }, 5000);
+              }
+            } else {
+              $("#editCommentError-" + id).html(data.message);
+              $("#editCommentError-" + id).slideDown();
+              setTimeout(() => {
+                $("#editCommentError-" + id).slideUp();
+              }, 5000);
+            }
+          }
+        );
+      }
+    });
+
+    $("body").on("click", 'button[id^="enable-"]', function () {
+      let id = $(this).attr("id").split("-")[1];
+      $.post(
+        "../server/enable-user.php",
+        {
+          user_id: id,
+        },
+        function (data, status) {
+          console.log(data, status);
+          data = data && JSON.parse(data);
+          if (status === "success") {
+            if (data.status === "success") {
+              $("#enable-success").html(data.message);
+              $("#enable-success").slideDown();
+              setTimeout(() => {
+                $("#enable-success").slideUp();
+              }, 5000);
+            } else {
+              $("#enable-error").html(data.message);
+              $("#enable-error").slideDown();
+              setTimeout(() => {
+                $("#enable-error").slideUp();
+              }, 5000);
+            }
+          } else {
+            $("#enable-error").html(data.message);
+            $("#enable-error").slideDown();
+            setTimeout(() => {
+              $("#enable-error").slideUp();
+            }, 5000);
+          }
+        }
+      );
+    });
+
+    $("body").on("click", 'button[id^="disable-"]', function () {
+      let id = $(this).attr("id").split("-")[1];
+      $.post(
+        "../server/disable-user.php",
+        {
+          user_id: id,
+        },
+        function (data, status) {
+          console.log(data, status);
+          data = data && JSON.parse(data);
+          if (status === "success") {
+            if (data.status === "success") {
+              $("#enable-success").html(data.message);
+              $("#enable-success").slideDown();
+              setTimeout(() => {
+                $("#enable-success").slideUp();
+              }, 5000);
+            } else {
+              $("#enable-error").html(data.message);
+              $("#enable-error").slideDown();
+              setTimeout(() => {
+                $("#enable-error").slideUp();
+              }, 5000);
+            }
+          } else {
+            $("#enable-error").html(data.message);
+            $("#enable-error").slideDown();
+            setTimeout(() => {
+              $("#enable-error").slideUp();
+            }, 5000);
+          }
+        }
+      );
+    });
   }
 });
