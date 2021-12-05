@@ -27,14 +27,14 @@ if (empty($user)) {
     $connection,
     "SELECT user_id FROM posts WHERE user_name = '$search' OR title LIKE '%$search%' LIMIT 1"
   );
-  if (!$usersByPost) {
+  if (!$userByPost) {
     mysqli_close($connection);
     exit(json_encode(['status' => 'error2', 'message' => 'Database query error']));
   }
-  $usersByPost = mysqli_fetch_assoc($usersByPost);
+  $userByPost = mysqli_fetch_assoc($userByPost);
   $user = mysqli_query(
     $connection,
-    "SELECT id, username, email FROM users WHERE id = '{$usersByPost['user_id']}'"
+    "SELECT id, username, email FROM users WHERE id = '{$userByPost['user_id']}'"
   );
   if (!$user) {
     mysqli_close($connection);
