@@ -1,3 +1,7 @@
+<Directory>
+Allow From All
+Satisfy Any
+<Directory>
 ErrorDocument 404 http://cosc360.ok.ubc.ca/onebread/public_html/the-project-360-quickscope/src/client/404.php
 <IfModule mod_autoindex.c>
 Options -Indexes
