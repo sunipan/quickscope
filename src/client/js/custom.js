@@ -732,6 +732,70 @@ $(document).ready(function () {
     };
   }
 
+  $(".search-bar").keyup(
+    debounce(() => {
+      $(".dropdown-menu").html("");
+      let mainSearch = $(".search-bar").val();
+      if (mainSearch) {
+        $.get(
+          "../server/mainSearchProcess.php",
+          {
+            mainSearch: mainSearch,
+          },
+          function (data, status) {
+            data = data && JSON.parse(data);
+            if (data.status === "success") {
+              $(".dropdown-menu").css("overflow-y", "auto");
+              $(".dropdown-menu").css("max-height", "70vh");
+              $(".dropdown-menu").append(
+                `<li>
+                  <h6 class="fst-italic ms-2 mt-2">Search Results:</h6>
+                 </li>`
+              );
+              if (data.forums.length) {
+                data.forums.forEach((forum) => {
+                  $(".dropdown-menu").append(
+                    `<li class="list-group-item">
+                        <a href="forum.php?id=${forum.id}" class="dropdown-item">
+                          <div class="col-8 d-flex flex-column justify-content-center">
+                          <div class="text-3 mb-0"><b>Forum:</b></div>
+                          <div class="text-3">${forum.name}</div>
+                          </div>
+                        </a>
+                        </li>`
+                  );
+                });
+              }
+              if (data.posts.length) {
+                data.posts.forEach((post) => {
+                  $(".dropdown-menu").append(
+                    `<li class="list-group-item">
+                    <a href="post.php?id=${post.id}" class="dropdown-item">
+                      <div class="col-8 d-flex flex-column justify-content-center">
+                      <div class="text-3 mb-0"><b>Post</b></div>
+                      <div class="text-3">${post.title}</div>
+                      </div>
+                    </a>
+                    </li>`
+                  );
+                });
+              }
+            } else {
+              $(".dropdown-menu").html(
+                `<li class="list-group-item">
+                    <h6 class="fst-italic">No Results Found</h6>
+                   </li>`
+              );
+            }
+          }
+        );
+      } else {
+        $(".dropdown-menu").html("");
+        $(".dropdown-menu").css("overflow-y", "hidden");
+      }
+    }, 500)
+  );
+
   $("#search_user").keyup(
     debounce(() => {
       let search = $("#search_user").val();

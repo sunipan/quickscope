@@ -18,9 +18,11 @@
         <h2 class="m-0"><i class="bi bi-house-fill mx-auto house-color"></i></h2>
       </a>
 
-      <form class="d-none d-md-flex search-form m-auto">
-        <input class="form-control me-2 search-bar" type="search" placeholder="Search..." aria-label="Search" />
-      </form>
+      <div class="d-none d-md-flex dropdown search-form m-auto">
+        <input class="form-control search-bar" id="mainSearch" data-bs-toggle="dropdown" aria-expanded="false" type="text" placeholder="Search..." aria-label="Search">
+        <ul class="dropdown-menu w-100 py-0" aria-labelledby="mainSearch">
+        </ul>
+      </div>
       <?php
       if (!isset($_SESSION['user'])) {
         echo '<a href="login.php" class="d-none d-lg-flex text-decoration-none text-white btn btn-danger me-2">
@@ -76,9 +78,6 @@
               } ?>
             </li>
           </ul>
-          <form class="d-flex d-md-none">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          </form>
         </div>
       </div>
     </div>
