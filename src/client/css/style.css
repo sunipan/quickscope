@@ -80,10 +80,6 @@
   background: lightgray;
 }
 
-.main_results{
-  height: 70vh;
-}
-
 @media (min-width: 992px) {
   .container {
     max-width: 1140px !important;

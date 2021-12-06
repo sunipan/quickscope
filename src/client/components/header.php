@@ -12,9 +12,6 @@
       <div class="d-none d-md-flex dropdown search-form m-auto">
         <input class="form-control search-bar" id="mainSearch" data-bs-toggle="dropdown" aria-expanded="false" type="search" placeholder="Search..." aria-label="Search">
         <ul class="dropdown-menu w-100" aria-labelledby="mainSearch">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
         </ul>
       </div>
       <?php
@@ -72,9 +69,6 @@
           <div class="d-flex d-md-none dropdown search-form col-12">
             <input class="form-control search-bar" id="mainSearch" data-bs-toggle="dropdown" aria-expanded="false" type="search" placeholder="Search..." aria-label="Search">
             <ul class="dropdown-menu w-100" aria-labelledby="mainSearch">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </div>
         </div>

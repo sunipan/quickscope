@@ -729,12 +729,15 @@ $(document).ready(function () {
   }
 
   $(".search-bar").keyup(
-    
     debounce(() => {
       $(".list-group-item").remove();
-
-      let mainSearch = $(".search-bar").val();
       
+      let mainSearch = document.querySelectorAll(".search-bar");
+      console.log(mainSearch);
+      mainSearch = mainSearch[0].value;
+      mainSearch1 = mainSearch[1].value;
+      console.log(mainSearch);
+      console.log(mainSearch1);
       if(mainSearch){
         $.get(
           "../server/mainSearchProcess.php",
@@ -744,17 +747,18 @@ $(document).ready(function () {
           function(data, status){
             data = data && JSON.parse(data);
             if(data.status === "success"){ 
-              $(".main_results").css("overflow-y", "auto");
-              $(".main_results").append(
+             $(".dropdown-menu").css("overflow-y", "auto");
+             $(".dropdown-menu").css("max-height", "70vh");
+              $(".dropdown-menu").append(
                 `<li class="list-group-item">
                   <h6 class="fst-italic">Search Results</h6>
                  </li>`
               );
               if(data.forums.length > 0){
                 for(var i = 0; i < data.forums.length; i++){
-                  $(".main_results").append(
+                  $(".dropdown-menu").append(
                     `<li class="list-group-item">
-                        <a href="forum.php?id=${data.forums[i].id}" class="row d-flex justify-content-start list-group-item">
+                        <a href="forum.php?id=${data.forums[i].id}" class="dropdown-item">
                           <div class="col-8 d-flex flex-column justify-content-center">
                           <div class="text-3 mb-0 pe-3"><b>Forum</b></div>
                           <div class="text-3 mb-3 pe-3">${data.forums[i].name}</div>
@@ -766,7 +770,7 @@ $(document).ready(function () {
               }
               if(data.posts.length > 0){
                 for(var i = 0; i < data.posts.length; i++){
-                  $(".main_results").append(
+                  $(".dropdown-menu").append(
                     `<li class="list-group-item">
                         <a href="post.php?id=${data.posts[i].id}" class="row d-flex justify-content-start list-group-item">
                           <div class="col-8 d-flex flex-column justify-content-center">
@@ -780,7 +784,7 @@ $(document).ready(function () {
               }
             }
             else{
-              $(".main_results").html(
+              $(".dropdown-menu").html(
                 `<li class="list-group-item">
                     <h6 class="fst-italic">No Results Found</h6>
                    </li>`
@@ -790,8 +794,8 @@ $(document).ready(function () {
         )
       }
       else {
-        $(".main_results").html("");
-        $(".main_results").css("overflow-y", "hidden");
+        $(".dropdown-menu").html("");
+        $(".dropdown-menu").css("overflow-y", "hidden");
       }
     },500)
   );
