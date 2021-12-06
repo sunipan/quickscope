@@ -1,3 +1,12 @@
+<?php if (isset($_SESSION['user'])) {
+  include('../server/db_connect.php');
+  $result = mysqli_query($connection, "SELECT username FROM users WHERE id = '$_SESSION[user]'");
+  if (!$result) {
+    echo "Error: " . mysqli_error($connection);
+  }
+  $username = mysqli_fetch_assoc($result)['username'];
+} ?>
+
 <header>
   <nav class="navbar navbar-light bg-light fixed-top">
     <div class="container-fluid">
@@ -35,7 +44,10 @@
       } ?>
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <?php if (isset($username))
+            echo '<h5 class="offcanvas-title" id="offcanvasNavbarLabel">Logged in as: ' . $username . '</h5>';
+          else
+            echo '<h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>' ?>
           <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <hr class="m-0" />

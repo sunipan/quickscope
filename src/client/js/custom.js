@@ -127,6 +127,7 @@ $(document).ready(function () {
           },
           function (data, status) {
             if (status === "success") {
+              console.log(data);
               data = JSON.parse(data);
               if (data.status === "success") {
                 // Give user feedback that account was created and give route to login
@@ -317,6 +318,7 @@ $(document).ready(function () {
             password: password,
           },
           function (data, status) {
+            console.log(data);
             data = data && JSON.parse(data);
             if (status === "success") {
               if (data.status === "success") {
@@ -748,10 +750,9 @@ $(document).ready(function () {
                   "<h5 class='fw-light fst-italic'>Search Results:</h5><h6 class='fst-italic'>User</h6>"
                 );
                 $("#search_results").append(
-                  `<li class="list-group-item">
+                  `<li class="list-group-item rounded">
                       <div class="d-flex">
                         <div class="col-8 d-flex flex-column justify-content-center">
-                          <div class="text-3 mb-3 pe-3"><b>User:</b> ${data.user.username}</div>
                           <div class="text-3 pe-3"><b>Email:</b> ${data.user.email}</div>
                         </div>
                         <div class="col-4 d-flex flex-column justify-content-end ">
@@ -765,32 +766,46 @@ $(document).ready(function () {
                       <div class="alert alert-success col-12 text-center d-hide mt-2" id="disable-success"></div>
                       </li>`
                 );
+                if (data.forums.length)
+                  $("#search_results").append(
+                    "<h6 class='fst-italic mt-1'>Created Forums</h6>"
+                  );
+                data.forums.forEach((forum) => {
+                  $("#search_results")
+                    .append(`<li id="forum-${forum.id}" class="list-group-item d-flex">
+                            <div class="col-8 d-flex flex-column justify-content-center">
+                              <div class="text-3 pe-3"><b>Post Title:</b> ${forum.name}</div>
+                            </div>
+                            <div class="col-4 d-flex flex-column justify-content-end">
+                              <a href="forum.php?id=${forum.id}" class="btn btn-dark mb-2 text-decoration-none text-white">Go to Forum</a>
+                              <button id="deleteForum-${forum.id}" class="btn btn-danger">Delete Forum</button>
+                            </div>
+                          </li>`);
+                });
                 if (data.posts.length)
                   $("#search_results").append(
-                    "<h6 class='fst-italic'>Posts</h6>"
+                    "<h6 class='fst-italic mt-1'>Created Posts</h6>"
                   );
                 data.posts.forEach((post) => {
                   $("#search_results")
                     .append(`<li id="post-${post.id}" class="list-group-item d-flex">
                               <div class="col-8 d-flex flex-column justify-content-center">
-                                <div class="text-3 mb-3 pe-3"><b>User:</b> ${post.user_name}</div>
                                 <div class="text-3 pe-3"><b>Post Title:</b> ${post.title}</div>
                               </div>
                               <div class="col-4 d-flex flex-column justify-content-end">
-                                <a href="post.php?id=${post.id}" class="btn btn-primary mb-2 text-decoration-none text-white">Go to Post</a>
+                                <a href="post.php?id=${post.id}" class="btn btn-dark mb-2 text-decoration-none text-white">Go to Post</a>
                                 <button id="deletePost-${post.id}" class="btn btn-danger">Delete Post</button>
                               </div>
                             </li>`);
                 });
                 if (data.comments.length)
                   $("#search_results").append(
-                    "<h6 class='fst-italic'>Comments</h6>"
+                    "<h6 class='fst-italic mt-1'>Created Comments</h6>"
                   );
                 data.comments.forEach((comment) => {
                   $("#search_results")
                     .append(`<li id="comment-${comment.id}" class="list-group-item d-flex">
                               <div class="col-8 d-flex flex-column justify-content-center">
-                                <div class="text-3 mb-3"><b>User:</b> ${comment.user_name}</div>
                                 <div id="commentText-${comment.id}" class="text-3 pe-3"><b>Comment:</b> ${comment.comment}</div>
                               </div>
                               <div class="col-4 d-flex flex-column justify-content-end">
@@ -881,6 +896,9 @@ $(document).ready(function () {
           if (status === "success") {
             if (data.status === "success") {
               $("#post-" + id).remove();
+              data.comments.forEach((comment) => {
+                $("#comment-" + comment.id).remove();
+              });
             }
           }
         }
@@ -1013,6 +1031,31 @@ $(document).ready(function () {
             setTimeout(() => {
               $("#enable-error").slideUp();
             }, 5000);
+          }
+        }
+      );
+    });
+
+    $("body").on("click", 'button[id^="deleteForum-"]', function () {
+      let id = $(this).attr("id").split("-")[1];
+      $.post(
+        "../server/delete-forum.php",
+        {
+          forum_id: id,
+        },
+        function (data, status) {
+          console.log(data);
+          data = data && JSON.parse(data);
+          if (status === "success") {
+            if (data.status === "success") {
+              $("#forum-" + id).remove();
+              data.posts.forEach((post) => {
+                $("#post-" + post.id).remove();
+              });
+              data.comments.forEach((comment) => {
+                $("#comment-" + comment.id).remove();
+              });
+            }
           }
         }
       );

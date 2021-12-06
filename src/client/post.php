@@ -62,8 +62,8 @@ require('components/header.php');
                   <textarea class="form-control" id="comment" placeholder="Share your thoughts!" rows="3"></textarea>
                   <input type="hidden" id="post_id" value="' . $post['id'] . '">
                   <button id="post-comment" class="btn btn-primary col-12 mt-2">Post Comment</button>
-                  <div class="alert alert-danger col-12 mt-2 d-hide" id="comment_error" role="alert"></div>
-                  <div class="alert alert-success col-12 mt-2  d-hide" id="comment_success" role="alert"></div>
+                  <div class="alert alert-danger col-12 mt-2 text-center d-hide" id="comment_error" role="alert"></div>
+                  <div class="alert alert-success col-12 mt-2 text-center d-hide" id="comment_success" role="alert"></div>
                 </div>
                 <small class="text-muted">Posted at - ' . $post['created_at'] . '</small>
               </div>

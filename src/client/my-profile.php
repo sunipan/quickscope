@@ -51,7 +51,7 @@ $forums = mysqli_fetch_all(mysqli_query($connection, $sql2), MYSQLI_ASSOC);
     <?php if ($isAdmin == 1) {
       echo '<hr class="my-2">
             <div id="admin-panel" class="col-lg-10 offset-lg-1">
-              <h4 class="text-black">Admin Panel <small class="fs-6 fw-light fst-italic"> - Search by Username, Email, orpost</small></h4>
+              <h4 class="text-black">Admin Panel <small class="fs-6 fw-light fst-italic"> - Search by Username, Email, or Post</small></h4>
               <input type="text" id="search_user" class="form-control" placeholder="Search for a user">
               <ul id="search_results" class="list-group my-2">
               </ul>
