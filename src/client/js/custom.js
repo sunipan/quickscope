@@ -731,13 +731,7 @@ $(document).ready(function () {
   $(".search-bar").keyup(
     debounce(() => {
       $(".list-group-item").remove();
-      
-      let mainSearch = document.querySelectorAll(".search-bar");
-      console.log(mainSearch);
-      mainSearch = mainSearch[0].value;
-      mainSearch1 = mainSearch[1].value;
-      console.log(mainSearch);
-      console.log(mainSearch1);
+      let mainSearch = $(".search-bar").val();
       if(mainSearch){
         $.get(
           "../server/mainSearchProcess.php",

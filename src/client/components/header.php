@@ -10,7 +10,7 @@
       </a>
 
       <div class="d-none d-md-flex dropdown search-form m-auto">
-        <input class="form-control search-bar" id="mainSearch" data-bs-toggle="dropdown" aria-expanded="false" type="search" placeholder="Search..." aria-label="Search">
+        <input class="form-control search-bar" id="mainSearch1" data-bs-toggle="dropdown" aria-expanded="false" type="search" placeholder="Search..." aria-label="Search">
         <ul class="dropdown-menu w-100" aria-labelledby="mainSearch">
         </ul>
       </div>
@@ -66,11 +66,6 @@
               } ?>
             </li>
           </ul>
-          <div class="d-flex d-md-none dropdown search-form col-12">
-            <input class="form-control search-bar" id="mainSearch" data-bs-toggle="dropdown" aria-expanded="false" type="search" placeholder="Search..." aria-label="Search">
-            <ul class="dropdown-menu w-100" aria-labelledby="mainSearch">
-            </ul>
-          </div>
         </div>
       </div>
     </div>
