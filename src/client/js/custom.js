@@ -450,6 +450,8 @@ $(document).ready(function () {
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
+              $("#forgot-button").html("Verification Email Sent");
+              $("#forgot-button").attr("disabled", true);
               $("#forgot_success").html(data.message);
               $("#forgot_success").slideDown();
               setTimeout(() => {
