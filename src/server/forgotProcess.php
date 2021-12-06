@@ -22,7 +22,15 @@ require('db_connect.php');
 if ($error) {
   exit(json_encode(['status' => 'error', 'message' => 'Something went wrong, please try again later.']));
 }
-
+// Check if email exists
+$result = mysqli_query($connection, "SELECT * FROM users WHERE email = '" . $_POST['email'] . "'");
+if (!$result) {
+  exit(json_encode(['status' => 'error', 'message' => 'Something went wrong, please try again']));
+}
+if (mysqli_num_rows($result) == 0) {
+  exit(json_encode(['status' => 'error', 'message' => 'Email not found']));
+}
+// Generate random token
 $token = bin2hex(random_bytes(32));
 $query = "UPDATE users SET reset_token = '{$token}' WHERE email = '{$_POST['email']}'";
 $result = mysqli_query($connection, $query);
@@ -46,7 +54,7 @@ try {
   $mail->addAddress($_POST['email']);
   $mail->isHTML(true);
   $mail->Subject = 'Reset Quickscope Password';
-  $mail->Body = '<p>You request a password reset. Please click the following link:</p><br><a href="http://localhost/the-project-360-quickscope/src/client/reset.php?token=' . $token . '&email=' . $_POST['email'] . '">Reset Password</a>';
+  $mail->Body = '<p>You request a password reset. Please click the following link:</p><br><a href="http://cosc360.ok.ubc.ca/onebread/the-project-360-quickscope/src/client/reset.php?token=' . $token . '&email=' . $_POST['email'] . '">Reset Password</a>';
   $mail->send();
   exit(json_encode(['status' => 'success', 'message' => 'Please check your email for further instructions.']));
 } catch (Exception $e) {

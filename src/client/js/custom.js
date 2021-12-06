@@ -450,6 +450,8 @@ $(document).ready(function () {
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
+              $("#forgot-button").html("Verification Email Sent");
+              $("#forgot-button").attr("disabled", true);
               $("#forgot_success").html(data.message);
               $("#forgot_success").slideDown();
               setTimeout(() => {
@@ -669,7 +671,7 @@ $(document).ready(function () {
     }
   });
 
-  if (window.location.href.includes("post.php")) {
+  if (window.location.href.includes("post.php?id=")) {
     // Run a get request to fetch data every 5 seconds
     setInterval(() => {
       numComments = document.querySelectorAll("#comment-text").length;
@@ -1017,7 +1019,7 @@ $(document).ready(function () {
     });
   }
 
-  $("button[id^='test-'").click(function () {
+t  $("button[id^='test-'").click(function () {
     let num = $(this).attr("id").split("-")[1];
     $.get(
       "../server/testprocess.php",
@@ -1033,5 +1035,4 @@ $(document).ready(function () {
         });
       }
     );
-  });
 });
