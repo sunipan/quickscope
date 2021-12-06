@@ -11,8 +11,8 @@
 
       <div class="d-none d-md-flex search-form m-auto d-inline-block position-relative">
         <input id="mainSearch" class="form-control me-2 search-bar" type="search" placeholder="Search..." aria-label="Search"/>
-        <div class="dropdown-content position-absolute d-block z-index:1">
-          <ul class="main_results position-absolute d-block" style='height:90vh'>
+        <div class="dropdown-content position-absolute d-block z-index:1 col-xl-12 mt-5">
+          <ul class="main_results position-absolute d-block">
           </ul>
         </div>
       </div>
@@ -69,13 +69,6 @@
               } ?>
             </li>
           </ul>
-          <div class="dropdown">
-            <form class="d-flex d-md-none">
-              <input class="form-control me-2 search-bar" type="search" placeholder="Search" aria-label="Search">
-              <ul class="main_results" class="list-group my-2" style="position:absolute; z-index: 1">
-              </ul>
-            </form>
-          </div>
         </div>
       </div>
     </div>

@@ -736,7 +736,6 @@ $(document).ready(function () {
       let mainSearch = $(".search-bar").val();
       
       if(mainSearch){
-        $(".main_results").css("overflow-y", "scroll");
         $.get(
           "../server/mainSearchProcess.php",
           {
@@ -744,7 +743,8 @@ $(document).ready(function () {
           },
           function(data, status){
             data = data && JSON.parse(data);
-            if(data.status === "success"){
+            if(data.status === "success"){ 
+              $(".main_results").css("overflow-y", "auto");
               $(".main_results").append(
                 `<li class="list-group-item">
                   <h6 class="fst-italic">Search Results</h6>
@@ -791,6 +791,7 @@ $(document).ready(function () {
       }
       else {
         $(".main_results").html("");
+        $(".main_results").css("overflow-y", "hidden");
       }
     },500)
   );
