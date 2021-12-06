@@ -1019,7 +1019,7 @@ $(document).ready(function () {
     });
   }
 
-t  $("button[id^='test-'").click(function () {
+  $("button[id^='test-'").click(function () {
     let num = $(this).attr("id").split("-")[1];
     $.get(
       "../server/testprocess.php",
@@ -1035,4 +1035,5 @@ t  $("button[id^='test-'").click(function () {
         });
       }
     );
+  });
 });
