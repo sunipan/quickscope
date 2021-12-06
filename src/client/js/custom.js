@@ -669,7 +669,7 @@ $(document).ready(function () {
     }
   });
 
-  if (window.location.href.includes("post.php")) {
+  if (window.location.href.includes("post.php?id=")) {
     // Run a get request to fetch data every 5 seconds
     setInterval(() => {
       numComments = document.querySelectorAll("#comment-text").length;
@@ -1016,4 +1016,8 @@ $(document).ready(function () {
       );
     });
   }
+
+  $("#mainSearch").keyup(function () {
+    console.log($(this).val());
+  });
 });
