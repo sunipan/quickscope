@@ -1019,7 +1019,20 @@ $(document).ready(function () {
     });
   }
 
-  $("#mainSearch").keyup(function () {
-    console.log($(this).val());
-  });
+t  $("button[id^='test-'").click(function () {
+    let num = $(this).attr("id").split("-")[1];
+    $.get(
+      "../server/testprocess.php",
+      {
+        num: num,
+      },
+      function (data) {
+        console.log(data);
+        data = JSON.parse(data);
+        data.forEach(function (data) {
+          $("#testoutput").append(data.id + " ");
+          console.log(data);
+        });
+      }
+    );
 });
