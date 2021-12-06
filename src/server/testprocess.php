@@ -1,16 +1,36 @@
 <?php
+
+
+
 if ($_SERVER['REQUEST_METHOD']!='GET'){
     exit(json_encode([
         'status' => 'request_error',
         'message' => 'Something went wrong, please try again',
       ]));
 }
+
 include "db_connect.php";
 if ($error) {
   exit(json_encode([
     'status' => 'db_error',
     'message' => 'Something went wrong, please try again',
   ]));
+}
+
+$result= mysqli_query($connection, "SELECT isAdmin FROM users WHERE id='$_SESSION[user]'");
+if(!$result){
+    exit(json_encode([
+        'status' => 'db_error',
+        'message' => 'Something went wrong, please try again',
+        ]));
+}
+$result= mysqli_fetch_assoc($result);
+
+if($result==0){
+    exit(json_encode([
+        'status' => 'user_error',
+        'message' => 'User is not admin',
+        ]));
 }
 
 
