@@ -127,7 +127,6 @@ $(document).ready(function () {
           },
           function (data, status) {
             if (status === "success") {
-              console.log(data);
               data = JSON.parse(data);
               if (data.status === "success") {
                 // Give user feedback that account was created and give route to login
@@ -200,7 +199,6 @@ $(document).ready(function () {
           checked: checked,
         },
         function (data, status) {
-          console.log(data);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
@@ -267,7 +265,6 @@ $(document).ready(function () {
         processData: false,
         dataType: "json",
         success: function (data, status) {
-          console.log(data);
           if (status === "success") {
             if (data.status === "success") {
               $("#postButton").html("Posting...");
@@ -318,7 +315,6 @@ $(document).ready(function () {
             password: password,
           },
           function (data, status) {
-            console.log(data);
             data = data && JSON.parse(data);
             if (status === "success") {
               if (data.status === "success") {
@@ -393,7 +389,6 @@ $(document).ready(function () {
         processData: false,
         dataType: "json",
         success: function (data) {
-          console.log(data);
           if (data.image) {
             // Update profile pic and navbar avatar
             $("#profile-figure").html(
@@ -448,7 +443,6 @@ $(document).ready(function () {
           email: email,
         },
         function (data, status) {
-          console.log(data);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
@@ -612,7 +606,6 @@ $(document).ready(function () {
           post_id: post_id,
         },
         function (data, status) {
-          console.log(data);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
@@ -684,7 +677,6 @@ $(document).ready(function () {
           comments: numComments,
         },
         function (data, status) {
-          console.log(data);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
@@ -806,7 +798,6 @@ $(document).ready(function () {
             search: search,
           },
           function (data, status) {
-            console.log(data);
             data = data && JSON.parse(data);
             if (status === "success") {
               if (data.status === "success") {
@@ -955,7 +946,6 @@ $(document).ready(function () {
           post_id: id,
         },
         function (data, status) {
-          console.log(data);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
@@ -977,7 +967,6 @@ $(document).ready(function () {
           comment_id: id,
         },
         function (data, status) {
-          console.log(data);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
@@ -999,7 +988,6 @@ $(document).ready(function () {
             comment: $("#editCommentText-" + id).val(),
           },
           function (data, status) {
-            console.log(data);
             data = data && JSON.parse(data);
             if (status === "success") {
               if (data.status === "success") {
@@ -1038,7 +1026,6 @@ $(document).ready(function () {
           user_id: id,
         },
         function (data, status) {
-          console.log(data, status);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
@@ -1073,7 +1060,6 @@ $(document).ready(function () {
           user_id: id,
         },
         function (data, status) {
-          console.log(data, status);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
@@ -1108,7 +1094,6 @@ $(document).ready(function () {
           forum_id: id,
         },
         function (data, status) {
-          console.log(data);
           data = data && JSON.parse(data);
           if (status === "success") {
             if (data.status === "success") {
