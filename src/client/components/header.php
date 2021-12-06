@@ -10,8 +10,8 @@
       </a>
 
       <div class="d-none d-md-flex dropdown search-form m-auto">
-        <input class="form-control search-bar" id="mainSearch1" data-bs-toggle="dropdown" aria-expanded="false" type="search" placeholder="Search..." aria-label="Search">
-        <ul class="dropdown-menu w-100" aria-labelledby="mainSearch">
+        <input class="form-control search-bar" id="mainSearch" data-bs-toggle="dropdown" aria-expanded="false" type="text" placeholder="Search..." aria-label="Search">
+        <ul class="dropdown-menu w-100 py-0" aria-labelledby="mainSearch">
         </ul>
       </div>
       <?php
