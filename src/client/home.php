@@ -100,4 +100,6 @@ empty($posts) ? $isArray = false : $isArray = true;
   </div>
 </div>
 
-<?php require('components/scripts.php'); ?>
+<?php 
+$scripts = ['js/custom.js'];
+require('components/scripts.php'); ?>

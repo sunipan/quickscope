@@ -728,6 +728,73 @@ $(document).ready(function () {
     };
   }
 
+  $(".search-bar").keyup(
+    
+    debounce(() => {
+      $(".list-group-item").remove();
+
+      let mainSearch = $(".search-bar").val();
+      
+      if(mainSearch){
+        $(".main_results").css("overflow-y", "scroll");
+        $.get(
+          "../server/mainSearchProcess.php",
+          {
+            mainSearch : mainSearch,
+          },
+          function(data, status){
+            data = data && JSON.parse(data);
+            if(data.status === "success"){
+              $(".main_results").append(
+                `<li class="list-group-item">
+                  <h6 class="fst-italic">Search Results</h6>
+                 </li>`
+              );
+              if(data.forums.length > 0){
+                for(var i = 0; i < data.forums.length; i++){
+                  $(".main_results").append(
+                    `<li class="list-group-item">
+                        <a href="forum.php?id=${data.forums[i].id}" class="row d-flex justify-content-start list-group-item">
+                          <div class="col-8 d-flex flex-column justify-content-center">
+                          <div class="text-3 mb-0 pe-3"><b>Forum</b></div>
+                          <div class="text-3 mb-3 pe-3">${data.forums[i].name}</div>
+                          </div>
+                        </a>
+                        </li>`
+                  );
+                }
+              }
+              if(data.posts.length > 0){
+                for(var i = 0; i < data.posts.length; i++){
+                  $(".main_results").append(
+                    `<li class="list-group-item">
+                        <a href="post.php?id=${data.posts[i].id}" class="row d-flex justify-content-start list-group-item">
+                          <div class="col-8 d-flex flex-column justify-content-center">
+                              <div class="text-3 mb-0 pe-3"><b>Post</b></div>
+                              <div class="text-3 mb-3 pe-3">${data.posts[i].title}</div>
+                          </div>
+                        </a>
+                        </li>`
+                  );
+                }
+              }
+            }
+            else{
+              $(".main_results").html(
+                `<li class="list-group-item">
+                    <h6 class="fst-italic">No Results Found</h6>
+                   </li>`
+              );
+            }
+          }
+        )
+      }
+      else {
+        $(".main_results").html("");
+      }
+    },500)
+  );
+ 
   $("#search_user").keyup(
     debounce(() => {
       let search = $("#search_user").val();
