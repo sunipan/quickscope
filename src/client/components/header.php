@@ -9,14 +9,14 @@
         <h2 class="m-0"><i class="bi bi-house-fill mx-auto house-color"></i></h2>
       </a>
 
-      <div class="d-none d-md-flex search-form m-auto d-inline-block position-relative">
-        <input id="mainSearch" class="form-control me-2 search-bar" type="search" placeholder="Search..." aria-label="Search"/>
-        <div class="dropdown-content position-absolute d-block z-index:1 col-xl-12 mt-5">
-          <ul class="main_results position-absolute d-block">
-          </ul>
-        </div>
+      <div class="d-none d-md-flex dropdown search-form m-auto">
+        <input class="form-control search-bar" id="mainSearch" data-bs-toggle="dropdown" aria-expanded="false" type="search" placeholder="Search..." aria-label="Search">
+        <ul class="dropdown-menu w-100" aria-labelledby="mainSearch">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
       </div>
-      
       <?php
       if (!isset($_SESSION['user'])) {
         echo '<a href="login.php" class="d-none d-lg-flex text-decoration-none text-white btn btn-danger me-2">
@@ -72,9 +72,7 @@
         </div>
       </div>
     </div>
-    
- 
+
+
   </nav>
 </header>
-
-
