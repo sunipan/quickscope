@@ -1,12 +1,30 @@
 <?php
 
-if (isset($_SESSION['user'])) {
-  header("Location: home.php");
-}
-require '../server/db_connect.php';
+
+
 $title = "Test | Quickscope 🎯";
 require('components/head.php');
+if (isset($_SESSION['user'])) {
+    header("Location: home.php");
+  }
 require('components/header.php');
+require '../server/db_connect.php';
+
+if ($error) {
+    exit($error);
+}
+$result= mysqli_query($connection, "SELECT isAdmin FROM users WHERE id='$_SESSION[user]'");
+if(!$result){
+    exit(json_encode([
+        'status' => 'db_error',
+        'message' => 'Something went wrong, please try again',
+        ]));
+}
+$result= mysqli_fetch_assoc($result);
+mysqli_close($connection);
+if($result==0){
+    exit("user is not admin.");
+}
 ?>
 
 
