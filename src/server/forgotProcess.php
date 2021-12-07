@@ -25,11 +25,9 @@ if ($error) {
 // Check if email exists
 $result = mysqli_query($connection, "SELECT * FROM users WHERE email = '" . $_POST['email'] . "'");
 if (!$result) {
-  mysqli_close($connection);
   exit(json_encode(['status' => 'error', 'message' => 'Something went wrong, please try again']));
 }
 if (mysqli_num_rows($result) == 0) {
-  mysqli_close($connection);
   exit(json_encode(['status' => 'error', 'message' => 'Email not found']));
 }
 // Generate random token

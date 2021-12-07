@@ -15,7 +15,6 @@ $password = password_hash($password, PASSWORD_DEFAULT);
 $sql = "UPDATE users SET password = '$password', reset_token = NULL WHERE reset_token = '{$_POST['token']}' AND email = '{$_POST['email']}'";
 $result = mysqli_query($connection, $sql);
 if (!$result) {
-  mysqli_close($connection);
   exit(json_encode(['status' => 'db_error', 'message' => 'Something went wrong, please try again']));
 }
 if (mysqli_affected_rows($connection) == 1) {

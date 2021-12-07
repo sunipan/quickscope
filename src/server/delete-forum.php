@@ -16,7 +16,6 @@ if ($error) {
 // Fetch posts ID's of posts from forum being deleted
 $posts_query = mysqli_query($connection, "SELECT id FROM posts WHERE forum_id = $_POST[forum_id]");
 if (!$posts_query) {
-  mysqli_close($connection);
   exit(json_encode(['status' => 'error', 'message' => 'Error fetching posts']));
 }
 $posts = mysqli_fetch_all($posts_query, MYSQLI_ASSOC);
@@ -27,7 +26,6 @@ $comments = mysqli_query(
   "SELECT id FROM comments WHERE post_id IN (SELECT id FROM posts WHERE forum_id = $_POST[forum_id])"
 );
 if (!$comments) {
-  mysqli_close($connection);
   exit(json_encode(['status' => 'error', 'message' => 'Error fetching comments']));
 }
 $comments = mysqli_fetch_all($comments, MYSQLI_ASSOC);

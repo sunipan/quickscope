@@ -14,7 +14,6 @@ if ($error) {
 }
 $results = mysqli_query($connection, "SELECT comment_count FROM posts WHERE id = $post_id");
 if (!$results) {
-  mysqli_close($connection);
   exit(json_encode(['status' => 'error', 'message' => 'Error fetching comments']));
 }
 $results = mysqli_fetch_assoc($results);
@@ -25,22 +24,18 @@ $results = mysqli_query(
   "SELECT user_avatar, user_name, comment FROM comments WHERE post_id = $post_id",
 );
 if (!$results) {
-  mysqli_close($connection);
   exit(json_encode(['status' => 'error', 'message' => 'Error fetching comments']));
 } else {
   $results = mysqli_fetch_all($results, MYSQLI_ASSOC);
 }
 if (empty($results)) {
-  mysqli_close($connection);
   exit(json_encode(['status' => 'error', 'message' => 'No comments found']));
 }
 
 $diff = $comment_count - $comments;
 if ($diff > 0) {
   $results = array_splice($results, $comments, $diff);
-  mysqli_close($connection);
   exit(json_encode(['status' => 'success', 'comments' => $results]));
 } else {
-  mysqli_close($connection);
   exit(json_encode(['status' => 'error', 'message' => 'No new comments']));
 }

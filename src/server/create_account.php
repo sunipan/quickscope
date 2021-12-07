@@ -26,14 +26,6 @@ if ($type != 'POST') {
 
       $sql = "SELECT id FROM users WHERE username = '$username' OR email = '$email';";
       $results = mysqli_query($connection, $sql);
-      if (!$results) {
-        // Send error message back to AJAX in JSON format
-        mysqli_close($connection);
-        exit(json_encode(array(
-          'status' => 'db_error',
-          'message' => 'Something went wrong, please try again',
-        )));
-      }
       if (mysqli_num_rows($results) > 0) {
         // Send error message back to AJAX in JSON format
         echo json_encode(array(
@@ -47,11 +39,10 @@ if ($type != 'POST') {
         // If insert failed, send back error message
         if (!$results2) {
           // Send error message back to AJAX in JSON format
-          mysqli_close($connection);
-          exit(json_encode(array(
+          echo json_encode(array(
             'status' => 'insert_error',
             'message' => 'Something went wrong, please try again',
-          )));
+          ));
         } else {
           // Send success message back to AJAX in JSON format
           echo json_encode(array(

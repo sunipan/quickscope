@@ -36,6 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         "message" => "Username does not exist"
       ]);
     }
+    mysqli_free_result($results);
+    mysqli_close($connection);
   } else {
     echo json_encode([
       "status" => "empty_error",
@@ -48,5 +50,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     "message" => "invalid request",
   ]);
 }
-mysqli_free_result($results);
-mysqli_close($connection);
