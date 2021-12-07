@@ -829,7 +829,7 @@ $(document).ready(function () {
                   $("#search_results")
                     .append(`<li id="forum-${forum.id}" class="list-group-item d-flex">
                             <div class="col-8 d-flex flex-column justify-content-center">
-                              <div class="text-3 pe-3"><b>Post Title:</b> ${forum.name}</div>
+                              <div class="text-3 pe-3"><b>Forum Title:</b> ${forum.name}</div>
                             </div>
                             <div class="col-4 d-flex flex-column justify-content-end">
                               <a href="forum.php?id=${forum.id}" class="btn btn-dark mb-2 text-decoration-none text-white">Go to Forum</a>
