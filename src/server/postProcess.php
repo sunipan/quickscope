@@ -53,20 +53,22 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         'message' => 'Something went wrong, please try again',
       ]));
     } else {
-      $result = mysqli_query($connection, "SELECT username FROM users WHERE id = {$_SESSION['user']}");
-      if (!$result) {
+      $username = mysqli_query($connection, "SELECT username FROM users WHERE id = {$_SESSION['user']}");
+      if (!$username) {
+        mysqli_close($connection);
         exit(json_encode([
           'status' => 'db_error',
           'message' => 'Something went wrong, please try again',
         ]));
       } else {
-        $row = mysqli_fetch_assoc($result);
+        $username = mysqli_fetch_assoc($result);
       }
       // Insert post into database
-      $sql = "INSERT INTO posts (forum_id, user_id, user_name, title, description, image) VALUES ('$forum','{$_SESSION['user']}','{$row['username']}', '$title','$desc', '$uniqueDir');";
+      $sql = "INSERT INTO posts (forum_id, user_id, user_name, title, description, image) VALUES ('$forum','{$_SESSION['user']}','{$username['username']}', '$title','$desc', '$uniqueDir');";
       $result = mysqli_query($connection, $sql);
 
       if (!$result) {
+        mysqli_close($connection);
         exit(json_encode([
           'status' => 'db_error',
           'message' => 'Something went wrong, please try again',

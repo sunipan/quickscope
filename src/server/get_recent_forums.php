@@ -5,6 +5,7 @@ if ($error) {
 }
 $forums = mysqli_query($connection, "SELECT id, name, post_count FROM forums ORDER BY created_at DESC LIMIT 5");
 if (!$forums) {
+  mysqli_close($connection);
   die("Query failed: " . mysqli_error($connection));
 } else {
   while ($forum = mysqli_fetch_assoc($forums)) {

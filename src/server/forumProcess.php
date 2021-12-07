@@ -28,6 +28,13 @@ if ($type != 'POST') {
       )));
     } else {
       $results = mysqli_query($connection, "SELECT name FROM forums WHERE name = '$forumTitle'");
+      if (!$result) {
+        mysqli_close($connection);
+        exit(json_encode(array(
+          'status' => 'db_error',
+          'message' => 'Something went wrong, please try again',
+        )));
+      }
       $row = mysqli_fetch_assoc($results);
       if ($row != null) {
         mysqli_close($connection);

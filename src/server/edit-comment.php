@@ -16,8 +16,8 @@ $result = mysqli_query(
   "UPDATE comments SET comment = '" . mysqli_real_escape_string($connection, $comment) . "' WHERE id = '$comment_id'"
 );
 if (!$result) {
-  echo (json_encode(['status' => 'error', 'message' => mysqli_error($connection)]));
   mysqli_close($connection);
+  exit(json_encode(['status' => 'error', 'message' => mysqli_error($connection)]));
 }
 mysqli_close($connection);
 exit(json_encode(['status' => 'success', 'message' => 'Comment updated']));
