@@ -1,8 +1,11 @@
 <?php
-$host = "localhost";
-$database = "db_34671552";
-$user = "34671552";
-$password = "34671552";
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
+$host = $_ENV['DB_HOST'];
+$database = $_ENV['DB_DATABASE'];
+$user = $_ENV['DB_USER'];
+$password = $_ENV['DB_PASSWORD'];
 
 $connection = mysqli_connect($host, $user, $password, $database);
 

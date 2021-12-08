@@ -54,7 +54,7 @@ try {
   $mail->addAddress($_POST['email']);
   $mail->isHTML(true);
   $mail->Subject = 'Reset Quickscope Password';
-  $mail->Body = '<p>You request a password reset. Please click the following link:</p><br><a href="http://cosc360.ok.ubc.ca/onebread/the-project-360-quickscope/src/client/reset.php?token=' . $token . '&email=' . $_POST['email'] . '">Reset Password</a>';
+  $mail->Body = '<p>You request a password reset. Please click the following link:</p><br><a href="http://localhost/reddit-clone-php/src/client/reset.php?token=' . $token . '&email=' . $_POST['email'] . '">Reset Password</a>';
   $mail->send();
   exit(json_encode(['status' => 'success', 'message' => 'Please check your email for further instructions.']));
 } catch (Exception $e) {
