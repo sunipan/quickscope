@@ -22,7 +22,7 @@ The database set up is located in src/database
 
 Configure your .env with the correct information by following the example
 
-Configure the forgotProcess.php in src/server folder with the correct SMTP for resetting passwords
+Configure the forgotProcess.php in src/server folder with the correct SMTP for resetting passwords. I used a new email that I made up on google then assinged the email and passwords to the env variables.
 
 All done!
 
