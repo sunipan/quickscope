@@ -50,7 +50,7 @@ try {
   $mail->Password = $_ENV['FROM_PASSWORD'];
   $mail->SMTPSecure = 'tls';
   $mail->Port = 587;
-  $mail->setFrom($_ENV['FROM_EMAIL'], 'Quickscope');
+  $mail->setFrom($_ENV['FROM_EMAIL'], $_ENV['EMAIL_NAME']);
   $mail->addAddress($_POST['email']);
   $mail->isHTML(true);
   $mail->Subject = 'Reset Quickscope Password';
