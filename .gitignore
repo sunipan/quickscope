@@ -1,0 +1,4 @@
+/vendor/
+.env
+/src/server/avatars
+/src/server/posts
